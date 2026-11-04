@@ -28,8 +28,12 @@ async function start() {
     args: ["--no-sandbox", "--enable-unsafe-extension-debugging", "--autoplay-policy=no-user-gesture-required"],
     ignoreDefaultArgs: ["--disable-extensions"],
   });
-  const cdp = await context.browser().newBrowserCDPSession();
-  ({ id: extensionId } = await cdp.send("Extensions.loadUnpacked", { path: extension }));
+  // Restore the installed extension on restart. Reinstalling it would reload
+  // its worker while the test attaches, creating a race on Chromium 145.
+  if (!extensionId) {
+    const cdp = await context.browser().newBrowserCDPSession();
+    ({ id: extensionId } = await cdp.send("Extensions.loadUnpacked", { path: extension }));
+  }
   worker = context.serviceWorkers().find((w) => w.url().startsWith(`chrome-extension://${extensionId}/`)) ||
     await context.waitForEvent("serviceworker", { timeout: 15000 });
   await context.route("https://**/*", (route) => route.fulfill({ contentType: "text/html", body: fixture }));

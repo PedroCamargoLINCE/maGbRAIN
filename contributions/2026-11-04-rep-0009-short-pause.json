@@ -4,9 +4,9 @@
   "ideas": ["REP-0009"],
   "summary": "Protótipo Short Pause para limitar Reels, YouTube Shorts e TikTok no Chrome e Edge, com testes e pacote instalável.",
   "types": ["code", "design", "test", "documentation"],
-  "participants": [],
-  "attribution": "pending",
-  "attribution_source": "Identidade pública e participantes solicitados; aguardando confirmação. Nenhuma autoria inferida da conta técnica.",
+  "participants": ["pedrocamargolince"],
+  "attribution": "confirmed",
+  "attribution_source": "PedroCamargoLINCE confirmou explicitamente seu nome público em resposta à pergunta de crédito desta contribuição. Nenhum outro participante foi indicado.",
   "tools": ["Codex"],
   "evidence": [
     { "label": "Extensão e instalação", "path": "projects/REP-0009-limite-reels/README.md" },
