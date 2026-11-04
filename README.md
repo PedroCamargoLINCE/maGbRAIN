@@ -27,6 +27,8 @@ Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório
 - [REP-0012 — Projeto com cérebro virtual de mosca](ideas/REP-0012-cerebro-mosca/IDEA.md)
 - [REP-0013 — Colaboração com assinaturas de IA](ideas/REP-0013-colaboracao/IDEA.md)
 
+- [REP-0014 — Mag Batas: gerador de estampas para abadás](ideas/REP-0014-mag-batas/IDEA.md)
+
 ## Organização
 - `ideas/`: registros e origem; captura livre, sem obrigação de executar.
 - `projects/`: entregas, estado e decisões, criados quando houver trabalho concreto.
