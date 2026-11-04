@@ -23,5 +23,7 @@ def build():
     data=json.dumps(dict(ideas=records,links=links),ensure_ascii=False).replace('<','\\u003c')
     (out/'index.html').write_text(html.replace('/*CATALOG*/',data))
     (out/'.nojekyll').touch()
+    shutil.copytree(ROOT/'assets', out/'assets', dirs_exist_ok=True)
     print(f'Built {len(records)} ideas and {len(links)} relationships')
 if __name__=='__main__': build()
+

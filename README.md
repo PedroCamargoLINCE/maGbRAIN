@@ -1,4 +1,12 @@
-# maGbRAIN
+# maGbRAIN 🧠⚡
+
+![Bancada de invenções da república: um cérebro inventor, um gato curioso e ideias improváveis.](assets/lab-banner.webp)
+
+**Da ideia de madrugada ao “olha, funcionou!”**
+
+Um cérebro coletivo. Várias mãos. Uma quantidade questionável de café.
+
+[🗺️ Explorar o mapa](https://pedrocamargolince.github.io/maGbRAIN/) · [💡 Registrar uma ideia](templates/IDEA.md) · [🛠️ Contribuir](CONTRIBUTING.md)
 
 Laboratório coletivo de ideias da república: capturar, desenvolver e realizar, uma contribuição de cada vez.
 
@@ -45,3 +53,10 @@ Consulte [como ativar o GitHub Pages](docs/MAPA.md). A página reúne grafo, bus
 
 ## Licença
 Este repositório é disponibilizado sob a [Apache License 2.0](LICENSE).
+
+
+## O foguete pode esperar. O próximo passo, não.
+
+<img src="assets/small-progress.webp" alt="Cérebro comemorando uma pequena contribuição enquanto o foguete ainda está em construção." width="320">
+
+Uma conversa não precisa construir o foguete inteiro. Uma medição, um desenho, uma revisão ou um teste já ajudam. Deixe uma [passagem de trabalho](templates/HANDOFF.md) e permita que outra pessoa continue.
