@@ -14,7 +14,16 @@
   function render(ctx,w,h,opt){
     const colors=opt.colors,r=random(opt.seed+'|'+opt.style),detail=Number(opt.detail),TAU=Math.PI*2;
     ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle=colors[0];ctx.fillRect(0,0,w,h);
-    if(opt.style==='geometry'){
+    if(opt.style==='truchet'){
+      const cols=5+Math.floor(detail/7),size=w/cols;
+      ctx.lineWidth=size*.22;ctx.lineCap='butt';
+      for(let y=0;y<Math.ceil(h/size);y++)for(let x=0;x<cols;x++){
+        ctx.save();ctx.translate((x+.5)*size,(y+.5)*size);ctx.rotate(r()<.5?0:Math.PI/2);
+        ctx.strokeStyle=colors[1+Math.floor(r()*(colors.length-1))];
+        ctx.beginPath();ctx.arc(-size/2,-size/2,size/2,0,Math.PI/2);ctx.stroke();
+        ctx.beginPath();ctx.arc(size/2,size/2,size/2,Math.PI,Math.PI*1.5);ctx.stroke();ctx.restore();
+      }
+    }else if(opt.style==='geometry'){
       const cols=5+Math.floor(detail/7),size=w/cols,rows=Math.ceil(h/size);
       for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
         const pick=()=>colors[Math.floor(r()*colors.length)];
@@ -50,6 +59,25 @@
       }ctx.putImageData(img,0,0);
     }
     ctx.restore();
+    if(opt.kaleido){
+      const source=ctx.getImageData(0,0,w,h),dest=ctx.createImageData(w,h);
+      const k=opt.kaleido;
+      for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+        const [u,v]=fold((x+.5)/w,(y+.5)/h,w/h,k);
+        // Mirrored tiling keeps sampling continuous at the texture boundaries.
+        const mirror=n=>{const a=((n%2)+2)%2;return a<=1?a:2-a;};
+        const sx=Math.min(w-1,Math.floor(mirror(u)*w)),sy=Math.min(h-1,Math.floor(mirror(v)*h));
+        const i=(y*w+x)*4,j=(sy*w+sx)*4;
+        for(let c=0;c<4;c++)dest.data[i+c]=source.data[j+c];
+      }ctx.putImageData(dest,0,0);
+    }
   }
-  const api={random,palette,render};if(typeof module!=='undefined')module.exports=api;else root.MagPatterns=api;
+  function fold(x,y,aspect,k){
+    const dx=x-k.x/100,dy=(y-k.y/100)/aspect,sector=Math.PI*2/k.slices;
+    let angle=((Math.atan2(dy,dx)-k.rotation*Math.PI/180)%(2*sector)+2*sector)%(2*sector);
+    if(angle>sector)angle=2*sector-angle;
+    const radius=Math.hypot(dx,dy)/(k.zoom/100);
+    return [.5+Math.cos(angle)*radius,.5+Math.sin(angle)*radius*aspect];
+  }
+  const api={random,palette,render,fold};if(typeof module!=='undefined')module.exports=api;else root.MagPatterns=api;
 })(typeof window==='undefined'?globalThis:window);
