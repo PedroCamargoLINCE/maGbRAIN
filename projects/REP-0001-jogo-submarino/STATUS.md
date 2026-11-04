@@ -11,13 +11,13 @@ DECISIONS.md consolida as definições atuais; DESIGN-HISTORY.md preserva as rod
 
 ## Trabalho ativo e limitações
 
-Branch: `docs/rep-0001-design-retomada`. Git funciona; consultas de Issues e PRs via API GitHub retornaram Forbidden. Não foi possível verificar tarefas concorrentes ou vincular uma Issue. Branch enviada com sucesso; criação do PR de rascunho também retornou Forbidden. [Abrir PR pela interface](https://github.com/PedroCamargoLINCE/maGbRAIN/pull/new/docs/rep-0001-design-retomada). Sem merge. Ver evidências no handoff.
+Branch: `docs/rep-0001-design-retomada`. Entrega documental vinculada à [Issue #12](https://github.com/PedroCamargoLINCE/maGbRAIN/issues/12) e ao [PR #13](https://github.com/PedroCamargoLINCE/maGbRAIN/pull/13); consultar esses registros para o estado de integração. O bloqueio inicial da API foi resolvido após publicação do ambiente. Issues e PRs abertos foram consultados: nenhuma outra tarefa aberta sobre esta entrega foi identificada. A solicitação de merge do proponente aplica-se a esta documentação; o jogo continua em exploring.
 
 Crédito público confirmado explicitamente pelo proponente: PedroCamargoLINCE, registrado em contributions/2026-11-04-rep-0001-design.json. Nenhum outro participante foi informado.
 
 ## Próxima contribuição disponível
 
-Proposta de tarefa: **definir a primeira expedição e desenhar seu ciclo completo**, ainda sem implementar. Antes de assumir, consultar Issues/PRs e abrir/vincular a tarefa quando houver acesso.
+Proposta de tarefa: **definir a primeira expedição e desenhar seu ciclo completo**, ainda sem implementar. Antes de assumir, consultar Issues/PRs e abrir/vincular a nova tarefa.
 
 Retomar destas quatro perguntas que ainda não foram respondidas:
 
