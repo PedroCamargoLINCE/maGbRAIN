@@ -34,4 +34,4 @@ Correções de compatibilidade e pacote candidato entregues; objetivo Android co
 
 ## Entrega remota
 
-A preencher com o resultado efetivo do envio e PR.
+Implementação enviada no commit `d6c5e96b185885e0e3923fad603ac7a60b7596a1`, branch remota `feat/rep-0009-android-support`. [PR #17](https://github.com/PedroCamargoLINCE/maGbRAIN/pull/17) aberto em rascunho sobre #15, sem merge. Este complemento documental integra a mesma contribuição.
