@@ -1,5 +1,6 @@
 """Build a static catalog from idea records; Python standard library only."""
 import json, re, shutil
+from contributions import load_contributions, aggregate
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 STATES=['inbox','exploring','ready','building','trying','done','parked']
@@ -16,15 +17,19 @@ def build():
         records.append(dict(id=ident,title=meta['title'].strip('"'),status=status,summary=section('Registro'),next=section('Próxima'),path=p.relative_to(ROOT).as_posix()))
     ids=[r['id'] for r in records]
     if len(ids)!=len(set(ids)): raise ValueError('Duplicate IDs')
+    people, contributions=load_contributions(ROOT, ids)
+    for record in records:
+        record['activity']=aggregate(record['id'],people,contributions)
     links=json.loads((ROOT/'web/relations.json').read_text())
     links=[l for l in links if l['source'] in ids and l['target'] in ids]
     out=ROOT/'dist'; out.mkdir(exist_ok=True)
     html=(ROOT/'web/index.html').read_text()
-    data=json.dumps(dict(ideas=records,links=links),ensure_ascii=False).replace('<','\\u003c')
+    data=json.dumps(dict(ideas=records,links=links,people=people,contributions=contributions),ensure_ascii=False).replace('<','\\u003c')
     (out/'index.html').write_text(html.replace('/*CATALOG*/',data))
     (out/'.nojekyll').touch()
     shutil.copytree(ROOT/'assets', out/'assets', dirs_exist_ok=True)
     shutil.copytree(ROOT/'projects/REP-0014-mag-batas/app', out/'mag-batas', dirs_exist_ok=True)
     print(f'Built {len(records)} ideas and {len(links)} relationships')
 if __name__=='__main__': build()
+
 

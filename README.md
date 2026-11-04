@@ -62,3 +62,7 @@ Este repositório é disponibilizado sob a [Apache License 2.0](LICENSE).
 <img src="assets/small-progress.webp" alt="Cérebro comemorando uma pequena contribuição enquanto o foguete ainda está em construção." width="320">
 
 Uma conversa não precisa construir o foguete inteiro. Uma medição, um desenho, uma revisão ou um teste já ajudam. Deixe uma [passagem de trabalho](templates/HANDOFF.md) e permita que outra pessoa continue.
+
+
+## Crédito das contribuições
+Registre os participantes humanos, separadamente da ferramenta de IA, conforme [o protocolo](https://github.com/PedroCamargoLINCE/maGbRAIN/blob/main/docs/CONTRIBUTIONS.md). Identidade desconhecida fica como autoria a confirmar; não inferir pelo remetente técnico.
