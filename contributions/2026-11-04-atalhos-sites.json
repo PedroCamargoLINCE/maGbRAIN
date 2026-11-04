@@ -1,0 +1,27 @@
+{
+  "id": "2026-11-04-atalhos-sites",
+  "date": "2026-11-04",
+  "ideas": [
+    "REP-0014",
+    "REP-0015"
+  ],
+  "summary": "Publicação autorizada do Me Debata e definição de atalhos automáticos para sites no mapa, implementados com assistência de IA.",
+  "types": [
+    "code",
+    "documentation"
+  ],
+  "participants": [
+    "fkumagae"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Felipe confirmou neste chat que suas alterações devem receber seu crédito no mapa, usando sua identidade pública fkumagae. Registro limitado às entregas solicitadas e conduzidas por ele nesta conversa.",
+  "tools": [
+    "Codex"
+  ],
+  "evidence": [
+    {
+      "label": "Entrega e contexto",
+      "path": "docs/HANDOFF-atalhos-sites.md"
+    }
+  ]
+}

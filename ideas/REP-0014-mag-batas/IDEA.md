@@ -3,6 +3,7 @@ id: REP-0014
 title: "Mag Batas — gerador de estampas para abadás"
 status: building
 owner: null
+site: mag-batas/
 ---
 
 # Mag Batas — gerador de estampas para abadás

@@ -1,0 +1,26 @@
+{
+  "id": "2026-11-04-mag-batas-prototipo",
+  "date": "2026-11-04",
+  "ideas": [
+    "REP-0014"
+  ],
+  "summary": "Definição e condução do protótipo com algoritmos, logo ajustável, escrita e exportação, implementado com assistência de IA.",
+  "types": [
+    "design",
+    "code"
+  ],
+  "participants": [
+    "fkumagae"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Felipe confirmou neste chat que suas alterações devem receber seu crédito no mapa, usando sua identidade pública fkumagae. Registro limitado às entregas solicitadas e conduzidas por ele nesta conversa.",
+  "tools": [
+    "Codex"
+  ],
+  "evidence": [
+    {
+      "label": "Entrega e contexto",
+      "path": "projects/REP-0014-mag-batas/handoffs/2026-11-04-prototipo.md"
+    }
+  ]
+}

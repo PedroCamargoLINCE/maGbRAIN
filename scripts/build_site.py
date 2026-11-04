@@ -14,7 +14,10 @@ def build():
         if status not in STATES: raise ValueError(f'{p}: unknown status {status}')
         def section(prefix):
             return next((s.split('\n',1)[1].strip() for s in raw.split('\n## ')[1:] if s.startswith(prefix)), '')
-        records.append(dict(id=ident,title=meta['title'].strip('"'),status=status,summary=section('Registro'),next=section('Próxima'),path=p.relative_to(ROOT).as_posix()))
+        site=meta.get('site','').strip('"')
+        if site and not (site.startswith('https://') or re.fullmatch(r'[a-z0-9-]+/',site)):
+            raise ValueError(f'{p}: invalid site URL')
+        records.append(dict(id=ident,title=meta['title'].strip('"'),status=status,site=site,summary=section('Registro'),next=section('Próxima'),path=p.relative_to(ROOT).as_posix()))
     ids=[r['id'] for r in records]
     if len(ids)!=len(set(ids)): raise ValueError('Duplicate IDs')
     people, contributions=load_contributions(ROOT, ids)
