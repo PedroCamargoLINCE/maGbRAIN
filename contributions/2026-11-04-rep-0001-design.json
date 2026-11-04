@@ -1,0 +1,28 @@
+{
+  "id": "2026-11-04-rep-0001-design",
+  "date": "2026-11-04",
+  "ideas": [
+    "REP-0001"
+  ],
+  "summary": "Registro da visão do jogo submarino, decisões, referências e pendências para retomada do design.",
+  "types": [
+    "design",
+    "documentation"
+  ],
+  "participants": [],
+  "attribution": "pending",
+  "attribution_source": "Identidade pública e eventuais coautores ainda não confirmados; crédito solicitado, sem inferência pela conta utilizada.",
+  "tools": [
+    "Codex"
+  ],
+  "evidence": [
+    {
+      "label": "Definições atuais de design",
+      "path": "projects/REP-0001-jogo-submarino/DECISIONS.md"
+    },
+    {
+      "label": "Passagem de trabalho",
+      "path": "projects/REP-0001-jogo-submarino/handoffs/2026-11-04-design.md"
+    }
+  ]
+}

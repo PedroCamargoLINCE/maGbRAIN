@@ -1,7 +1,7 @@
 ---
 id: REP-0001
 title: "Jogo submarino em terceira pessoa"
-status: inbox
+status: exploring
 owner: null
 ---
 
@@ -14,8 +14,8 @@ jogo em 3a pessoa, embaixo do mar, sobre colonias humanas e exploracao submarina
 Relato direto do autor nesta conversa, 2026-11-04.
 
 ## Próxima contribuição sugerida pela IA
-Definir a experiência desejada pelo autor antes de escolher mecânicas ou tecnologia.
+Retomar as quatro perguntas em [STATUS](../../projects/REP-0001-jogo-submarino/STATUS.md) e desenhar a primeira expedição completa antes de escolher mecânicas detalhadas ou tecnologia.
 
 ## Continuidade
-Nenhuma tarefa está assumida. Abrir uma Issue antes de executar; vinculá-la aqui. A captura não representa aprovação para execução nem conclusão.
+Visão de design registrada a pedido do proponente em 2026-11-04: [projeto e retomada](../../projects/REP-0001-jogo-submarino/README.md). Os documentos de design contêm spoilers. Projeto em exploração, sem implementação. Acesso à API de Issues/PRs indisponível durante o registro; consultar e vincular uma Issue antes da próxima execução. Identidade pública da contribuição a confirmar.
 
