@@ -8,7 +8,7 @@ owner: null
 # Colaboração com assinaturas de IA
 
 ## Registro importado (síntese)
-Projeto colaborativo entre moradores aproveitando contribuições feitas com as assinaturas de IA de cada participante. O maGiDEAS oferece uma estrutura inicial para esse objetivo; sua adoção ainda precisa ser testada.
+Projeto colaborativo entre moradores aproveitando contribuições feitas com as assinaturas de IA de cada participante. O maGbRAIN oferece uma estrutura inicial para esse objetivo; sua adoção ainda precisa ser testada.
 
 ## Origem
 50 Entrada/Caixa de entrada.md — pedido atribuído a Felipe, 2026-11-04; complementado pela conversa atual. — arquivo Minha Mente.zip. Autoria individual não inferida; preservar e confirmar com o grupo.
