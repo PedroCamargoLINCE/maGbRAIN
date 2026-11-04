@@ -2,7 +2,7 @@
 
 - Data/participante: 2026-11-04, PedroCamargoLINCE, identidade confirmada nesta conversa; ferramenta Codex.
 - Ideia/Issue: REP-0009, [#16](https://github.com/PedroCamargoLINCE/maGbRAIN/issues/16); continuação do PR #15.
-- Branch: `feat/rep-0009-android-support`, baseada em `feat/rep-0009-short-video-limits`. PR/commit registrados na entrega remota abaixo.
+- Branch de entrega consolidada: `feat/rep-0009-short-video-limits`; único PR #15, pronto para revisão. A branch Android original foi incorporada integralmente.
 - Objetivo: acrescentar Android preservando Chrome e Edge desktop.
 
 ## O que mudou
@@ -26,7 +26,7 @@ Não há aparelho Android/ADB nem aceleração de emulador neste ambiente. Não 
 
 ## Próxima ação concreta
 
-Seguir a aceitação por aparelho em ANDROID.md, registrando modelo/Android/Edge e resultados. Resolver o escopo para Chrome Android e apps nativos antes de iniciar app separado. Se a instalação CRX estiver indisponível no canal do aparelho, registrar a restrição, sem alegar que a extensão funciona ali. Revisar primeiro o PR desktop #15 e depois esta continuação; sem merge automático.
+Seguir a aceitação por aparelho em ANDROID.md, registrando modelo/Android/Edge e resultados. Resolver o escopo para Chrome Android e apps nativos antes de iniciar app separado. Se a instalação CRX estiver indisponível no canal do aparelho, registrar a restrição, sem alegar que a extensão funciona ali. Revisar o único PR #15, que contém desktop e esta continuação Android; sem merge automático.
 
 ## Estado da tarefa
 
@@ -34,4 +34,4 @@ Correções de compatibilidade e pacote candidato entregues; objetivo Android co
 
 ## Entrega remota
 
-Implementação enviada no commit `d6c5e96b185885e0e3923fad603ac7a60b7596a1`, branch remota `feat/rep-0009-android-support`. [PR #17](https://github.com/PedroCamargoLINCE/maGbRAIN/pull/17) aberto em rascunho sobre #15, sem merge. Este complemento documental integra a mesma contribuição.
+Implementação original no commit `d6c5e96b185885e0e3923fad603ac7a60b7596a1`. A pedido explícito do participante, todo o histórico Android foi incorporado à branch `feat/rep-0009-short-video-limits`, no único [PR #15](https://github.com/PedroCamargoLINCE/maGbRAIN/pull/15), pronto para revisão. O PR separado #17 foi substituído. A consolidação preserva o código, os testes, os pacotes, o crédito e as limitações; nenhuma nova ficha de contribuição criada.
