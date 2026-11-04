@@ -19,7 +19,7 @@ Adicionados README de instalação, política de privacidade, decisões, STATUS,
 - Integração: vídeo normal preservado; entrada/saída SPA; limite atingido com pausa; tentativa de retomar vídeo bloqueada; overlay recuperado após remoção; bloqueio em Reels de ambos os sites e TikTok; múltiplas abas sem duplicação; parada em aba comum; reset diário; descarte de amostra suspensa; salvamento/validação no documento do popup; tamanho até 600px; persistência e bloqueio após reiniciar o navegador.
 - Fixtures HTML/vídeo em URLs HTTPS dos serviços, via interceptação de rede do Playwright. As APIs de extensão, armazenamento e foco são reais. Testes não usam contas nem dados privados. O popup é exercitado como documento de extensão aberto numa aba com viewport de popup, não por clique no botão da barra.
 - Screenshots locais em `test-results/` (ignorados no Git); CI publica screenshots e ZIP como artefatos. Prévia visual inspecionada durante desenvolvimento.
-- A primeira execução de CI revelou uma corrida no teste de reinício: reinstalar uma extensão já restaurada encerrava o worker observado no Chromium 145. O teste agora restaura o perfil sem reinstalar; a verificação de persistência continua obrigatória.
+- A primeira execução de CI revelou uma corrida na inspeção do worker durante o reinício no Chromium 145. O teste agora lê storage pelas APIs reais em um documento estático da extensão, sem reter um handle de worker efêmero; as verificações de persistência e bloqueio após reinício continuam obrigatórias.
 - `npm run build`: pasta desempacotada e ZIP comum gerados em `dist/` (ignorados no Git).
 - Validação do catálogo/atribuição: `python scripts/build_site.py`; testes existentes do repositório e `git diff --check`.
 

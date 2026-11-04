@@ -14,7 +14,7 @@ await mkdir("test-results", { recursive: true });
 const extension = resolve("extension");
 const errors = [];
 let context;
-let worker;
+let extensionPage;
 let extensionId;
 const fixture = `<!doctype html><html><head><title>Feed fixture</title></head><body>
 <h1>Feed fixture</h1><button id="ordinary">Ordinary site control</button><video muted autoplay playsinline></video>
@@ -28,14 +28,12 @@ async function start() {
     args: ["--no-sandbox", "--enable-unsafe-extension-debugging", "--autoplay-policy=no-user-gesture-required"],
     ignoreDefaultArgs: ["--disable-extensions"],
   });
-  // Restore the installed extension on restart. Reinstalling it would reload
-  // its worker while the test attaches, creating a race on Chromium 145.
-  if (!extensionId) {
-    const cdp = await context.browser().newBrowserCDPSession();
-    ({ id: extensionId } = await cdp.send("Extensions.loadUnpacked", { path: extension }));
-  }
-  worker = context.serviceWorkers().find((w) => w.url().startsWith(`chrome-extension://${extensionId}/`)) ||
-    await context.waitForEvent("serviceworker", { timeout: 15000 });
+  const cdp = await context.browser().newBrowserCDPSession();
+  ({ id: extensionId } = await cdp.send("Extensions.loadUnpacked", { path: extension }));
+  // Inspect storage through a script-free extension document. Service workers
+  // are ephemeral and can be replaced during startup/reinstallation.
+  extensionPage = await context.newPage();
+  await extensionPage.goto(`chrome-extension://${extensionId}/manifest.json`);
   await context.route("https://**/*", (route) => route.fulfill({ contentType: "text/html", body: fixture }));
   context.on("page", (page) => page.on("pageerror", (error) => errors.push(error.message)));
   console.log(`${label}: ${context.browser().version()} installed ${extensionId}`);
@@ -44,9 +42,9 @@ async function check(description, task) {
   await task();
   console.log(`PASS ${description}`);
 }
-async function state() { return worker.evaluate(async () => (await chrome.storage.local.get("state")).state); }
+async function state() { return extensionPage.evaluate(async () => (await chrome.storage.local.get("state")).state); }
 async function seed({ limits = { reels: 15, shorts: 15, tiktok: 15 }, usage = {}, day } = {}) {
-  await worker.evaluate(async ({ limits, usage, day }) => {
+  await extensionPage.evaluate(async ({ limits, usage, day }) => {
     const now = new Date();
     day ??= `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
     await chrome.storage.session.set({ sample: null });
@@ -130,7 +128,7 @@ try {
   });
   await check("a stale service-worker sample cannot charge time spent suspended", async () => {
     await seed();
-    await worker.evaluate(async () => {
+    await extensionPage.evaluate(async () => {
       const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
       await chrome.storage.session.set({ sample: { tabId: tab.id, platform: "shorts", at: Date.now() - 60000, lastSeen: Date.now() - 60000 } });
     });
