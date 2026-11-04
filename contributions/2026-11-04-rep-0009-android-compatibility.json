@@ -1,0 +1,16 @@
+{
+  "id": "2026-11-04-rep-0009-android-compatibility",
+  "date": "2026-11-04",
+  "ideas": ["REP-0009"],
+  "summary": "Candidato de compatibilidade Edge Android: remoção da dependência de windows API, layout touch, testes e empacotamento CRX3; limitações de Chrome Android documentadas.",
+  "types": ["code", "test", "documentation"],
+  "participants": ["pedrocamargolince"],
+  "attribution": "confirmed",
+  "attribution_source": "PedroCamargoLINCE confirmou explicitamente seu nome público nesta conversa e solicitou a continuação Android. Nenhum outro participante indicado.",
+  "tools": ["Codex"],
+  "evidence": [
+    { "label": "Matriz de suporte e instalação Android", "path": "projects/REP-0009-limite-reels/ANDROID.md" },
+    { "label": "Regressão do worker sem windows API", "path": "projects/REP-0009-limite-reels/tests/background.test.js" },
+    { "label": "Handoff e limites da verificação", "path": "projects/REP-0009-limite-reels/handoffs/2026-11-04-android-candidate.md" }
+  ]
+}

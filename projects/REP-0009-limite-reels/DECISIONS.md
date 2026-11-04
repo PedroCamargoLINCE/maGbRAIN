@@ -10,3 +10,11 @@ Escolhas técnicas desta implementação, não consenso presumido do grupo:
 - Overlay com Shadow DOM, foco de teclado e pausa de mídia; recuperação após remoção pelo site no heartbeat seguinte. Acesso volta ao sair da rota, aumentar o orçamento ou virar o dia.
 - Ferramenta voluntária, sem proteção contra alteração de configuração ou desinstalação. Publicação nas lojas e contas reais não são requisitos desta entrega.
 - Testes em perfis temporários Chrome/Edge com fixtures HTTP controladas, sem conta ou dados privados. CI usa Chromium. Validação em sites reais logados fica explicitamente pendente.
+
+## Continuação Android — 2026-11-04
+
+- Pedido posterior acrescentou Android mantendo Chrome e Edge. Consultadas as APIs oficiais: `chrome.windows` não está disponível no Edge Android; o worker agora usa plataforma explícita, aba ativa e visibilidade/foco do documento ali, preservando a checagem de janela no desktop.
+- Interface com largura responsiva, alvos de toque maiores e overlay rolável em telas pequenas/landscape. Sem alterar os orçamentos existentes.
+- CRX3 produzido pelo empacotador real do Chromium, com chave fora do repositório; não renomear ZIP. CI usa identidade descartável de desenvolvimento, documentada.
+- Chrome Android não executa extensões. Um app Android separado seria outra implementação, com escopo e permissões distintos. Não anunciar compatibilidade inexistente nem confundir emulação móvel com teste real no Android.
+- Estado: candidato Edge Android; meta completa bloqueada por Chrome Android e falta de aceitação em aparelho. Escopo entre navegadores e apps nativos foi perguntado; nenhuma escolha presumida como decisão do usuário.

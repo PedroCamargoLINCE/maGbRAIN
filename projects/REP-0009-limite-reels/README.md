@@ -4,6 +4,8 @@ A Manifest V3 extension for **desktop Chrome and Microsoft Edge**, with no backe
 
 Related idea: [REP-0009](../../ideas/REP-0009-limite-reels/IDEA.md) · [Issue #14](https://github.com/PedroCamargoLINCE/maGbRAIN/issues/14) · [Project status](STATUS.md)
 
+**Android:** version 0.2.0 adds an Edge Android compatibility candidate and CRX3 build. Read the [Android support matrix and installation guide](ANDROID.md). Chrome Android cannot run this extension; Android device validation remains pending.
+
 ## Install in Chrome or Edge
 
 1. Download this branch/repository and unzip it, or build the ZIP below and extract it. Keep the extracted folder in a permanent location.
@@ -45,7 +47,7 @@ npm run build
 Outputs (ignored by Git):
 
 - `dist/short-pause/` — ready to load unpacked.
-- `dist/short-pause-0.1.0-chrome-edge.zip` — extract before loading; also usable as the starting archive for future store submission.
+- `dist/short-pause-0.2.0-chrome-edge.zip` — extract before loading; also usable as the starting archive for future store submission.
 
 Run the integration suite with a local Chrome or Edge executable supporting the DevTools `Extensions.loadUnpacked` command (137+):
 

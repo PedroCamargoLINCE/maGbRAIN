@@ -9,6 +9,7 @@ import { resolve } from "node:path";
 const executablePath = process.env.BROWSER_PATH;
 if (!executablePath) throw new Error("Set BROWSER_PATH to a Chrome or Edge executable.");
 const label = process.env.BROWSER_LABEL || "browser";
+const mobile = process.env.MOBILE === "1";
 const profile = await mkdtemp(`${tmpdir()}/short-pause-${label}-`);
 await mkdir("test-results", { recursive: true });
 const extension = resolve("extension");
@@ -16,7 +17,7 @@ const errors = [];
 let context;
 let extensionPage;
 let extensionId;
-const fixture = `<!doctype html><html><head><title>Feed fixture</title></head><body>
+const fixture = `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feed fixture</title></head><body>
 <h1>Feed fixture</h1><button id="ordinary">Ordinary site control</button><video muted autoplay playsinline></video>
 <script>const canvas=document.createElement('canvas'); canvas.width=160; canvas.height=90;
 const paint=canvas.getContext('2d'); setInterval(()=>{paint.fillStyle='green';paint.fillRect(0,0,160,90)},100);
@@ -25,6 +26,8 @@ document.querySelector('video').srcObject=canvas.captureStream(10);</script></bo
 async function start() {
   context = await chromium.launchPersistentContext(profile, {
     executablePath, headless: true,
+    ...(mobile ? { viewport: { width: 320, height: 640 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2,
+      userAgent: "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36 EdgA/145.0.0.0" } : {}),
     args: ["--no-sandbox", "--enable-unsafe-extension-debugging", "--autoplay-policy=no-user-gesture-required"],
     ignoreDefaultArgs: ["--disable-extensions"],
   });
@@ -60,6 +63,25 @@ async function eventually(predicate, message, timeout = 6000) {
   throw new Error(message);
 }
 async function isBlocked(page) { return await page.locator("short-pause-limit").count() === 1; }
+
+// CDP can inspect our closed shadow root without changing production isolation.
+async function leaveButtonBounds(page) {
+  const cdp = await context.newCDPSession(page);
+  try {
+    const { root } = await cdp.send("DOM.getDocument", { depth: -1, pierce: true });
+    function find(node) {
+      if (node.nodeName === "A" && node.attributes?.includes("about:blank")) return node;
+      for (const child of [...(node.children || []), ...(node.shadowRoots || [])]) {
+        const found = find(child);
+        if (found) return found;
+      }
+    }
+    const node = find(root);
+    assert.ok(node, "Missing leave-feed link");
+    const { model } = await cdp.send("DOM.getBoxModel", { nodeId: node.nodeId });
+    return { left: model.border[0], top: model.border[1], right: model.border[4], bottom: model.border[5] };
+  } finally { await cdp.detach(); }
+}
 
 try {
   await start();
@@ -138,7 +160,7 @@ try {
   await check("real popup saves settings, validates input and keeps today's usage", async () => {
     await seed({ usage: { reels: 12345 } });
     const popup = await context.newPage();
-    await popup.setViewportSize({ width: 380, height: 600 });
+    await popup.setViewportSize(mobile ? { width: 320, height: 640 } : { width: 380, height: 600 });
     await popup.goto(`chrome-extension://${extensionId}/popup.html`);
     await popup.bringToFront();
     await eventually(async () => await popup.locator("#reels").inputValue() === "15", "Popup failed to load");
@@ -149,7 +171,13 @@ try {
     await eventually(async () => (await popup.locator("#status").textContent()).startsWith("Saved"), "Popup failed to save");
     assert.deepEqual((await state()).limitsMinutes, { reels: 7, shorts: 0, tiktok: 8 });
     assert.equal((await state()).usageMs.reels, 12345);
-    assert.ok(await popup.evaluate(() => document.body.scrollHeight <= 600), "Popup exceeds browser's 600px height limit");
+    assert.ok(await popup.evaluate(() => document.documentElement.scrollWidth <= innerWidth), "Popup overflows horizontally");
+    if (mobile) {
+      assert.ok((await popup.locator("#reels").boundingBox()).height >= 44, "Input too small for touch");
+      assert.ok((await popup.locator("#save").boundingBox()).height >= 44, "Save button too small for touch");
+    } else {
+      assert.ok(await popup.evaluate(() => document.body.scrollHeight <= 600), "Popup exceeds browser's 600px height limit");
+    }
     await popup.screenshot({ path: `test-results/${label}-popup.png` });
     await popup.locator("#reels").fill("-1");
     await popup.locator("#save").click();
@@ -167,6 +195,18 @@ try {
     const restored = await context.newPage();
     await restored.goto("https://www.youtube.com/shorts/after-restart");
     await eventually(() => isBlocked(restored), "Restart lost blocking");
+    if (mobile) {
+      for (const viewport of [{ width: 320, height: 640 }, { width: 640, height: 320 }]) {
+        await restored.setViewportSize(viewport);
+        const bounds = await leaveButtonBounds(restored);
+        assert.ok(bounds.left >= 0 && bounds.top >= 0 && bounds.right <= viewport.width && bounds.bottom <= viewport.height,
+          `Leave-feed button clipped at ${viewport.width}x${viewport.height}: ${JSON.stringify(bounds)}`);
+        await restored.screenshot({ path: `test-results/${label}-blocked-${viewport.width}.png` });
+      }
+      const bounds = await leaveButtonBounds(restored);
+      await restored.touchscreen.tap((bounds.left + bounds.right) / 2, (bounds.top + bounds.bottom) / 2);
+      await restored.waitForURL("about:blank");
+    }
   });
   assert.deepEqual(errors, [], "Unexpected page errors");
   console.log(`${label}: all browser checks passed`);

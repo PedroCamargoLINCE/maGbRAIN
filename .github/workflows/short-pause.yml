@@ -32,11 +32,19 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: |
           BROWSER_PATH="$(node --input-type=module -e 'import { chromium } from "playwright"; console.log(chromium.executablePath())')" BROWSER_LABEL=chromium npm run test:browser
+      - run: |
+          BROWSER_PATH="$(node --input-type=module -e 'import { chromium } from "playwright"; console.log(chromium.executablePath())')" BROWSER_LABEL=mobile-emulation MOBILE=1 npm run test:browser
       - run: npm run build
+      - run: |
+          python3 scripts/package_crx.py --browser "$(node --input-type=module -e 'import { chromium } from "playwright"; console.log(chromium.executablePath())')" --key-file "$RUNNER_TEMP/short-pause-development.pem"
       - uses: actions/upload-artifact@v4
         with:
           name: short-pause-chrome-edge
           path: projects/REP-0009-limite-reels/dist/*.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: short-pause-edge-android-candidate
+          path: projects/REP-0009-limite-reels/dist/*-edge-android.crx
       - uses: actions/upload-artifact@v4
         if: always()
         with:

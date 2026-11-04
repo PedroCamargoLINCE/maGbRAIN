@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Short Pause — daily video limits",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Set daily limits for Instagram/Facebook Reels, YouTube Shorts and TikTok. Your usage stays on this device.",
   "minimum_chrome_version": "120",
   "permissions": ["storage"],
