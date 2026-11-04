@@ -16,6 +16,7 @@ Use branch e PR, sem force-push ou sobrescrita de trabalho alheio. Combine inter
 Pare quando atingir os critérios, esgotar o orçamento ou encontrar bloqueio real. Não aumente escopo para gastar tokens. Limites rígidos de custo/tempo dependem do ambiente executor.
 
 ## Encerramento obrigatório
+Felipe confirmou o crédito público `Felipe (fkumagae)`, ID `fkumagae`, para as contribuições que ele solicitar e conduzir. Ao encerrar essas entregas, inclua ou atualize a ficha em contributions/ no mesmo PR, com evidências, escopo humano e IA em tools. Não duplicar fichas por correções ou merges, não atribuir trabalho de outros a Felipe e confirmar participantes adicionais quando houver.
 Salve o progresso em branch remota e PR (rascunho se incompleto). Registre alterações, verificações realmente feitas, limitações, bloqueios e próximo passo usando templates/HANDOFF.md. Nunca inclua credenciais. Se não puder enviar, entregue patch/texto e declare que ainda não está no repositório.
 Atualize STATUS e a Issue pertinente; não marque projeto como concluído por terminar uma sessão. Não marque tarefa concluída sem atender os critérios. Deixe tarefas incompletas explicitamente retomáveis.
 
