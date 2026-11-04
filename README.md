@@ -1,4 +1,4 @@
-# maGiDEAS
+# maGbRAIN
 
 Laboratório coletivo de ideias da república: capturar, desenvolver e realizar, uma contribuição de cada vez.
 

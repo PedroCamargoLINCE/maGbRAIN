@@ -18,7 +18,7 @@ Crie branch por contribuição e PR vinculado à Issue. Outra pessoa revisa o re
 | done | Entrega acordada concluída; novas versões são possíveis |
 | parked | Sem trabalho ativo |
 
-Uma tarefa concluída não conclui automaticamente o projeto. O status inicial inbox dos registros importados indica triagem no maGiDEAS, não invalida histórico anterior.
+Uma tarefa concluída não conclui automaticamente o projeto. O status inicial inbox dos registros importados indica triagem no maGbRAIN, não invalida histórico anterior.
 
 ## Projetos
 Ao começar uma entrega, crie projects/<ID>-<nome>/ com README (objetivo e uso), STATUS (estado, tarefas vinculadas e próxima ação), DECISIONS (data, decisão e motivo) e handoffs/ (um arquivo por contribuição). A pessoa de referência recebe as entregas; não precisa executar tudo.
