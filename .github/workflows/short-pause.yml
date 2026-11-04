@@ -1,0 +1,44 @@
+name: Short Pause extension
+on:
+  pull_request:
+    paths:
+      - 'projects/REP-0009-limite-reels/**'
+      - '.github/workflows/short-pause.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'projects/REP-0009-limite-reels/**'
+      - '.github/workflows/short-pause.yml'
+permissions:
+  contents: read
+jobs:
+  extension:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/REP-0009-limite-reels
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: projects/REP-0009-limite-reels/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: |
+          BROWSER_PATH="$(node --input-type=module -e 'import { chromium } from "playwright"; console.log(chromium.executablePath())')" BROWSER_LABEL=chromium npm run test:browser
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: short-pause-chrome-edge
+          path: projects/REP-0009-limite-reels/dist/*.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: short-pause-browser-screenshots
+          path: projects/REP-0009-limite-reels/test-results/*.png

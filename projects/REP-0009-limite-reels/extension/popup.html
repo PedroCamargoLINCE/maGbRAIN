@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Short Pause</title><link rel="stylesheet" href="popup.css"></head>
+<body>
+  <header><span class="brand-icon" aria-hidden="true">Ⅱ</span><span>SHORT PAUSE</span><span class="local">ON DEVICE</span></header>
+  <main>
+    <h1>A little less scrolling.<br>A little more living.</h1>
+    <p class="intro">Your daily space for short videos.</p>
+    <div class="section-label"><span>TODAY'S BUDGET</span><span id="date"></span></div>
+    <form id="limits">
+      <div id="platforms"></div>
+      <p class="hint">Minutes per day · 0 blocks immediately</p>
+      <button type="submit" id="save">Save daily limits</button>
+      <p id="status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+  <footer>Only your focused feed counts. Resets at local midnight.<br>No account. No tracking. Your data stays in this browser.</footer>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

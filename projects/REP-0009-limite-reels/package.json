@@ -1,0 +1,12 @@
+{
+  "name": "short-pause",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/core.test.js",
+    "test:browser": "node tests/browser.mjs",
+    "build": "python3 scripts/package.py"
+  },
+  "devDependencies": { "playwright": "1.58.2" }
+}
