@@ -1,0 +1,30 @@
+{
+  "id": "2026-11-04-rep-0001-design",
+  "date": "2026-11-04",
+  "ideas": [
+    "REP-0001"
+  ],
+  "summary": "Registro da visão do jogo submarino, decisões, referências e pendências para retomada do design.",
+  "types": [
+    "design",
+    "documentation"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "O proponente confirmou explicitamente PedroCamargoLINCE como identidade pública para o crédito deste design em 2026-11-04. Nenhum outro participante foi informado.",
+  "tools": [
+    "Codex"
+  ],
+  "evidence": [
+    {
+      "label": "Definições atuais de design",
+      "path": "projects/REP-0001-jogo-submarino/DECISIONS.md"
+    },
+    {
+      "label": "Passagem de trabalho",
+      "path": "projects/REP-0001-jogo-submarino/handoffs/2026-11-04-design.md"
+    }
+  ]
+}
