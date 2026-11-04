@@ -1,0 +1,12 @@
+{
+  "id": "aaaa-mm-dd-ideia-entrega",
+  "date": "2026-11-04",
+  "ideas": ["REP-XXXX"],
+  "summary": "Descreva uma entrega concreta e verificável.",
+  "types": ["research"],
+  "participants": ["id-humano-confirmado"],
+  "attribution": "confirmed",
+  "attribution_source": "Participante informou sua identidade e atuação no pedido ou na Issue #N.",
+  "tools": ["Ferramenta opcional; nunca é participante"],
+  "evidence": [{"label": "Resultado registrado", "path": "ideas/REP-XXXX-nome/HANDOFF.md"}]
+}
