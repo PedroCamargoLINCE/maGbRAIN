@@ -1,0 +1,12 @@
+{
+  "id": "2026-11-04-human-attribution",
+  "date": "2026-11-04",
+  "ideas": ["REP-0013"],
+  "summary": "Implementação do painel de contribuições por ideia e protocolo de atribuição humana para agentes.",
+  "types": ["code", "documentation"],
+  "participants": [],
+  "attribution": "pending",
+  "attribution_source": "Solicitado na conversa do maGbRAIN; nome ou identificador humano a confirmar, sem inferir pelo dono da conta.",
+  "tools": ["ChatGPT"],
+  "evidence": [{"label": "Protocolo e funcionamento", "path": "docs/CONTRIBUTIONS.md"}, {"label": "Validação e contagem", "path": "scripts/contributions.py"}]
+}

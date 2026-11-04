@@ -26,3 +26,7 @@ Ao começar uma entrega, crie projects/<ID>-<nome>/ com README (objetivo e uso),
 ## Revisão
 Confira atribuição, escopo, links e evidências. Para código, execute verificações proporcionais ao risco. Para pesquisa, separe hipótese de resultado e registre fontes. Para hardware, registre montagem e condições do teste. Registre falhas úteis. Não declare verificado o que não executou.
 
+
+
+## Crédito das contribuições
+Registre os participantes humanos, separadamente da ferramenta de IA, conforme [o protocolo](https://github.com/PedroCamargoLINCE/maGbRAIN/blob/main/docs/CONTRIBUTIONS.md). Identidade desconhecida fica como autoria a confirmar; não inferir pelo remetente técnico.

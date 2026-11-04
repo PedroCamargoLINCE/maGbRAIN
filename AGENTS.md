@@ -24,3 +24,10 @@ Publicar serviços, gastar dinheiro, acessar dados privados ou enviar mensagens 
 ## Compatibilidade
 Não presuma que todo aplicativo carrega AGENTS.md automaticamente: peça leitura explícita. Se houver instruções específicas de ferramenta, mantenha-as como referências a este documento para evitar regras divergentes.
 
+
+
+## Atribuição humana obrigatória
+Antes de enviar uma contribuição, leia docs/CONTRIBUTIONS.md. Identifique explicitamente quem participou do trabalho e o nome público ou @GitHub que essa pessoa confirmou. Nunca deduza autoria pela conta autenticada, proprietário do repositório, autor do commit/PR ou pela IA usada. Não atribua a coautores não confirmados.
+Reutilize IDs em contributors.json; registre a entrega em contributions/<id>.json usando templates/CONTRIBUTION.json, com ideias relacionadas, tipos, participantes, origem da confirmação e evidências. A IA entra apenas em tools, nunca em participants. Não altere o autor técnico do commit nem invente e-mails para simular uma pessoa: a atribuição pública do site é explícita e separada do Git.
+Se a identidade estiver ausente ou ambígua, pergunte qual nome público/@GitHub e quais coautores devem receber crédito. Continue o trabalho independente; se não houver resposta, registre attribution=pending e participants=[] e declare a pendência. Nunca preencha uma pessoa por conveniência.
+Uma ficha representa uma entrega lógica aceita, não cada commit, teste ou chamada de IA. Inclua a ficha no PR, valide o build e peça que os participantes revisem a atribuição. Para confirmação posterior, atualize a ficha existente. Não invente atribuições retroativas.
