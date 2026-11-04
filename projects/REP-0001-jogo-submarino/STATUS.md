@@ -11,7 +11,7 @@ DECISIONS.md consolida as definições atuais; DESIGN-HISTORY.md preserva as rod
 
 ## Trabalho ativo e limitações
 
-Branch: `docs/rep-0001-design-retomada`. Git funciona; consultas de Issues e PRs via API GitHub retornaram Forbidden. Não foi possível verificar tarefas concorrentes ou vincular uma Issue. Abertura do PR depende de acesso à API ou da interface GitHub. Ver evidências no handoff.
+Branch: `docs/rep-0001-design-retomada`. Git funciona; consultas de Issues e PRs via API GitHub retornaram Forbidden. Não foi possível verificar tarefas concorrentes ou vincular uma Issue. Branch enviada com sucesso; criação do PR de rascunho também retornou Forbidden. [Abrir PR pela interface](https://github.com/PedroCamargoLINCE/maGbRAIN/pull/new/docs/rep-0001-design-retomada). Sem merge. Ver evidências no handoff.
 
 Crédito público pendente em contributions/2026-11-04-rep-0001-design.json; não inferir a identidade pela conta ou pelo dono do repositório.
 
