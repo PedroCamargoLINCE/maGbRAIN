@@ -35,7 +35,8 @@
           * { box-sizing: border-box; }
           .backdrop { position:fixed; inset:0; display:grid; place-items:center; padding:24px; background:#101a20; color:#f3f5ef; font:16px/1.6 system-ui,sans-serif; }
           .card { max-width:480px; text-align:center; }
-          .mark { font-size:44px; color:#c5ee94; }
+          .mark { display:inline-grid; place-items:center; width:44px; height:60px; color:#c5ee94; }
+          .mark::before { content:""; width:7px; height:28px; background:currentColor; box-shadow:15px 0 currentColor; transform:translateX(-7.5px); }
           .eyebrow { color:#c5ee94; font-size:12px; font-weight:700; letter-spacing:.18em; }
           h1 { font-size:36px; line-height:1.15; margin:20px 0; }
           p { color:#b6c4c8; }
@@ -44,7 +45,7 @@
           .note { font-size:13px; margin-top:24px; }
         </style>
         <div class="backdrop" role="dialog" aria-modal="true" aria-labelledby="title" aria-describedby="detail">
-          <div class="card"><div class="mark" aria-hidden="true">Ⅱ</div><div class="eyebrow">SHORT PAUSE</div>
+          <div class="card"><div class="mark" aria-hidden="true"></div><div class="eyebrow">SHORT PAUSE</div>
           <h1 id="title">Make room for something else.</h1>
           <p id="detail"></p><a href="about:blank">Leave the feed</a>
           <p class="note">Your budget resets at local midnight.<br>Manage daily limits from the extension icon.</p></div>

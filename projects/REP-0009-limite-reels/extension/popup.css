@@ -3,6 +3,7 @@
 body { width:380px; margin:0; }
 header { display:flex; align-items:center; gap:9px; padding:12px 24px; border-bottom:1px solid #2c383e; font-size:11px; font-weight:750; letter-spacing:.13em; }
 .brand-icon { display:grid; place-items:center; width:29px; height:29px; background:#c5ee94; color:#15211a; font-size:20px; border-radius:9px; }
+.brand-icon::before { content:""; width:3px; height:12px; background:currentColor; box-shadow:7px 0 currentColor; transform:translateX(-3.5px); }
 .local { margin-left:auto; color:#b6c4c8; font-size:9px; letter-spacing:.08em; }
 main { padding:14px 24px; }
 h1 { font-size:22px; letter-spacing:-.6px; line-height:1.2; margin:0 0 8px; }
