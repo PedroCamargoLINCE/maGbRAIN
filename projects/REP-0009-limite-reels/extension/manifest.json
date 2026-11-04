@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Short Pause — daily video limits",
+  "version": "0.2.0",
+  "description": "Set daily limits for Instagram/Facebook Reels, YouTube Shorts and TikTok. Your usage stays on this device.",
+  "minimum_chrome_version": "120",
+  "permissions": ["storage"],
+  "host_permissions": ["https://*.instagram.com/*", "https://*.facebook.com/*", "https://*.youtube.com/*", "https://*.tiktok.com/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html", "default_title": "Short Pause" },
+  "icons": { "16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "content_scripts": [{
+    "matches": [
+      "https://*.instagram.com/*",
+      "https://*.facebook.com/*",
+      "https://*.youtube.com/*",
+      "https://*.tiktok.com/*"
+    ],
+    "js": ["content.js"],
+    "run_at": "document_start"
+  }]
+}
