@@ -29,6 +29,15 @@ fields.filter(id=>!['style','detail','seed','paletteMode','colorCount'].includes
 $('generate').onclick=()=>{swatches();regenerate();};
 $('vary').onclick=()=>{const words=new Uint32Array(2);crypto.getRandomValues(words);$('seed').value=Array.from(words).map(n=>n.toString(36)).join('-');swatches();regenerate();};
 function logoControls(enabled){['logoScale','logoX','logoY','removeLogo'].forEach(id=>$(id).disabled=!enabled);}
+function loadDefaultLogo(){
+  const version=++uploadVersion,image=new Image();
+  $('logoStatus').textContent='Carregando logo Magnatas…';
+  image.onload=()=>{if(version!==uploadVersion)return;logo=image;$('logoFile').value='';logoControls(true);$('logoStatus').textContent='Logo Magnatas · você pode mover, redimensionar, trocar ou remover.';draw();};
+  image.onerror=()=>{if(version===uploadVersion)$('logoStatus').textContent='Não foi possível carregar o logo padrão. Escolha um PNG.';};
+  image.src=window.MAG_DEFAULT_LOGO;
+}
+$('brandLogo').src=window.MAG_DEFAULT_LOGO;
+$('restoreLogo').onclick=loadDefaultLogo;
 $('logoFile').onchange=async function(){
   const version=++uploadVersion,file=this.files[0];if(!file)return;
   if(file.type!=='image/png'||file.size>15*1024*1024){$('logoStatus').textContent='Escolha um PNG de até 15 MB.';this.value='';return;}
@@ -58,3 +67,4 @@ $('configFile').onchange=async function(){const file=this.files[0];if(!file)retu
   fields.forEach(id=>$(id).value=data.values[id]);manual=data.manual.slice();swatches();regenerate();$('status').textContent='Configuração carregada. Logo atual mantido; carregue o PNG correspondente.';
 }catch(e){$('status').textContent='Configuração não carregada: '+e.message;}this.value='';};
 swatches();regenerate();
+loadDefaultLogo();
