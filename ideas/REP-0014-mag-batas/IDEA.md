@@ -1,7 +1,7 @@
 ---
 id: REP-0014
 title: "Mag Batas — gerador de estampas para abadás"
-status: inbox
+status: building
 owner: null
 ---
 
@@ -25,7 +25,7 @@ Ideia relatada por Felipe (fkumagae) no chat, com pedido explícito para adicion
 - Tratar o mockup como visualização: arquivos para confecção dependerão do molde e das medidas reais.
 
 ## Próxima contribuição sugerida pela IA
-Definir um primeiro protótipo com seleção de estilo, seed, cores e prévia no mockup. Antes de implementar, delimitar a tarefa em uma Issue e confirmar o formato do abadá. Essas sugestões ainda não foram aprovadas como requisitos pelo grupo.
+Testar o protótipo com moradores, avaliar os três algoritmos e fornecer um molde de abadá para substituir a silhueta genérica. Código e instruções em projects/REP-0014-mag-batas/.
 
 ## Continuidade
-Captura em estado inbox. Nenhuma tarefa de implementação assumida. Não foram adicionadas relações com outras ideias sem revisão do grupo.
+Felipe solicitou iniciar a página, com foco em algoritmos, logo PNG ajustável e escrita. Protótipo na Issue #6, branch feat/mag-batas-gerador, aguardando revisão. Não foram adicionadas relações com outras ideias sem revisão do grupo. Projeto ainda não concluído.

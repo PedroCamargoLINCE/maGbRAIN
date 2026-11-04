@@ -24,6 +24,7 @@ def build():
     (out/'index.html').write_text(html.replace('/*CATALOG*/',data))
     (out/'.nojekyll').touch()
     shutil.copytree(ROOT/'assets', out/'assets', dirs_exist_ok=True)
+    shutil.copytree(ROOT/'projects/REP-0014-mag-batas/app', out/'mag-batas', dirs_exist_ok=True)
     print(f'Built {len(records)} ideas and {len(links)} relationships')
 if __name__=='__main__': build()
 
