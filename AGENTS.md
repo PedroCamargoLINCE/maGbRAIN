@@ -7,6 +7,7 @@ Este é um projeto coletivo, incremental e assíncrono. Nenhuma pessoa, agente o
 Leia README, CONTRIBUTING, a ideia, o STATUS do projeto se existir, e Issues/PRs relevantes. Não alegue ter lido recursos aos quais não tem acesso. Procure duplicatas. Preserve conteúdo existente e alterações de terceiros.
 
 ## Captura
+Quando um projeto tiver interface web publicada, registre o endereço verificado no campo `site` do IDEA.md. O mapa gera um atalho visível automaticamente. Use HTTPS ou a pasta local publicada (exemplo: mag-batas/). Não apresente repositório como site nem invente endereço de publicação. Se não estiver publicado, registre a pendência. Publicar serviços novos exige autorização correspondente.
 Preserve o relato original e sua origem. Separe sugestões da IA de decisões humanas. Não invente autoria, consenso, implementações ou resultados. Uma ideia curta pode continuar curta. Não exigir plano, orçamento ou justificativa para arquivar.
 
 ## Execução
