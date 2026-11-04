@@ -18,7 +18,7 @@ Solo ou coop para até oito jogadores no mesmo domo e história. NPCs completam 
 2. Leia [DECISIONS.md](DECISIONS.md): definições atuais do proponente e limites do que foi decidido.
 3. Leia [STATUS.md](STATUS.md): quatro perguntas em aberto e próxima contribuição delimitada.
 4. Consulte [DESIGN-HISTORY.md](DESIGN-HISTORY.md) para detalhes, referências e alternativas anteriores; rodadas posteriores prevalecem.
-5. Leia a [passagem de trabalho](handoffs/2026-11-04-design.md) para evidências, limitações de acesso e atribuição pendente.
+5. Leia a [passagem de trabalho](handoffs/2026-11-04-design.md) para evidências, limitações de acesso e atribuição confirmada.
 
 A captura original está preservada em [IDEA.md](../../ideas/REP-0001-jogo-submarino/IDEA.md). O projeto não depende do acesso a um chat para continuar.
 

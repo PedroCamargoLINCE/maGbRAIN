@@ -1,6 +1,6 @@
 # REP-0001 — Visão de jogo em discussão
 
-Registro de design, 2026-11-04. Síntese das descrições do proponente e das sugestões do assistente, salva a pedido do proponente. Não é transcrição de conversa. Identidade pública do participante ainda a confirmar. O registro original em IDEA.md permanece preservado. Não há implementação ou decisão de tecnologia. Contém spoilers da história planejada; não usar como texto de apresentação ao jogador.
+Registro de design, 2026-11-04. Síntese das descrições do proponente e das sugestões do assistente, salva a pedido do proponente. Não é transcrição de conversa. Identidade pública confirmada pelo participante: PedroCamargoLINCE. O registro original em IDEA.md permanece preservado. Não há implementação ou decisão de tecnologia. Contém spoilers da história planejada; não usar como texto de apresentação ao jogador.
 
 Documento incremental: as seções iniciais registram a primeira rodada. Rodadas posteriores prevalecem sobre anteriores; a “Terceira rodada” contém as definições mais recentes sobre veículos, persistência, sucessão, substância e cena de morte. Sugestões do assistente não são decisões do autor.
 

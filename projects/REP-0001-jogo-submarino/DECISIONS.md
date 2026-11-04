@@ -1,6 +1,6 @@
 # Definições atuais — 2026-11-04
 
-Fonte: visão e respostas do proponente, registradas a seu pedido. Crédito público ainda a confirmar. Estas são definições de design em exploração, não evidência de implementação nem consenso de todo o coletivo. Contém spoilers.
+Fonte: visão e respostas do proponente, registradas a seu pedido. Crédito público confirmado pelo proponente: PedroCamargoLINCE. Estas são definições de design em exploração, não evidência de implementação nem consenso de todo o coletivo. Contém spoilers.
 
 ## Mundo e abertura
 

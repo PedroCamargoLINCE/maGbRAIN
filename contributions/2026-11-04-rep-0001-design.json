@@ -9,9 +9,11 @@
     "design",
     "documentation"
   ],
-  "participants": [],
-  "attribution": "pending",
-  "attribution_source": "Identidade pública e eventuais coautores ainda não confirmados; crédito solicitado, sem inferência pela conta utilizada.",
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "O proponente confirmou explicitamente PedroCamargoLINCE como identidade pública para o crédito deste design em 2026-11-04. Nenhum outro participante foi informado.",
   "tools": [
     "Codex"
   ],
