@@ -37,6 +37,8 @@ Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório
 
 - [REP-0014 — Mag Batas: gerador de estampas para abadás](ideas/REP-0014-mag-batas/IDEA.md)
 
+- [REP-0015 — Me Debata](ideas/REP-0015-me-debata/IDEA.md) · [Abrir repositório](https://github.com/fkumagae/Me-Debata)
+
 ## Organização
 - `ideas/`: registros e origem; captura livre, sem obrigação de executar.
 - `projects/`: entregas, estado e decisões, criados quando houver trabalho concreto.

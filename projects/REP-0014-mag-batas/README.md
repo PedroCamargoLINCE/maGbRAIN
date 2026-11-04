@@ -25,3 +25,5 @@ Uma face, um logo e uma linha de texto. Silhueta genérica ilustrativa, ainda se
 `python -X utf8 scripts/build_site.py`
 
 Issue: https://github.com/PedroCamargoLINCE/maGbRAIN/issues/6
+
+O logo Magnatas fornecido por Felipe é carregado ao iniciar e exibido no cabeçalho. Pode ser substituído ou removido; use Usar logo Magnatas para restaurá-lo. O original foi preservado sem edição de imagem.
