@@ -4,6 +4,7 @@
 
 - Issue: [#14](https://github.com/PedroCamargoLINCE/maGbRAIN/issues/14).
 - Branch: `feat/rep-0009-short-video-limits`.
+- PR: [#15](https://github.com/PedroCamargoLINCE/maGbRAIN/pull/15), enviado para revisão; sem merge.
 - Participação humana: atribuição pendente de confirmação. Ferramenta: Codex.
 - Entrega: extensão MV3, três limites diários, contagem de aba em foco, persistência, bloqueio/pausa, popup, pacote comum e instruções de instalação.
 - Verificação: testes unitários e integração com Chrome/Edge em perfis temporários e páginas controladas. Evidências e versões no [handoff](handoffs/2026-11-04-short-pause.md).

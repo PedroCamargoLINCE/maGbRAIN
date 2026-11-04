@@ -36,4 +36,4 @@ Implementação do protótipo e verificação automatizada concluídas; revisão
 
 ## Entrega remota
 
-A preencher com o resultado efetivo do envio e PR antes do encerramento.
+Implementação enviada no commit `b0094d5991e9bda2c1d2c2e7994b07e60267285f` da branch remota `feat/rep-0009-short-video-limits`. [PR #15](https://github.com/PedroCamargoLINCE/maGbRAIN/pull/15) aberto para revisão, sem merge. Este complemento documental registra a entrega no mesmo PR; nenhuma ficha adicional criada.
