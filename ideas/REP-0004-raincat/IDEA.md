@@ -11,7 +11,7 @@ owner: null
 Nome registrado, mas sem descrição suficiente para definir objetivo, arquitetura ou relação com AquaFL e Gatos sentinelas. Não tratar esses projetos como equivalentes.
 
 ## Origem
-10 Projetos/RainCat.md — arquivo Minha Mente.zip. Autoria individual não inferida; preservar e confirmar com o grupo.
+10 Projetos/RainCat.md — arquivo Minha Mente.zip. Crédito da proposta trazida ao mapa: **Felipe (fkumagae)**, confirmado pelo participante em 05/11/2026 após comparação com a Minha Mente. Este crédito não atribui execução posterior nem autoria exclusiva de trabalhos coletivos.
 
 ## Próxima contribuição sugerida pela IA
 Recuperar a descrição com os participantes.

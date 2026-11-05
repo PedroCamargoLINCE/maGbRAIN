@@ -1,0 +1,84 @@
+{
+  "id": "2026-11-05-felipe-ideias-minha-mente",
+  "date": "2026-11-05",
+  "ideas": [
+    "REP-0002",
+    "REP-0003",
+    "REP-0004",
+    "REP-0005",
+    "REP-0006",
+    "REP-0007",
+    "REP-0008",
+    "REP-0009",
+    "REP-0010",
+    "REP-0011",
+    "REP-0012",
+    "REP-0013"
+  ],
+  "summary": "Confirmação de Felipe como proponente das ideias trazidas da Minha Mente; DTW creditado como proposta de exploração de sugestão externa, preservando contribuições de terceiros.",
+  "types": [
+    "ideation"
+  ],
+  "participants": [
+    "fkumagae"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Felipe solicitou explicitamente assinar suas ideias do maGbRAIN que correspondem à Minha Mente em 05/11/2026. Correspondências conferidas nas notas e capturas de origem. A data representa a confirmação, não a criação das ideias.",
+  "tools": [
+    "Codex"
+  ],
+  "evidence": [
+    {
+      "label": "Conferência e limites do crédito",
+      "path": "docs/HANDOFF-autoria-minha-mente.md"
+    },
+    {
+      "label": "Proposta REP-0002",
+      "path": "ideas/REP-0002-aquafl/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0003",
+      "path": "ideas/REP-0003-gatos-sentinelas/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0004",
+      "path": "ideas/REP-0004-raincat/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0005",
+      "path": "ideas/REP-0005-surfilation/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0006",
+      "path": "ideas/REP-0006-alphaloha/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0007",
+      "path": "ideas/REP-0007-agenda/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0008",
+      "path": "ideas/REP-0008-dtw/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0009",
+      "path": "ideas/REP-0009-limite-reels/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0010",
+      "path": "ideas/REP-0010-ia-empresas/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0011",
+      "path": "ideas/REP-0011-microfones/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0012",
+      "path": "ideas/REP-0012-cerebro-mosca/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0013",
+      "path": "ideas/REP-0013-colaboracao/IDEA.md"
+    }
+  ]
+}
