@@ -11,7 +11,7 @@ owner: null
 Extensão do Edge com limite diário de Reels ou rolagem; ao atingir o limite, propaganda ou gemas liberariam acesso. Não há protótipo ou validação registrados.
 
 ## Origem
-30 Ideias/Extensão para limitar Reels e TikTok.md — arquivo Minha Mente.zip. Autoria individual não inferida; preservar e confirmar com o grupo.
+30 Ideias/Extensão para limitar Reels e TikTok.md — arquivo Minha Mente.zip. Crédito da proposta trazida ao mapa: **Felipe (fkumagae)**, confirmado pelo participante em 05/11/2026 após comparação com a Minha Mente. Este crédito não atribui execução posterior nem autoria exclusiva de trabalhos coletivos.
 
 ## Próxima contribuição sugerida pela IA
 Validar o protótipo Short Pause em feeds reais logados no Chrome e Edge, revisar atribuição humana e decidir próximos ajustes após o uso. Instruções no [README do projeto](../../projects/REP-0009-limite-reels/README.md).

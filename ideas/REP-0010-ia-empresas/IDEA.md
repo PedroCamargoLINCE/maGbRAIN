@@ -11,7 +11,7 @@ owner: null
 Oferecer soluções de IA adaptadas aos documentos, regras e sistemas de empresas. Considerar consulta documental e integrações. Primeiro público, tarefa e validação comercial permanecem em aberto.
 
 ## Origem
-30 Ideias/IA especializada para empresas.md — arquivo Minha Mente.zip. Autoria individual não inferida; preservar e confirmar com o grupo.
+30 Ideias/IA especializada para empresas.md — arquivo Minha Mente.zip. Crédito da proposta trazida ao mapa: **Felipe (fkumagae)**, confirmado pelo participante em 05/11/2026 após comparação com a Minha Mente. Este crédito não atribui execução posterior nem autoria exclusiva de trabalhos coletivos.
 
 ## Próxima contribuição sugerida pela IA
 Escolher um problema concreto e planejar uma conversa de validação.

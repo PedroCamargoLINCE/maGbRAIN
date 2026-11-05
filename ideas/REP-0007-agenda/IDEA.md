@@ -11,7 +11,7 @@ owner: null
 Consultar a agenda e os compromissos do dia. Não há integração, frequência ou autorização de acesso confirmada.
 
 ## Origem
-30 Ideias/Automação pessoal com Google Agenda.md — arquivo Minha Mente.zip. Autoria individual não inferida; preservar e confirmar com o grupo.
+30 Ideias/Automação pessoal com Google Agenda.md — arquivo Minha Mente.zip. Crédito da proposta trazida ao mapa: **Felipe (fkumagae)**, confirmado pelo participante em 05/11/2026 após comparação com a Minha Mente. Este crédito não atribui execução posterior nem autoria exclusiva de trabalhos coletivos.
 
 ## Próxima contribuição sugerida pela IA
 Definir uma consulta mínima e quais dados seriam necessários.
