@@ -3,7 +3,7 @@
 - Entrega em foco: preservar a visão de design e uma passagem de trabalho independente do chat.
 - Estado do projeto: **exploring**; design parcial, sem implementação.
 - Pessoa de referência: PedroCamargoLINCE, identidade pública confirmada pelo proponente.
-- Última atualização: 2026-11-04.
+- Última atualização: 2026-11-06.
 
 ## O que existe
 
@@ -31,3 +31,7 @@ Depois, desenhar preparação → autorização → navegação → descoberta �
 ## Pendências posteriores
 
 Cronologia/idade do sucessor no coop; homenagem sem capacete recuperado; regras de projetos tecnológicos versus equipamentos; composição mínima por divisão; geografia/geração do mundo; custos, tempos e alcance. Não reabrir a explicação dos olhos vermelhos: o proponente definiu que não será explicada ou investigada.
+
+## Sugestão da mosca-guia · 2026-11-06
+
+Sugestão de Felipe (fkumagae) registrada na ficha REP-0001, com referência textual a REP-0012 e mecânica sugerida pela IA. Entrega vinculada à [Issue #24](https://github.com/PedroCamargoLINCE/maGbRAIN/issues/24), aguardando revisão e integração. [Passagem de trabalho](handoffs/2026-11-06-mosca-guia.md). Modelo virtual e divisão dos comportamentos permanecem em aberto.
