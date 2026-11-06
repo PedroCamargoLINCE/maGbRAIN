@@ -1,0 +1,29 @@
+{
+  "id": "2026-11-06-rep-0001-mosca-guia",
+  "date": "2026-11-06",
+  "ideas": [
+    "REP-0001"
+  ],
+  "summary": "Sugestão de criatura guia/NPC baseada no cérebro virtual de mosca, com mecânica de observação aprovada para registro.",
+  "types": [
+    "ideation"
+  ],
+  "participants": [
+    "fkumagae"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Felipe (fkumagae) confirmou a proposta e aprovou seu registro em 2026-11-06.",
+  "tools": [
+    "IA para sugestão da mecânica de observação e descoberta da passagem; Codex para registro documental."
+  ],
+  "evidence": [
+    {
+      "label": "Sugestão na ficha do jogo",
+      "path": "ideas/REP-0001-jogo-submarino/IDEA.md"
+    },
+    {
+      "label": "Passagem de trabalho",
+      "path": "projects/REP-0001-jogo-submarino/handoffs/2026-11-06-mosca-guia.md"
+    }
+  ]
+}
