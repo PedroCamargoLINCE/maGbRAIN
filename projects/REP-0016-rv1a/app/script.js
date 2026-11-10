@@ -22,7 +22,7 @@ const ROBOT_PARAMETERS = {
   controller: {
     baseHeight: 300, upperArm: 250, elbowOffset: -90, forearm: 160,
     wrist: 72, toolTranslation: [21.21,-21.21,134.5], toolYawDeg: -45,
-    limits: [[-150,150],[-60,120],[60,155],[-160,160],[-90,90],[-200,200]],
+    limits: [[-150,150],[-60,120],[60,130],[-160,160],[-90,90],[-200,200]],
     home: [0,0,90,0,0,0]
   },
   axes: ["z", "y", "y", "z", "y", "z"],
