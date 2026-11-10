@@ -1,0 +1,30 @@
+{
+  "id": "2026-11-10-rv1a-acesso",
+  "date": "2026-11-10",
+  "ideas": [
+    "REP-0016"
+  ],
+  "summary": "Integração do simulador RV-1A ao catálogo e à publicação estática, conduzida por Felipe.",
+  "types": [
+    "code",
+    "documentation"
+  ],
+  "participants": [
+    "fkumagae"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Felipe definiu requisitos, forneceu projeto inicial e solicitou disponibilização no maGbRAIN.",
+  "tools": [
+    "Codex para edição, integração e verificação"
+  ],
+  "evidence": [
+    {
+      "label": "Simulador",
+      "path": "projects/REP-0016-rv1a/app/index.html"
+    },
+    {
+      "label": "Passagem",
+      "path": "projects/REP-0016-rv1a/handoffs/2026-11-10-acesso.md"
+    }
+  ]
+}
