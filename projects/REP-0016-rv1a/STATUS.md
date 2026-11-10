@@ -1,3 +1,3 @@
 # Estado
 
-2026-11-10 · trying. Publicação transferida ao fork fkumagae/maGbRAIN por solicitação de Felipe. Endereço https://fkumagae.github.io/maGbRAIN/rv1a/. Branch gh-pages contém os arquivos estáticos. Correção do atalho coletivo em fix/rv1a-site-felipe. Validação DH continua pendente.
+2026-11-10 · trying. Publicação canônica no maGbRAIN coletivo, conforme preferência atualizada de Felipe: https://pedrocamargolince.github.io/maGbRAIN/rv1a/. O workflow Pages publica as alterações integradas à main. Validação DH continua pendente.

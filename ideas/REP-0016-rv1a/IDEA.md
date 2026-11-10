@@ -3,7 +3,7 @@ id: REP-0016
 title: "RV-1A — simulador de cinemática direta"
 status: trying
 owner: null
-site: https://fkumagae.github.io/maGbRAIN/rv1a/
+site: https://pedrocamargolince.github.io/maGbRAIN/rv1a/
 ---
 
 # RV-1A — simulador de cinemática direta
@@ -15,4 +15,4 @@ Simulador web interativo do Mitsubishi RV-1A com seis sliders, vistas 2D e 3D, p
 Felipe (fkumagae) forneceu o projeto inicial, definiu os requisitos e solicitou integração ao maGbRAIN. Codex auxiliou nas alterações e na integração.
 
 ## Próxima contribuição
-Validar tabela DH, offsets e ferramenta com o professor. Publicação no fork de Felipe, com acesso pelo campo site.
+Validar tabela DH, offsets e ferramenta com o professor. Publicação no maGbRAIN coletivo, acompanhando as alterações integradas à main, com acesso pelo campo site.
