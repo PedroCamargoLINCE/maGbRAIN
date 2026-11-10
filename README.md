@@ -39,6 +39,8 @@ Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório
 
 - [REP-0015 — Me Debata](ideas/REP-0015-me-debata/IDEA.md) · [Abrir repositório](https://github.com/fkumagae/Me-Debata)
 
+- [REP-0016 — Simulador RV-1A](ideas/REP-0016-rv1a/IDEA.md)
+
 ## Organização
 - `ideas/`: registros e origem; captura livre, sem obrigação de executar.
 - `projects/`: entregas, estado e decisões, criados quando houver trabalho concreto.
