@@ -1,0 +1,31 @@
+{
+  "id": "2026-11-10-rv1a-cosimir",
+  "date": "2026-11-10",
+  "ideas": [
+    "REP-0016"
+  ],
+  "summary": "Modelo de referência COSIMIR comparado com pose e TOOL fornecidos e confirmados por Felipe.",
+  "types": [
+    "research",
+    "code",
+    "test"
+  ],
+  "participants": [
+    "fkumagae"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Felipe forneceu a referência, confirmou os valores aplicados e solicitou a reprodução cinemática.",
+  "tools": [
+    "Codex para análise, implementação e testes"
+  ],
+  "evidence": [
+    {
+      "label": "Comparação e hipóteses",
+      "path": "projects/REP-0016-rv1a/REFERENCE.md"
+    },
+    {
+      "label": "Teste numérico",
+      "path": "projects/REP-0016-rv1a/test-reference.cjs"
+    }
+  ]
+}
