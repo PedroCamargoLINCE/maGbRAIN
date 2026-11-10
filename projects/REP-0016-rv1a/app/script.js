@@ -16,6 +16,15 @@ const ROBOT_PARAMETERS = {
   // Future standard DH rows: {a, d, alphaDeg, thetaOffsetDeg}.
   // Set mode="dh" and supply six rows after professor validation.
   dh: [],
+  // Geometric candidate consistent with the confirmed COSIMIR sample.
+  // Dimensions: Mitsubishi BFP-A8050-K; base height 300 mm from supplied sketch.
+  // Euler names on the photographed visor are Z (Roll), Y (Pitch), X (Yaw).
+  controller: {
+    baseHeight: 300, upperArm: 250, elbowOffset: -90, forearm: 160,
+    wrist: 72, toolTranslation: [21.21,-21.21,134.5], toolYawDeg: -45,
+    limits: [[-150,150],[-60,120],[60,155],[-160,160],[-90,90],[-200,200]],
+    home: [0,0,90,0,0,0]
+  },
   axes: ["z", "y", "y", "z", "y", "z"],
   offsetsDeg: [0,0,0,0,0,0],
   tool: [0,0,1],
@@ -136,6 +145,23 @@ function forwardKinematics(angles = q) {
     R = matMul3(R, rotation((angles[i]+ROBOT_PARAMETERS.offsetsDeg[i])*DEG));
     frames.push({p:[...p],R:R.map(row=>[...row])});
   }
+  if (ROBOT_PARAMETERS.mode === "cosimir") {
+    const c = ROBOT_PARAMETERS.controller;
+    turn(0);
+    move([0,0,c.baseHeight], "O1/O2 · J2");
+    turn(1);
+    move([0,0,c.upperArm], "O3 · J3");
+    turn(2);
+    move([c.elbowOffset,0,0], "Cotovelo · 90 mm");
+    turn(3);
+    move([0,0,c.forearm], "Punho · J5");
+    turn(4);
+    move([0,0,c.wrist], "Flange · J6");
+    turn(5);
+    move(c.toolTranslation, "TCP");
+    R = matMul3(R,rotZ(c.toolYawDeg*DEG));
+    return {T:toT(R,p),R,points,labels,frames};
+  }
   if (ROBOT_PARAMETERS.mode === "dh") {
     if (ROBOT_PARAMETERS.dh.length !== 6) throw Error("Forneça seis linhas DH validadas.");
     ROBOT_PARAMETERS.dh.forEach((row,i)=>{
@@ -166,7 +192,18 @@ function forwardKinematics(angles = q) {
 function updateOutputs() {
   const state = forwardKinematics();
   const {T, R, points, labels} = state;
-  const [roll, pitch, yaw] = rpyFromR(R);
+  const [rx, pitch, rz] = rpyFromR(R);
+  const cosimir = ROBOT_PARAMETERS.mode === "cosimir";
+  const roll = cosimir ? rz : rx, yaw = cosimir ? rx : rz;
+  document.getElementById("orientationNote").textContent = cosimir
+    ? "Convenção inferida do visor COSIMIR: Roll = Z, Pitch = Y, Yaw = X. R = Rz(Roll) Ry(Pitch) Rx(Yaw)."
+    : "Esboço: Roll = X, Pitch = Y, Yaw = Z. R = Rz(Yaw) Ry(Pitch) Rx(Roll).";
+  const photoAngles = [10,45,70,70,15,20];
+  const isPhoto = cosimir && q.every((v,i)=>v===photoAngles[i]);
+  const error = Math.hypot(...T.slice(0,3).map((row,i)=>row[3]-[497.5,159.4,373.9][i]));
+  document.getElementById("referenceResult").textContent = isPhoto
+    ? `Foto carregada · diferença de posição ${fmt(error,3)} mm. Referência: X 497,5 / Y 159,4 / Z 373,9 mm; Roll 136,8° / Pitch 32,2° / Yaw 125,2°. Uma pose validada; outras poses pendentes.`
+    : "Use Comparar com a foto para carregar as seis juntas e o TOOL confirmados.";
 
   document.getElementById("xOut").textContent = `${fmt(T[0][3])} mm`;
   document.getElementById("yOut").textContent = `${fmt(T[1][3])} mm`;
@@ -197,8 +234,9 @@ function buildSliders() {
     slider.type = "range";
     slider.id = `joint-${i+1}`;
     label.htmlFor = slider.id;
-    slider.min = jointLimits[i][0];
-    slider.max = jointLimits[i][1];
+    const limits = ROBOT_PARAMETERS.mode === "cosimir" ? ROBOT_PARAMETERS.controller.limits : jointLimits;
+    slider.min = limits[i][0];
+    slider.max = limits[i][1];
     slider.step = 1;
     slider.value = value;
 
@@ -315,7 +353,8 @@ function drawRobot(points, labels) {
 
     ctx.fillStyle = "#e8f0f8";
     ctx.font = labels[i] === "TCP" ? "bold 12px system-ui" : "12px system-ui";
-    ctx.fillText(labels[i], pp[0]+(i%2 ? 90 : 12), pp[1]+4);
+    const labelX = Math.max(4, Math.min(W-ctx.measureText(labels[i]).width-4, pp[0]+(i%2 ? 90 : 12)));
+    ctx.fillText(labels[i], labelX, pp[1]+4);
   });
 }
 
@@ -351,6 +390,8 @@ canvas.addEventListener("wheel", e => {
 window.addEventListener("resize", updateOutputs);
 
 document.getElementById("resetBtn").addEventListener("click", () => {
+  ROBOT_PARAMETERS.mode = "schematic";
+  document.getElementById("modelSelect").value = "schematic";
   q = [0,0,0,0,0,0];
   buildSliders();
   updateOutputs();
@@ -371,7 +412,8 @@ document.getElementById("applyParamsBtn").addEventListener("click", () => {
 
 document.getElementById("homeBtn").addEventListener("click", () => {
   cameraYaw=-55*DEG; cameraPitch=18*DEG; zoom=.72;
-  document.getElementById("resetBtn").click();
+  q = ROBOT_PARAMETERS.mode === "cosimir" ? [...ROBOT_PARAMETERS.controller.home] : [0,0,0,0,0,0];
+  buildSliders(); updateOutputs();
 });
 canvas.addEventListener("pointercancel", () => { dragging=false; });
 
@@ -414,6 +456,17 @@ function drawSide(state) {
     ["#ff7777","#68dfac","#72aaff"].forEach((color,i)=>line(frame.p,add3(frame.p,frame.R.map(row=>row[i]*55)),color));
   }
 }
+document.getElementById("modelSelect").addEventListener("change", event => {
+  ROBOT_PARAMETERS.mode = event.target.value;
+  q = ROBOT_PARAMETERS.mode === "cosimir" ? [...ROBOT_PARAMETERS.controller.home] : [0,0,0,0,0,0];
+  buildSliders(); updateOutputs();
+});
+document.getElementById("photoBtn").addEventListener("click", () => {
+  ROBOT_PARAMETERS.mode = "cosimir";
+  document.getElementById("modelSelect").value = "cosimir";
+  q = [10,45,70,70,15,20];
+  buildSliders(); updateOutputs();
+});
 buildSliders();
 buildParamTable();
 updateOutputs();

@@ -185,3 +185,6 @@ input[type=range] {accent-color:#73d2ff;min-height:30px}
 .panel {min-width:0} #paramError {color:#ffb7a5}
 canvas {height:600px} .canvas-title {flex-wrap:wrap}
 @media(max-width:900px){.side-panel,.canvas-panel{grid-column:1}canvas{height:560px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:10px}.panel{padding:12px}}
+
+select {max-width:100%;margin:12px 8px 12px 0;padding:10px;background:#223246;color:white;border:1px solid #3a526d;border-radius:8px}
+#referenceResult {margin-top:12px}
