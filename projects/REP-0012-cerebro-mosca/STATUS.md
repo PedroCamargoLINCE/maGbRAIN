@@ -7,3 +7,6 @@ Issue #39: MagLab aceita campanhas JSON via CLI/API Node local, preserva ensaios
 
 
 Raiz corrigida na Issue #41: toda a implementação fica em REP-0012/app e os acessos canônicos em cerebro-mosca/. REP-0001 preserva somente a proposta de integração ao jogo de Pedro.
+
+
+Issue #43: arquivos completos das baterias locais (99 e 13 ensaios) publicados em app/sensory-lab/node/results/, incluindo configurações, relatórios e dados por passo. Conferidos hashes e sequência. Ver índice README.md nessa pasta.
