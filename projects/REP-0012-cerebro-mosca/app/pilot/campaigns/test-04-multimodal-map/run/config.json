@@ -1,0 +1,330 @@
+{
+  "version": 1,
+  "name": "Teste 4: mapa multimodal de respostas",
+  "parameters": {
+    "threshold": 1,
+    "leak": 0.95,
+    "refractory": 3
+  },
+  "watch": [
+    99987,
+    100133,
+    100555
+  ],
+  "cases": [
+    {
+      "id": "blank",
+      "steps": 200,
+      "stimuli": []
+    },
+    {
+      "id": "odor-low",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_FOOD",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "odor-high",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_FOOD",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "odor-ramp",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_FOOD",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "ramp"
+        }
+      ]
+    },
+    {
+      "id": "odor-pulse",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_FOOD",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "pulse",
+          "period": 20,
+          "on": 5
+        }
+      ]
+    },
+    {
+      "id": "visual-low",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "visual-high",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "visual-ramp",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "ramp"
+        }
+      ]
+    },
+    {
+      "id": "visual-pulse",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "pulse",
+          "period": 20,
+          "on": 5
+        }
+      ]
+    },
+    {
+      "id": "contact-low",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "contact-high",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "contact-ramp",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "ramp"
+        }
+      ]
+    },
+    {
+      "id": "contact-pulse",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "pulse",
+          "period": 20,
+          "on": 5
+        }
+      ]
+    },
+    {
+      "id": "odor-visual",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_FOOD",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        },
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "odor-contact",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_FOOD",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        },
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "visual-contact",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        },
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "all-modalities",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_FOOD",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        },
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        },
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "odor-then-visual",
+      "steps": 240,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_FOOD",
+          "start": 20,
+          "end": 100,
+          "current": 0.3,
+          "profile": "constant"
+        },
+        {
+          "group": "VIS_R1R6",
+          "start": 100,
+          "end": 180,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "visual-then-contact",
+      "steps": 240,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 100,
+          "current": 0.3,
+          "profile": "constant"
+        },
+        {
+          "group": "MECH_BRISTLE",
+          "start": 100,
+          "end": 180,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "id": "contact-then-odor",
+      "steps": 240,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 100,
+          "current": 0.3,
+          "profile": "constant"
+        },
+        {
+          "group": "OLF_ORN_FOOD",
+          "start": 100,
+          "end": 180,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    }
+  ]
+}

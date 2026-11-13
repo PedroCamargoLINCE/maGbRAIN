@@ -1,0 +1,16 @@
+{
+  "id": "2026-11-13-rep-0012-test-03-alpn",
+  "date": "2026-11-13",
+  "ideas": ["REP-0012"],
+  "summary": "Teste 3 do readout alternativo com o candidato ALPN 100555 em dois pares e 144 percursos locais determinísticos.",
+  "types": ["code", "test", "documentation"],
+  "participants": ["fkumagae"],
+  "attribution": "confirmed",
+  "attribution_source": "Crédito público de Felipe (fkumagae) confirmado no protocolo do repositório e autorização direta para continuar os testes.",
+  "tools": ["Copilot SDK em VS Code", "Node.js local"],
+  "evidence": [
+    {"label": "Relatório do Teste 3", "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-03-alpn-readout/REPORT.md"},
+    {"label": "Resultados completos e hashes", "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-03-alpn-readout/results.json"},
+    {"label": "Runner local", "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-03-alpn-readout/evaluate.cjs"}
+  ]
+}
