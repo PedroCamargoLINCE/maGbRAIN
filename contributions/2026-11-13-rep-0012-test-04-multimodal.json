@@ -1,0 +1,16 @@
+{
+  "id": "2026-11-13-rep-0012-test-04-multimodal",
+  "date": "2026-11-13",
+  "ideas": ["REP-0012"],
+  "summary": "Campanha multimodal com 20 ensaios de odor, visão, contato e combinações, gerando um pool exportável de 264 candidatos neurais.",
+  "types": ["code", "test", "research", "documentation"],
+  "participants": ["fkumagae"],
+  "attribution": "confirmed",
+  "attribution_source": "Crédito público de Felipe (fkumagae) confirmado no protocolo do repositório e solicitação direta da campanha multimodal.",
+  "tools": ["Copilot SDK em VS Code", "Node.js local"],
+  "evidence": [
+    {"label": "Configuração multimodal", "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-04-multimodal-map/config.json"},
+    {"label": "Mapa exportável", "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-04-multimodal-map/neuron-map.json"},
+    {"label": "Relatório", "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-04-multimodal-map/REPORT.md"}
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "2026-11-12-rep-0012-test-02-readout",
+  "date": "2026-11-12",
+  "ideas": [
+    "REP-0012"
+  ],
+  "summary": "Teste 2 de intervenções no readout das duas células ALLN, com 72 percursos locais determinísticos e comparação com a referência do piloto.",
+  "types": [
+    "code",
+    "test",
+    "documentation"
+  ],
+  "participants": [
+    "fkumagae"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Crédito público de Felipe (fkumagae) confirmado no AGENTS.md e na ficha anterior do piloto; esta entrega segue a solicitação direta do participante.",
+  "tools": [
+    "Copilot SDK em VS Code",
+    "Node.js local"
+  ],
+  "evidence": [
+    {
+      "label": "Relatório do Teste 2",
+      "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-02-readout/REPORT.md"
+    },
+    {
+      "label": "Resultados completos, trajetórias e hashes",
+      "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-02-readout/results.json"
+    },
+    {
+      "label": "Runner local",
+      "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-02-readout/evaluate.cjs"
+    }
+  ]
+}
