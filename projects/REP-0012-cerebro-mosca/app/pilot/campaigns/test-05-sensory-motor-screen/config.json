@@ -1,0 +1,545 @@
+{
+  "version": 1,
+  "name": "Teste 5: triagem sensorial e saída descendente",
+  "parameters": {
+    "threshold": 1,
+    "leak": 0.95,
+    "refractory": 3
+  },
+  "watch": [
+    99987,
+    100133,
+    100555
+  ],
+  "cases": [
+    {
+      "steps": 200,
+      "id": "blank",
+      "stimuli": []
+    },
+    {
+      "steps": 200,
+      "id": "visual-r1r6",
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "visual-lo",
+      "stimuli": [
+        {
+          "group": "VIS_LO",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "visual-lptc",
+      "stimuli": [
+        {
+          "group": "VIS_LPTC",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "visual-me",
+      "stimuli": [
+        {
+          "group": "VIS_ME",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "contact-bristle",
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "contact-jo",
+      "stimuli": [
+        {
+          "group": "MECH_JO",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "danger-odor",
+      "stimuli": [
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "visual-contact",
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        },
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "visual-danger",
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        },
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "contact-danger",
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        },
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.15,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "all-sensory",
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        },
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        },
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.1,
+          "profile": "constant"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "visual-ramp",
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "ramp"
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "visual-pulse",
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "pulse",
+          "period": 20,
+          "on": 5
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "contact-pulse",
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "pulse",
+          "period": 20,
+          "on": 5
+        }
+      ]
+    },
+    {
+      "steps": 200,
+      "id": "danger-pulse",
+      "stimuli": [
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "pulse",
+          "period": 20,
+          "on": 5
+        }
+      ]
+    },
+    {
+      "id": "abl-100437-visual-r1r6",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100437
+      ]
+    },
+    {
+      "id": "abl-100437-contact-bristle",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100437
+      ]
+    },
+    {
+      "id": "abl-100437-danger-odor",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100437
+      ]
+    },
+    {
+      "id": "abl-99973-visual-r1r6",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        99973
+      ]
+    },
+    {
+      "id": "abl-99973-contact-bristle",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        99973
+      ]
+    },
+    {
+      "id": "abl-99973-danger-odor",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        99973
+      ]
+    },
+    {
+      "id": "abl-100555-visual-r1r6",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100555
+      ]
+    },
+    {
+      "id": "abl-100555-contact-bristle",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100555
+      ]
+    },
+    {
+      "id": "abl-100555-danger-odor",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100555
+      ]
+    },
+    {
+      "id": "abl-99987-visual-r1r6",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        99987
+      ]
+    },
+    {
+      "id": "abl-99987-contact-bristle",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        99987
+      ]
+    },
+    {
+      "id": "abl-99987-danger-odor",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        99987
+      ]
+    },
+    {
+      "id": "abl-100133-visual-r1r6",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100133
+      ]
+    },
+    {
+      "id": "abl-100133-contact-bristle",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100133
+      ]
+    },
+    {
+      "id": "abl-100133-danger-odor",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100133
+      ]
+    },
+    {
+      "id": "abl-100136-visual-r1r6",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "VIS_R1R6",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100136
+      ]
+    },
+    {
+      "id": "abl-100136-contact-bristle",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "MECH_BRISTLE",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100136
+      ]
+    },
+    {
+      "id": "abl-100136-danger-odor",
+      "steps": 200,
+      "stimuli": [
+        {
+          "group": "OLF_ORN_DANGER",
+          "start": 20,
+          "end": 140,
+          "current": 0.3,
+          "profile": "constant"
+        }
+      ],
+      "disconnectOutgoing": [
+        100136
+      ]
+    }
+  ]
+}

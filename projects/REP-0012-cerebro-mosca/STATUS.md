@@ -43,3 +43,12 @@ combinações e sequências temporais. O exportador encontrou 264 candidatos
 exportável, não uma classificação seletiva. Antes do controle corporal, falta
 filtrar respostas por janela ativa versus baseline e validar especificidade
 com controles pareados.
+
+## Teste 5 sensorial-motor · 2026-11-13
+
+Triagem de `VIS_R1R6`, `VIS_LO`, `VIS_LPTC`, `VIS_ME`, `MECH_BRISTLE`,
+`MECH_JO` e `OLF_ORN_DANGER` em 34 ensaios, com 18 ablações seletivas.
+`VIS_LPTC` e `VIS_ME` geraram atividade downstream, mas nenhum caso produziu
+disparos em `GNG_DESC`, e as ablações não alteraram esse sinal. Ainda não há
+comando observável de andar, parar ou fuga; a integração autônoma permanece
+pendente.
