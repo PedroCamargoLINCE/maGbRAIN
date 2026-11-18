@@ -41,8 +41,8 @@ Caderno coletivo de ideias do grupo, criado a partir do [maGbRAIN]({ORIGINAL_REP
 - Protocolo de contribuição e créditos: [CONTRIBUTING.md](CONTRIBUTING.md) e [docs/CONTRIBUTIONS.md](docs/CONTRIBUTIONS.md).
 - Instruções para agentes de IA: [AGENTS.md](AGENTS.md).
 
-## Catálogo
-Ainda vazio.
+## Ideias
+O mapa lista todas as ideias e é gerado sozinho a partir de `ideas/`; não mantenha lista manual aqui.
 '''
 
 

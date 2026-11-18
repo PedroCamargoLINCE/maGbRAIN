@@ -15,37 +15,13 @@ Laboratório coletivo de ideias da república: capturar, desenvolver e realizar,
 ## Comece aqui
 1. Conte sua ideia a um agente e peça que leia [AGENTS.md](AGENTS.md).
 2. Registre em `ideas/<ID>-<nome>/IDEA.md`, usando o [modelo](docs/templates/IDEA.md). Duas frases bastam.
-3. Para trabalhar, escolha uma tarefa pequena, sinalize na Issue e use uma branch e PR.
+3. Para trabalhar, escolha uma tarefa pequena (as abertas a qualquer pessoa têm a etiqueta [`quero-ajuda`](https://github.com/PedroCamargoLINCE/maGbRAIN/issues?q=is%3Aissue+is%3Aopen+label%3Aquero-ajuda) e aparecem em destaque no mapa), coloque-se como responsável (Assignee) na Issue e use uma branch e PR.
 4. Ao encerrar, deixe evidências e uma [passagem de trabalho](docs/templates/HANDOFF.md).
 
 Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório para escrever. Sem acesso, devem entregar o texto ou patch para um participante incorporar. Contas e assinaturas continuam independentes.
 
-## Catálogo inicial
-- [REP-0001 — Jogo submarino em terceira pessoa](ideas/REP-0001-jogo-submarino/IDEA.md)
-- [REP-0002 — AquaFL](ideas/REP-0002-aquafl/IDEA.md)
-- [REP-0003 — Gatos sentinelas](ideas/REP-0003-gatos-sentinelas/IDEA.md)
-- [REP-0004 — RainCat](ideas/REP-0004-raincat/IDEA.md)
-- [REP-0005 — Surfilation](ideas/REP-0005-surfilation/IDEA.md)
-- [REP-0006 — Alphaloha](ideas/REP-0006-alphaloha/IDEA.md)
-- [REP-0007 — Automação pessoal com Google Agenda](ideas/REP-0007-agenda/IDEA.md)
-- [REP-0008 — DTW como experimento complementar](ideas/REP-0008-dtw/IDEA.md)
-- [REP-0009 — Extensão para limitar Reels e TikTok](ideas/REP-0009-limite-reels/IDEA.md)
-- [REP-0010 — IA especializada para empresas](ideas/REP-0010-ia-empresas/IDEA.md)
-- [REP-0011 — Rede de microfones para biodiversidade](ideas/REP-0011-microfones/IDEA.md)
-- [REP-0012 — Projeto com cérebro virtual de mosca](ideas/REP-0012-cerebro-mosca/IDEA.md)
-- [REP-0013 — Colaboração com assinaturas de IA](ideas/REP-0013-colaboracao/IDEA.md)
-
-- [REP-0014 — Mag Batas: gerador de estampas para abadás](ideas/REP-0014-mag-batas/IDEA.md)
-
-- [REP-0015 — Me Debata](ideas/REP-0015-me-debata/IDEA.md) · [Abrir repositório](https://github.com/fkumagae/Me-Debata)
-
-- [REP-0016 — Simulador RV-1A](ideas/REP-0016-rv1a/IDEA.md)
-
-- [REP-0017 — maGbRAIN em Docker para outros grupos](ideas/REP-0017-magbrain-docker/IDEA.md)
-
-- [REP-0018 — RAG replicável sobre a base do maGbRAIN](ideas/REP-0018-rag-magbrain/IDEA.md)
-
-- [REP-0019 — Acompanhador de notas do semestre](ideas/REP-0019-notas-semestre/IDEA.md)
+## Ideias
+O [mapa de ideias](https://pedrocamargolince.github.io/maGbRAIN/) lista todas as ideias, com busca, estado, créditos e as tarefas que querem ajuda. Ele é gerado sozinho a partir de [`ideas/`](ideas/) a cada mudança na `main`, então não existe lista manual para manter aqui.
 
 ## Organização
 - `ideas/`: registros e origem; captura livre, sem obrigação de executar.
@@ -53,7 +29,7 @@ Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório
 - `contributions/`: fichas de crédito por entrega e a lista de pessoas (`contributors.json`).
 - `docs/`: guias, modelos (`docs/templates/`) e passagens de trabalho gerais (`docs/handoffs/`).
 - `site/`, `scripts/` e `tests/`: o mapa de ideias, as ferramentas que o geram e seus testes.
-- Issues: tarefas e responsáveis; PRs: contribuições revisáveis.
+- Issues: tarefas; o campo Assignee diz quem está fazendo e a etiqueta `quero-ajuda` diz o que está livre. PRs: contribuições revisáveis.
 - [CONTRIBUTING.md](CONTRIBUTING.md): protocolo e estados.
 - [Prompts](docs/PROMPTS.md): captura e retomada com qualquer agente.
 - [Importação](docs/handoffs/2026-11-04-importacao-inicial.md): cobertura e limites do ZIP.
