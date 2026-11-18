@@ -41,6 +41,10 @@ Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório
 
 - [REP-0016 — Simulador RV-1A](ideas/REP-0016-rv1a/IDEA.md)
 
+- [REP-0017 — maGbRAIN em Docker para outros grupos](ideas/REP-0017-magbrain-docker/IDEA.md)
+
+- [REP-0018 — RAG replicável sobre a base do maGbRAIN](ideas/REP-0018-rag-magbrain/IDEA.md)
+
 ## Organização
 - `ideas/`: registros e origem; captura livre, sem obrigação de executar.
 - `projects/`: entregas, estado e decisões, criados quando houver trabalho concreto.
@@ -51,6 +55,9 @@ Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório
 
 Comecem com até dois projetos em execução e testem uma entrega na vida real. O repositório é público: todo conteúdo submetido fica acessível publicamente.
 
+
+## Docker e perguntas à base
+`docker compose up site rag` sobe o mapa em http://localhost:8080 e uma busca com respostas locais e gratuitas em http://localhost:8081. Para começar um caderno vazio para outro grupo: `python scripts/new_group.py ../nosso-caderno`. Veja [Docker](docs/DOCKER.md) e [RAG](docs/RAG.md).
 
 ## Mapa de ideias
 Consulte [como ativar o GitHub Pages](docs/MAPA.md). A página reúne grafo, busca, estados e próximas contribuições.

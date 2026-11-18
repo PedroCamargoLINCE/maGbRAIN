@@ -1,0 +1,30 @@
+{
+  "id": "2026-11-18-ideias-docker-rag",
+  "date": "2026-11-18",
+  "ideas": [
+    "REP-0017",
+    "REP-0018"
+  ],
+  "summary": "Registro de duas ideias: dockerizar o maGbRAIN para outros grupos criarem o seu próprio e um RAG replicável e gratuito sobre a base do maGbRAIN.",
+  "types": [
+    "ideation"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Proponente pediu o registro das duas ideias numa sessão com Claude Code e confirmou em 18/11/2026 o crédito para o perfil PedroCamargoLINCE.",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Proposta REP-0017",
+      "path": "ideas/REP-0017-magbrain-docker/IDEA.md"
+    },
+    {
+      "label": "Proposta REP-0018",
+      "path": "ideas/REP-0018-rag-magbrain/IDEA.md"
+    }
+  ]
+}
