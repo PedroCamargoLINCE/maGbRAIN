@@ -7,98 +7,120 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="wrap">
   <header class="top">
     <div class="brandline"><a href="../" class="home">maGbRAIN ↗</a><span class="tag">REP-0019</span></div>
-    <h1>Notas do semestre</h1>
-    <p class="lede">Copie a fórmula do plano de ensino, lance as notas conforme saem e descubra quanto precisa tirar no que falta.</p>
+    <h1>Notas do <span class="hl">semestre</span></h1>
+    <p class="lede">Copie a fórmula do plano de ensino, lance as notas conforme saem e descubra quanto falta tirar.</p>
   </header>
 
-  <nav class="tabs" id="tabs" aria-label="Matérias"></nav>
+  <nav class="overview" id="tabs" aria-label="Matérias"></nav>
 
-  <main class="grid">
-    <section class="card area-resumo" id="resumo" aria-labelledby="resumoTitle">
-      <div class="cardhead"><h2 id="resumoTitle">Até agora</h2><span class="chip" id="statusChip"></span></div>
-      <p class="example-note" id="exampleNote" hidden>Notas de exemplo. Troque pelas suas ou crie uma matéria nova.</p>
-      <div id="resumoBody">
-        <div class="hero-num"><span class="num" id="garantido">–</span><span class="hero-label">garantido com as notas que já saíram<br><small>o que falta conta como 0</small></span></div>
-        <div class="bar" id="bar" aria-hidden="true">
-          <div class="seg possible" id="barPossivel"></div>
-          <div class="seg secured" id="barGarantido"></div>
-          <div class="mark meta" id="barMeta"><span>aprovação</span></div>
+  <section class="detail" aria-labelledby="subjectTitle">
+    <div class="detail-head">
+      <div class="title-block">
+        <p class="eyebrow">Matéria</p>
+        <h2 id="subjectTitle">–</h2>
+      </div>
+      <div class="head-actions">
+        <span class="chip" id="statusChip"></span>
+        <button type="button" class="ghost" id="togglePlan" aria-expanded="false" aria-controls="planDrawer">Editar fórmula</button>
+      </div>
+    </div>
+
+    <div class="drawer" id="planDrawer" hidden>
+      <div class="drawer-grid">
+        <div class="drawer-main">
+          <label class="field" for="subjectName">Nome da matéria<input id="subjectName" autocomplete="off"></label>
+          <label class="field" for="formula">Fórmula do plano de ensino
+            <textarea id="formula" rows="4" spellcheck="false" autocomplete="off"></textarea>
+          </label>
+          <ul class="errors" id="formulaErrors"></ul>
+          <p class="found" id="found"></p>
+          <div class="two">
+            <label class="field" for="pass">Média para aprovação<input id="pass" class="num-input" inputmode="decimal" autocomplete="off"></label>
+            <label class="field" for="maxGrade">Nota máxima por avaliação<input id="maxGrade" class="num-input" inputmode="decimal" autocomplete="off"></label>
+          </div>
         </div>
-        <div class="scale"><span>0</span><span id="barMax">10</span></div>
-        <dl class="stats">
-          <div><dt>Aprovação</dt><dd id="aprovacao">–</dd></div>
-          <div><dt>Máximo possível</dt><dd id="maximo">–</dd></div>
-          <div id="projBox"><dt id="projLabel">Mantendo sua média</dt><dd id="projecao">–</dd></div>
-        </dl>
+        <div class="drawer-help">
+          <p class="help-title">Como escrever</p>
+          <ul>
+            <li>Uma média por linha: <code>MP = media(P1, P2, P3)</code></li>
+            <li>A última linha é a média final: <code>MF = 0,7*MP + 0,3*MT</code></li>
+            <li>Nomes que você não define viram avaliações: P1, T1, Lista2…</li>
+            <li>Funções: <code>media</code>, <code>soma</code>, <code>min</code>, <code>max</code>, <code>melhores(2; P1, P2, P3)</code></li>
+            <li>Pesos como <code>0,7</code> ou <code>70%</code>, sem precisar somar 1.</li>
+            <li>Vírgula decimal dentro de funções: separe com <code>;</code></li>
+            <li><code>#</code> começa um comentário.</li>
+          </ul>
+          <div class="danger" id="dangerZone"></div>
+        </div>
       </div>
-      <p class="error-box" id="resumoErro" hidden></p>
-    </section>
+    </div>
 
-    <section class="card area-notas" aria-labelledby="notasTitle">
-      <div class="cardhead"><h2 id="notasTitle">Notas</h2><span class="hint" id="notasCount"></span></div>
-      <div class="table-scroll"><table class="grades" id="gradesTable"></table></div>
-      <p class="partials" id="partials"></p>
-    </section>
+    <div class="board">
+      <section class="card c-resumo" aria-labelledby="resumoTitle">
+        <h3 id="resumoTitle" class="card-title">Até agora</h3>
+        <p class="example-note" id="exampleNote" hidden>Notas de exemplo. Troque pelas suas ou crie uma matéria nova.</p>
+        <div id="resumoBody" class="resumo">
+          <div class="gauge-wrap">
+            <svg class="gauge" id="gauge" viewBox="0 0 200 200" role="img" aria-labelledby="gaugeLabel">
+              <title id="gaugeLabel">Garantido e máximo possível em relação à aprovação</title>
+              <circle class="g-track" cx="100" cy="100" r="80"></circle>
+              <circle class="g-possible" id="gPossible" cx="100" cy="100" r="80"></circle>
+              <circle class="g-secured" id="gSecured" cx="100" cy="100" r="80"></circle>
+              <line class="g-meta" id="gMeta" x1="100" y1="8" x2="100" y2="36"></line>
+            </svg>
+            <div class="gauge-center">
+              <span class="num" id="garantido">–</span>
+              <span class="gauge-cap">garantido</span>
+            </div>
+          </div>
+          <dl class="stats">
+            <div><dt><i class="dot d-secured"></i>Garantido</dt><dd><small>o que falta conta 0</small></dd></div>
+            <div><dt><i class="dot d-possible"></i>Máximo possível</dt><dd id="maximo">–</dd></div>
+            <div id="projBox"><dt><i class="dot d-proj"></i><span id="projLabel">Mantendo sua média</span></dt><dd id="projecao">–</dd></div>
+            <div><dt><i class="dot d-meta"></i>Aprovação</dt><dd id="aprovacao">–</dd></div>
+          </dl>
+        </div>
+        <p class="error-box" id="resumoErro" hidden></p>
+      </section>
 
-    <section class="card area-sim" aria-labelledby="simTitle">
-      <div class="cardhead"><h2 id="simTitle">E se…?</h2></div>
-      <div class="meta-row">
-        <label for="meta">Quero fechar com</label>
-        <input id="meta" class="num-input" inputmode="decimal" autocomplete="off">
-        <button type="button" class="link" id="metaReset">usar a nota de aprovação</button>
-      </div>
-      <div id="simRows" class="sim-rows"></div>
-      <div class="answer" id="answer" role="status" aria-live="polite"></div>
-      <div class="ladder" id="ladder"></div>
-    </section>
+      <section class="card c-notas" aria-labelledby="notasTitle">
+        <div class="card-head"><h3 id="notasTitle" class="card-title">Notas</h3><span class="muted" id="notasCount"></span></div>
+        <div id="gradesTable" class="groups"></div>
+      </section>
 
-    <section class="card area-plano" aria-labelledby="planoTitle">
-      <div class="cardhead"><h2 id="planoTitle">Plano de ensino</h2></div>
-      <label class="field" for="subjectName">Matéria<input id="subjectName" autocomplete="off"></label>
-      <label class="field" for="formula">Fórmula da média
-        <textarea id="formula" rows="4" spellcheck="false" autocomplete="off"></textarea>
-      </label>
-      <ul class="errors" id="formulaErrors"></ul>
-      <p class="found" id="found"></p>
-      <div class="two">
-        <label class="field" for="pass">Média para aprovação<input id="pass" class="num-input" inputmode="decimal" autocomplete="off"></label>
-        <label class="field" for="maxGrade">Nota máxima de cada avaliação<input id="maxGrade" class="num-input" inputmode="decimal" autocomplete="off"></label>
-      </div>
-      <details class="help">
-        <summary>Como escrever a fórmula</summary>
-        <ul>
-          <li>Uma linha por média, com nome: <code>MP = media(P1, P2, P3)</code>.</li>
-          <li>A última linha é a média final. Ela pode ter nome (<code>MF = ...</code>) ou ser só a conta.</li>
-          <li>Todo nome que você não definir vira uma avaliação para lançar nota: P1, T1, Lista2…</li>
-          <li>Funções: <code>media</code>, <code>soma</code>, <code>min</code>, <code>max</code> e <code>melhores(2; P1, P2, P3)</code>, a média das 2 maiores.</li>
-          <li>Pesos como <code>0,7</code>, <code>0.7</code> ou <code>70%</code>. Os pesos não precisam somar 1: vale o que o plano diz.</li>
-          <li>Com vírgula decimal dentro de funções, separe com ponto e vírgula: <code>max(5,5; P1)</code>.</li>
-          <li>Linhas que começam com <code>#</code> são comentários.</li>
-        </ul>
-      </details>
-      <div class="danger" id="dangerZone"></div>
-    </section>
-  </main>
+      <section class="card c-sim" aria-labelledby="simTitle">
+        <div class="card-head"><h3 id="simTitle" class="card-title">E se…?</h3></div>
+        <div class="meta-row">
+          <label for="meta">Quero fechar com</label>
+          <input id="meta" class="num-input big-input" inputmode="decimal" autocomplete="off">
+          <button type="button" class="link" id="metaReset">usar a aprovação</button>
+        </div>
+        <div id="simRows" class="sim-rows"></div>
+        <div class="answer" id="answer" role="status" aria-live="polite"></div>
+        <div class="ladder" id="ladder"></div>
+      </section>
+    </div>
+  </section>
 
   <footer class="foot">
     <p>Suas notas ficam só neste navegador. Nada é enviado para lugar nenhum.</p>
     <div class="foot-actions">
-      <button type="button" id="copyBackup">Copiar backup</button>
-      <button type="button" id="openRestore">Restaurar backup</button>
+      <button type="button" class="ghost" id="copyBackup">Copiar backup</button>
+      <button type="button" class="ghost" id="openRestore">Restaurar backup</button>
     </div>
     <div class="restore" id="restoreBox" hidden>
       <label for="restoreText">Cole aqui o backup copiado</label>
       <textarea id="restoreText" rows="4" spellcheck="false"></textarea>
-      <div class="foot-actions"><button type="button" class="primary" id="doRestore">Substituir pelas matérias do backup</button><button type="button" id="cancelRestore">Cancelar</button></div>
+      <div class="foot-actions"><button type="button" class="primary" id="doRestore">Substituir pelas matérias do backup</button><button type="button" class="ghost" id="cancelRestore">Cancelar</button></div>
     </div>
-    <p class="hint" id="footMsg" role="status"></p>
+    <p class="muted" id="footMsg" role="status"></p>
   </footer>
 </div>
 <script src="formula.js"></script>

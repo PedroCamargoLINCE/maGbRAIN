@@ -2,6 +2,8 @@
 
 Registro para desenvolvimento futuro. Nada daqui está implementado ainda.
 
+**Decisão da proponente (18/11/2026):** recuperação e exame não serão implementados por enquanto, porque mudam muito de matéria para matéria. Ficam apenas registrados aqui.
+
 ## Pedido
 > quero que o nosso mvp tenha a capacidade do usuario poder upar todos os planos de ensino do semestre, e o site extrair dos pdfs a formula de notas e montar o painel do aluno para cada materia. outra coisa que gostaria, e como a recuperação entra no meio d isso tudo e como o exame entra tambem. adicione um registro disso para desenvolvimento futuro.
 
@@ -45,10 +47,9 @@ Tudo no navegador, sem servidor e sem custo, para que as notas e os PDFs não sa
 5. Quando as regras não entenderem, oferecer "copiar prompt": o aluno cola o trecho num assistente que já usa e cola de volta a fórmula. É o mesmo caminho da REP-0018 para não pagar API.
 
 ## Entregas sugeridas, em ordem
-1. Exame: regra UNESP e "quanto preciso no exame" (pequena, vale para as quatro matérias).
-2. Recuperação com os quatro tipos acima.
-3. Upload de PDFs com extração do trecho e do nome da disciplina, com edição manual da fórmula.
-4. Tradução automática do trecho para a fórmula, testada com estes quatro planos e outros que o grupo juntar.
+1. Upload de PDFs com extração do trecho e do nome da disciplina, com edição manual da fórmula.
+2. Tradução automática do trecho para a fórmula, testada com estes quatro planos e outros que o grupo juntar.
+3. Exame e recuperação, só quando a proponente decidir retomar (ver decisão acima).
 
 ## Perguntas em aberto
 - Laboratório: a fórmula com REC vale para todos ou só para quem faz recuperação? Se a nota da recuperação for pior, a média cai?

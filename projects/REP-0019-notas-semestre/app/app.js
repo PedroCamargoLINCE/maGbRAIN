@@ -83,26 +83,53 @@
     return out;
   }
 
-  /* ---------- abas ---------- */
+  /* ---------- medidor em anel ---------- */
+  function ringLen(r, frac) { const c = 2 * Math.PI * r; return `${Math.max(0, Math.min(1, frac)) * c} ${c}`; }
+  function statusOf(a) {
+    if (!a.plan.ok || a.evalError || !a.secured || a.pass === null) return { kind: '', text: a.plan.ok ? '' : 'Fórmula com erro' };
+    const g = a.secured.final, pass = a.pass;
+    if (g >= pass - 1e-9) return { kind: 'good', text: a.pending.length ? 'Já aprovado' : 'Aprovado' };
+    if (a.best < pass - 1e-9) return { kind: 'bad', text: a.pending.length ? 'Não dá mais para passar' : 'Reprovado' };
+    return { kind: 'warn', text: `Faltam ${fmt(pass - g)}` };
+  }
+
+  /* ---------- painel de matérias ---------- */
   function renderTabs() {
     const cur = subject();
-    $('tabs').innerHTML = state.subjects.map((s) =>
-      `<button type="button" class="tab" data-id="${s.id}" aria-pressed="${s.id === cur.id}">${esc(s.name || 'Sem nome')}</button>`
-    ).join('') + '<button type="button" class="tab add" id="addSubject">+ Matéria</button>';
+    $('tabs').innerHTML = state.subjects.map((s) => {
+      const a = analyse(s);
+      const st = statusOf(a);
+      const ok = a.secured && !a.evalError;
+      const top = ok ? Math.max(a.ceiling, a.pass || 0, 1e-9) : 1;
+      const n = a.plan.inputs.length, k = Object.keys(a.known).length;
+      return `<button type="button" class="tab ${st.kind}" data-id="${s.id}" aria-pressed="${s.id === cur.id}">` +
+        `<svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle class="g-track" cx="22" cy="22" r="17"></circle>` +
+        (ok ? `<circle class="g-possible" cx="22" cy="22" r="17" stroke-dasharray="${ringLen(17, a.best / top)}"></circle><circle class="g-secured" cx="22" cy="22" r="17" stroke-dasharray="${ringLen(17, a.secured.final / top)}"></circle>` : '') +
+        `</svg><span class="tab-text"><span class="tab-name">${esc(s.name || 'Sem nome')}</span>` +
+        `<span class="tab-meta">${ok ? `<b>${fmt(a.secured.final)}</b> garantido · ${k}/${n} notas` : 'confira a fórmula'}</span>` +
+        `<span class="tab-status">${esc(st.text)}</span></span></button>`;
+    }).join('') + '<button type="button" class="tab add" id="addSubject"><span class="plus" aria-hidden="true">+</span><span class="tab-text"><span class="tab-name">Nova matéria</span><span class="tab-meta">cole a fórmula do plano</span></span></button>';
   }
   $('tabs').addEventListener('click', (e) => {
     const b = e.target.closest('button');
     if (!b) return;
     if (b.id === 'addSubject') {
       const s = blankSubject();
-      state.subjects.push(s); state.current = s.id; save(); renderAll();
+      state.subjects.push(s); state.current = s.id; save(); planOpen = true; renderAll();
       $('subjectName').focus(); $('subjectName').select();
       return;
     }
-    state.current = b.dataset.id; save(); renderAll();
+    state.current = b.dataset.id; save(); planOpen = !F.parsePlan(subject().formula).ok; renderAll();
   });
 
   /* ---------- plano ---------- */
+  let planOpen = false;
+  function renderPlanOpen() {
+    $('planDrawer').hidden = !planOpen;
+    $('togglePlan').setAttribute('aria-expanded', String(planOpen));
+    $('togglePlan').textContent = planOpen ? 'Fechar fórmula' : 'Editar fórmula';
+  }
+  $('togglePlan').addEventListener('click', () => { planOpen = !planOpen; renderPlanOpen(); if (planOpen) $('formula').focus(); });
   function renderPlan() {
     const s = subject();
     $('subjectName').value = s.name;
@@ -111,11 +138,12 @@
     $('pass').value = s.pass;
     $('maxGrade').value = s.max;
     renderDanger(false);
+    renderPlanOpen();
   }
   function renderDanger(confirming) {
     const s = subject();
     $('dangerZone').innerHTML = confirming
-      ? `<span>Apagar “${esc(s.name)}” e todas as notas dela?</span><button type="button" class="danger-btn" id="delYes">Apagar de vez</button><button type="button" id="delNo">Cancelar</button>`
+      ? `<span>Apagar “${esc(s.name)}” e todas as notas dela?</span><button type="button" class="danger-btn" id="delYes">Apagar de vez</button><button type="button" class="ghost" id="delNo">Cancelar</button>`
       : '<button type="button" class="link danger-link" id="delAsk">Apagar esta matéria</button>';
   }
   $('dangerZone').addEventListener('click', (e) => {
@@ -125,26 +153,55 @@
     if (id === 'delYes') {
       state.subjects = state.subjects.filter((s) => s.id !== state.current);
       if (!state.subjects.length) state.subjects.push(blankSubject());
-      state.current = state.subjects[0].id; save(); renderAll();
+      state.current = state.subjects[0].id; save(); planOpen = false; renderAll();
     }
   });
-  $('subjectName').addEventListener('input', (e) => { const s = subject(); s.name = e.target.value; touch(s); renderTabs(); });
   function fitFormula() { const t = $('formula'); t.rows = Math.max(4, t.value.split('\n').length + 1); }
+  $('subjectName').addEventListener('input', (e) => { const s = subject(); s.name = e.target.value; touch(s); $('subjectTitle').textContent = s.name || 'Sem nome'; renderTabs(); });
   $('formula').addEventListener('input', (e) => { const s = subject(); s.formula = e.target.value; fitFormula(); touch(s); renderStructure(); });
   $('pass').addEventListener('input', (e) => { const s = subject(); s.pass = e.target.value; touch(s); paint(); });
   $('maxGrade').addEventListener('input', (e) => { const s = subject(); s.max = e.target.value; touch(s); renderSim(); paint(); });
 
-  /* ---------- notas ---------- */
+  /* ---------- notas, agrupadas pela média em que entram ---------- */
+  function varsOf(node, out) {
+    if (node.k === 'var') out.push(node.name);
+    else if (node.k === 'bin') { varsOf(node.a, out); varsOf(node.b, out); }
+    else if (node.k === 'neg') varsOf(node.a, out);
+    else if (node.k === 'call') node.args.forEach((x) => varsOf(x, out));
+    return out;
+  }
+  function groupsOf(plan) {
+    const inputIdx = {};
+    plan.inputs.forEach((inp, i) => { inputIdx[inp.name] = i; });
+    const placed = new Set();
+    const groups = [];
+    plan.defs.forEach((d) => {
+      if (!d.name) return;
+      const items = [];
+      varsOf(d.expr, []).forEach((n) => { if (n in inputIdx && !placed.has(n)) { placed.add(n); items.push(inputIdx[n]); } });
+      if (items.length) groups.push({ def: d, isFinal: d === plan.final, items });
+    });
+    return groups;
+  }
   let gradeSig = '';
+  let groupDefs = [];
   function renderGrades() {
     const s = subject();
     const plan = F.parsePlan(s.formula);
-    gradeSig = plan.inputs.map((i) => i.name).join('|');
-    if (!plan.inputs.length) { $('gradesTable').innerHTML = '<tbody><tr><td class="empty">A fórmula ainda não tem avaliações.</td></tr></tbody>'; return; }
-    $('gradesTable').innerHTML = '<thead><tr><th scope="col">Avaliação</th><th scope="col">Nota</th><th scope="col" class="num-col" title="Quanto cada ponto nessa avaliação soma na média final">Cada ponto vale</th></tr></thead><tbody>' +
-      plan.inputs.map((inp, i) => `<tr id="row-${i}"><th scope="row"><label for="g-${i}">${esc(inp.display)}</label></th>` +
-        `<td><input id="g-${i}" class="num-input grade" data-name="${esc(inp.name)}" inputmode="decimal" autocomplete="off" placeholder="não saiu" value="${esc(s.grades[inp.name] || '')}"></td>` +
-        `<td class="num-col impact" id="imp-${i}"></td></tr>`).join('') + '</tbody>';
+    gradeSig = plan.inputs.map((i) => i.name).join('|') + '#' + plan.defs.map((d) => d.name).join('|');
+    if (!plan.inputs.length) { groupDefs = []; $('gradesTable').innerHTML = '<p class="muted">A fórmula ainda não tem avaliações.</p>'; return; }
+    const groups = groupsOf(plan);
+    groupDefs = groups.map((g) => g.def.name);
+    $('gradesTable').innerHTML = groups.map((g, gi) =>
+      `<div class="group"><div class="group-head"><span class="group-name">${g.isFinal ? 'Direto na média final' : esc(g.def.display)}</span>` +
+      (g.isFinal ? '' : `<span class="group-val" id="gv-${gi}"></span>`) + '</div><div class="tiles">' +
+      g.items.map((i) => {
+        const inp = plan.inputs[i];
+        return `<label class="tile" id="row-${i}" for="g-${i}"><span class="tile-name">${esc(inp.display)}</span>` +
+          `<input id="g-${i}" class="grade" data-name="${esc(inp.name)}" inputmode="decimal" autocomplete="off" placeholder="?" value="${esc(s.grades[inp.name] || '')}" aria-label="Nota de ${esc(inp.display)}">` +
+          `<span class="tile-imp" id="imp-${i}"></span></label>`;
+      }).join('') + '</div></div>').join('') +
+      '<p class="muted small">Em cada nota: quanto 1 ponto nela soma na média final.</p>';
   }
   $('gradesTable').addEventListener('input', (e) => {
     if (!e.target.classList.contains('grade')) return;
@@ -166,9 +223,9 @@
     simSig = sig;
     const active = document.activeElement && document.activeElement.id;
     if (!a.plan.ok) { $('simRows').innerHTML = ''; return; }
-    if (!a.pending.length) { $('simRows').innerHTML = '<p class="hint">Todas as notas saíram. A média final já está fechada.</p>'; return; }
+    if (!a.pending.length) { $('simRows').innerHTML = '<p class="muted">Todas as notas saíram. A média final já está fechada.</p>'; return; }
     const step = a.maxG <= 10 ? 0.1 : a.maxG / 100;
-    $('simRows').innerHTML = '<p class="hint">Avaliações que ainda não saíram. Deixe em “descobrir” as que você quer calcular, ou suponha uma nota.</p>' +
+    $('simRows').innerHTML = '<p class="muted small">Ainda não saíram. Em “descobrir”, a página calcula o mínimo. Em “supor nota”, você testa um valor.</p>' +
       a.pending.map((p, i) => {
         const sim = s.sim[p.name] || { mode: 'x', value: '' };
         const fixed = sim.mode === 'fix';
@@ -220,6 +277,7 @@
     const s = subject();
     const a = analyse(s);
     $('exampleNote').hidden = !s.example;
+    $('subjectTitle').textContent = s.name || 'Sem nome';
 
     // Plano: erros e avaliações encontradas
     const errs = a.plan.errors.map((er) => `<li>Linha ${er.line}: ${esc(er.msg)}</li>`);
@@ -230,7 +288,7 @@
       ? 'Avaliações: ' + a.plan.inputs.map((i) => `<span class="pill${a.known[i.name] !== undefined ? ' done' : ''}">${esc(i.display)}</span>`).join(' ') + (a.plan.final && a.plan.final.name !== 'MÉDIA FINAL' ? ` · média final: <b>${esc(a.plan.final.display)}</b>` : '')
       : '';
 
-    // Notas: impacto por ponto e notas inválidas
+    // Notas
     a.plan.inputs.forEach((inp, i) => {
       const cell = $('imp-' + i);
       const input = $('g-' + i);
@@ -241,21 +299,23 @@
         input.title = bad ? 'Use um número, como 7,5' : over ? `Acima da nota máxima (${fmtShort(a.maxG)})` : '';
         $('row-' + i).classList.toggle('done', a.known[inp.name] !== undefined);
       }
-      if (cell) cell.textContent = a.impact && isFinite(a.impact[inp.name]) ? '+' + fmt(a.impact[inp.name]) : '–';
+      if (cell) cell.textContent = a.impact && isFinite(a.impact[inp.name]) ? '+' + fmt(a.impact[inp.name]) + '/pt' : '';
+    });
+    groupDefs.forEach((name, gi) => {
+      const el = $('gv-' + gi);
+      if (el) el.textContent = a.secured && name in a.secured.vars ? fmt(a.secured.vars[name]) + ' até agora' : '';
     });
     const nKnown = Object.keys(a.known).length;
     $('notasCount').textContent = a.plan.inputs.length ? `${nKnown} de ${a.plan.inputs.length} lançadas` : '';
-    $('partials').innerHTML = a.secured && a.plan.defs.length > 1
-      ? 'Parciais com o que falta valendo 0: ' + a.plan.defs.slice(0, -1).map((d) => `<span class="mono">${esc(d.display)} ${fmt(a.secured.vars[d.name])}</span>`).join(' · ')
-      : '';
 
     // Resumo
     const ok = a.plan.ok && !a.evalError && a.secured;
     $('resumoBody').hidden = !ok;
     $('resumoErro').hidden = !!ok;
+    const st = statusOf(a);
+    setChip($('statusChip'), st.kind, st.text);
     if (!ok) {
-      $('resumoErro').textContent = 'A fórmula tem um problema. Veja o aviso em “Plano de ensino”.';
-      setChip($('statusChip'), '', '');
+      $('resumoErro').textContent = 'A fórmula tem um problema. Abra “Editar fórmula” para ver o aviso.';
     } else {
       const g = a.secured.final, pass = a.pass;
       $('garantido').textContent = fmt(g);
@@ -267,16 +327,14 @@
         $('projecao').textContent = fmt(a.projection);
       }
       const top = Math.max(a.ceiling, pass || 0, 1e-9);
-      $('barMax').textContent = fmtShort(a.ceiling);
-      $('barGarantido').style.width = Math.max(0, Math.min(100, (g / top) * 100)) + '%';
-      $('barPossivel').style.width = Math.max(0, Math.min(100, (a.best / top) * 100)) + '%';
-      $('barMeta').hidden = pass === null;
-      if (pass !== null) $('barMeta').style.left = Math.min(100, (pass / top) * 100) + '%';
-      if (pass === null) setChip($('statusChip'), '', '');
-      else if (g >= pass - 1e-9) setChip($('statusChip'), 'good', a.pending.length ? 'Já aprovado' : 'Aprovado');
-      else if (a.best < pass - 1e-9) setChip($('statusChip'), 'bad', a.pending.length ? 'Não dá mais para passar' : 'Reprovado');
-      else setChip($('statusChip'), 'warn', `Faltam ${fmt(pass - g)} na média`);
+      $('gSecured').setAttribute('stroke-dasharray', ringLen(80, g / top));
+      $('gPossible').setAttribute('stroke-dasharray', ringLen(80, a.best / top));
+      $('gMeta').style.display = pass === null ? 'none' : '';
+      if (pass !== null) $('gMeta').setAttribute('transform', `rotate(${Math.min(1, pass / top) * 360} 100 100)`);
+      $('gauge').classList.toggle('is-good', st.kind === 'good');
+      $('gauge').classList.toggle('is-bad', st.kind === 'bad');
     }
+    renderTabs();
 
     // Simulador
     if (document.activeElement !== $('meta')) $('meta').value = s.meta !== null ? s.meta : s.pass;
@@ -345,7 +403,8 @@
   /* ---------- estrutura ---------- */
   function renderStructure() {
     const s = subject();
-    const sig = F.parsePlan(s.formula).inputs.map((i) => i.name).join('|');
+    const plan = F.parsePlan(s.formula);
+    const sig = plan.inputs.map((i) => i.name).join('|') + '#' + plan.defs.map((d) => d.name).join('|');
     if (sig !== gradeSig) renderGrades();
     renderSim();
     paint();
