@@ -17,7 +17,7 @@ Pare quando atingir os critérios, esgotar o orçamento ou encontrar bloqueio re
 
 ## Encerramento obrigatório
 Felipe confirmou o crédito público `Felipe (fkumagae)`, ID `fkumagae`, para as contribuições que ele solicitar e conduzir. Ao encerrar essas entregas, inclua ou atualize a ficha em contributions/ no mesmo PR, com evidências, escopo humano e IA em tools. Não duplicar fichas por correções ou merges, não atribuir trabalho de outros a Felipe e confirmar participantes adicionais quando houver.
-Salve o progresso em branch remota e PR (rascunho se incompleto). Registre alterações, verificações realmente feitas, limitações, bloqueios e próximo passo usando templates/HANDOFF.md. Nunca inclua credenciais. Se não puder enviar, entregue patch/texto e declare que ainda não está no repositório.
+Salve o progresso em branch remota e PR (rascunho se incompleto). Registre alterações, verificações realmente feitas, limitações, bloqueios e próximo passo usando docs/templates/HANDOFF.md. Nunca inclua credenciais. Se não puder enviar, entregue patch/texto e declare que ainda não está no repositório.
 Atualize STATUS e a Issue pertinente; não marque projeto como concluído por terminar uma sessão. Não marque tarefa concluída sem atender os critérios. Deixe tarefas incompletas explicitamente retomáveis.
 
 ## Limites
@@ -30,6 +30,6 @@ Não presuma que todo aplicativo carrega AGENTS.md automaticamente: peça leitur
 
 ## Atribuição humana obrigatória
 Antes de enviar uma contribuição, leia docs/CONTRIBUTIONS.md. Identifique explicitamente quem participou do trabalho e o nome público ou @GitHub que essa pessoa confirmou. Nunca deduza autoria pela conta autenticada, proprietário do repositório, autor do commit/PR ou pela IA usada. Não atribua a coautores não confirmados.
-Reutilize IDs em contributors.json; registre a entrega em contributions/<id>.json usando templates/CONTRIBUTION.json, com ideias relacionadas, tipos, participantes, origem da confirmação e evidências. A IA entra apenas em tools, nunca em participants. Não altere o autor técnico do commit nem invente e-mails para simular uma pessoa: a atribuição pública do site é explícita e separada do Git.
+Reutilize IDs em contributions/contributors.json; registre a entrega em contributions/<id>.json usando docs/templates/CONTRIBUTION.json, com ideias relacionadas, tipos, participantes, origem da confirmação e evidências. A IA entra apenas em tools, nunca em participants. Não altere o autor técnico do commit nem invente e-mails para simular uma pessoa: a atribuição pública do site é explícita e separada do Git.
 Se a identidade estiver ausente ou ambígua, pergunte qual nome público/@GitHub e quais coautores devem receber crédito. Continue o trabalho independente; se não houver resposta, registre attribution=pending e participants=[] e declare a pendência. Nunca preencha uma pessoa por conveniência.
 Uma ficha representa uma entrega lógica aceita, não cada commit, teste ou chamada de IA. Inclua a ficha no PR, valide o build e peça que os participantes revisem a atribuição. Para confirmação posterior, atualize a ficha existente. Não invente atribuições retroativas.

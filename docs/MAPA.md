@@ -3,7 +3,7 @@
 A página é estática e não usa APIs pagas, tokens de acesso nem dependências JavaScript externas. Inclui grafo, busca textual, filtro de status, cartões acessíveis e resumo com próxima contribuição.
 
 ## Atualizar
-Edite o status e as seções Registro e Próxima contribuição no IDEA.md. O script lê essas seções automaticamente. As relações ficam em web/relations.json com source, target, label e kind (documented ou suggested). Relações sugeridas aparecem tracejadas. Não representar afinidade como dependência ou fusão de projetos.
+Edite o status e as seções Registro e Próxima contribuição no IDEA.md. O script lê essas seções automaticamente. As relações ficam em site/relations.json com source, target, label e kind (documented ou suggested). Relações sugeridas aparecem tracejadas. Não representar afinidade como dependência ou fusão de projetos.
 
 ## Publicar
 1. Incorporar este PR na main.

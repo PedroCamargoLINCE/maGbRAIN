@@ -53,7 +53,7 @@ def source_files(root):
             continue
         if not path.is_file():
             continue
-        if path.suffix == '.md' or (rel.parts[0] == 'contributions' and path.suffix == '.json'):
+        if path.suffix == '.md' or (rel.parts[0] == 'contributions' and path.suffix == '.json' and path.name != 'contributors.json'):
             yield path
 
 

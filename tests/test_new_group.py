@@ -11,10 +11,10 @@ class NewGroupTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             target = new_group.create(Path(tmp) / 'casa', 'Caderno <da> Casa', 'https://github.com/amigos/caderno')
             self.assertEqual(list((target / 'ideas').glob('*/IDEA.md')), [])
-            self.assertEqual(json.loads((target / 'contributors.json').read_text()), [])
+            self.assertEqual(json.loads((target / 'contributions/contributors.json').read_text()), [])
             self.assertFalse((target / 'projects/REP-0012-cerebro-mosca').exists())
             self.assertNotIn('Felipe', (target / 'AGENTS.md').read_text())
-            index = (target / 'web/index.html').read_text()
+            index = (target / 'site/index.html').read_text()
             self.assertIn('<title>Caderno &lt;da&gt; Casa · Mapa de ideias</title>', index)
             self.assertIn('https://github.com/amigos/caderno', index)
             self.assertNotIn('PedroCamargoLINCE', index)

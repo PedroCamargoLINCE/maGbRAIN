@@ -6,7 +6,7 @@ class ContributionsTest(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name)
   (self.root/'contributions').mkdir();(self.root/'proof.md').write_text('test')
-  (self.root/'contributors.json').write_text(json.dumps([{'id':'ana','name':'Ana'},{'id':'bia','name':'Bia'}]))
+  (self.root/'contributions/contributors.json').write_text(json.dumps([{'id':'ana','name':'Ana'},{'id':'bia','name':'Bia'}]))
   self.record=dict(id='delivery',date='2026-11-04',ideas=['REP-0001','REP-0002'],summary='Entrega',types=['code','test'],participants=['ana','bia'],attribution='confirmed',attribution_source='Confirmed in test',evidence=[{'label':'Proof','path':'proof.md'}])
  def tearDown(self): self.tmp.cleanup()
  def write(self): (self.root/'contributions/a.json').write_text(json.dumps(self.record))

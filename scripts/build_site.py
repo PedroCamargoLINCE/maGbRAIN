@@ -23,14 +23,14 @@ def build():
     people, contributions=load_contributions(ROOT, ids)
     for record in records:
         record['activity']=aggregate(record['id'],people,contributions)
-    links=json.loads((ROOT/'web/relations.json').read_text())
+    links=json.loads((ROOT/'site/relations.json').read_text())
     links=[l for l in links if l['source'] in ids and l['target'] in ids]
     out=ROOT/'dist'; out.mkdir(exist_ok=True)
-    html=(ROOT/'web/index.html').read_text()
+    html=(ROOT/'site/index.html').read_text()
     data=json.dumps(dict(ideas=records,links=links,people=people,contributions=contributions),ensure_ascii=False).replace('<','\\u003c')
     (out/'index.html').write_text(html.replace('/*CATALOG*/',data))
     (out/'.nojekyll').touch()
-    shutil.copytree(ROOT/'assets', out/'assets', dirs_exist_ok=True)
+    shutil.copytree(ROOT/'site/assets', out/'assets', dirs_exist_ok=True)
     # Published project pages; a fresh maGbRAIN (scripts/new_group.py) has none of them yet.
     for source, target in [('projects/REP-0014-mag-batas/app','mag-batas'),('projects/REP-0016-rv1a/app','rv1a'),('projects/REP-0012-cerebro-mosca/app','cerebro-mosca'),('projects/REP-0019-notas-semestre/app','notas-semestre')]:
         if (ROOT/source).is_dir():
