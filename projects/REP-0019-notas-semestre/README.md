@@ -20,7 +20,7 @@ Abra `app/index.html` no navegador, sem instalação. Na publicação do mapa, a
 As notas ficam só no `localStorage` do navegador. Nada é enviado e nada vai para o repositório.
 
 ## Limites
-O cálculo supõe que tirar mais nunca diminui a média (pesos positivos). Uma única nota máxima por matéria. Sem exame/recuperação, arredondamento oficial ou frequência.
+O cálculo supõe que tirar mais nunca diminui a média (pesos positivos). Uma única nota máxima por matéria. Sem exame/recuperação, arredondamento oficial ou frequência; planejados em [PROXIMOS-PASSOS.md](PROXIMOS-PASSOS.md).
 
 ## Verificação
 `node projects/REP-0019-notas-semestre/test-formula.cjs`

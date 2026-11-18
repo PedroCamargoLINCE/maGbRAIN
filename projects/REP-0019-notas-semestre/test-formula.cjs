@@ -43,3 +43,23 @@ assert.ok(cyc.errors.some((e) => /circular/.test(e.msg)));
 assert.equal(F.parseGrade('7,5'), 7.5);
 assert.equal(F.parseGrade(''), null);
 console.log('PASS fórmula do plano, cálculo, "quanto preciso" e erros');
+
+// Fórmulas reais de quatro planos de ensino (UNESP), transcritas para a sintaxe do piloto.
+// Cálculo: N1/N2 com trabalhos; prova de recuperação substitui N1 ou N2 só se for vantajoso.
+const calc = F.parsePlan('MT = media(T1, T2)\nN1 = 0,9*P1 + 0,1*MT\nN2 = 0,9*P2 + 0,1*MT\nMF = max(N1 + N2; max(N1, N2) + REC) / 2');
+assert.ok(calc.ok, JSON.stringify(calc.errors));
+near(F.evaluate(calc, { T1: 8, T2: 6, P1: 3, P2: 6, REC: 0 }).final, (0.9 * 3 + 0.7 + 0.9 * 6 + 0.7) / 2, 'cálculo sem rec');
+near(F.evaluate(calc, { T1: 8, T2: 6, P1: 3, P2: 6, REC: 7 }).final, (0.9 * 6 + 0.7 + 7) / 2, 'cálculo rec substitui N1');
+// Controle de processos: média ponderada de P1..P3.
+const cpi = F.parsePlan('MF = 0,4*P1 + 0,4*P2 + 0,2*P3');
+near(F.evaluate(cpi, { P1: 5, P2: 6, P3: 10 }).final, 6.4, 'controle');
+// Laboratório: projeto e média de n relatórios.
+const lab = F.parsePlan('MR = media(R1, R2, R3, R4, R5)\nMF = 0,3*Projeto + 0,7*MR');
+assert.ok(lab.ok);
+// Circuitos: MP e MT; recuperação Pn* = min((Pn+Pr)/2; 5).
+const ce = F.parsePlan('P1x = min((P1 + PR1)/2; 5)\nMP = media(P1x, P2)\nMT = media(T1, T2)\nMF = 0,9*MP + 0,1*MT');
+near(F.evaluate(ce, { P1: 2, PR1: 9, P2: 6, T1: 8, T2: 8 }).final, 0.9 * 5.5 + 0.8, 'circuitos com rec');
+// Exame (regra comum): MFA = (MF + NE)/2 ≥ 5  →  NE ≥ 10 − MF.
+const exame = F.parsePlan('MFA = (MF + NE) / 2');
+near(F.solve(exame, { MF: 3.5 }, ['NE'], 5, 10).x, 6.5, 'exame');
+console.log('PASS fórmulas de quatro planos de ensino reais');
