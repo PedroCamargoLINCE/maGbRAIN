@@ -6,6 +6,8 @@ Related idea: [REP-0009](../../ideas/REP-0009-limite-reels/IDEA.md) · [Issue #1
 
 **Android:** version 0.2.0 adds an Edge Android compatibility candidate and CRX3 build. Read the [Android support matrix and installation guide](ANDROID.md). Chrome Android cannot run this extension; Android device validation remains pending.
 
+**Real-use test (pt-BR):** [TESTE-REAL.md](TESTE-REAL.md) is the step-by-step check on logged-in sites and on an Android phone, with a results table to paste into the Issues.
+
 ## Install in Chrome or Edge
 
 1. Download this branch/repository and unzip it, or build the ZIP below and extract it. Keep the extracted folder in a permanent location.
