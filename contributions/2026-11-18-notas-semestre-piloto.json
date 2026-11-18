@@ -1,0 +1,30 @@
+{
+  "id": "2026-11-18-notas-semestre-piloto",
+  "date": "2026-11-18",
+  "ideas": [
+    "REP-0019"
+  ],
+  "summary": "Registro da ideia do acompanhador de notas do semestre e piloto web com fórmula por matéria, notas lançadas e cálculo de quanto falta tirar.",
+  "types": [
+    "ideation",
+    "code"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Proponente pediu o registro e o piloto numa sessão com Claude Code em 18/11/2026; crédito no perfil PedroCamargoLINCE, já confirmado por ela em 18/11/2026 (ficha 2026-11-18-ideias-docker-rag).",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Proposta REP-0019",
+      "path": "ideas/REP-0019-notas-semestre/IDEA.md"
+    },
+    {
+      "label": "Piloto e verificações",
+      "path": "projects/REP-0019-notas-semestre/handoffs/2026-11-18-piloto.md"
+    }
+  ]
+}
