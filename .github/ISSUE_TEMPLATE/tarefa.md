@@ -16,5 +16,5 @@ title: '[REP-XXXX] '
 ## Orçamento e limites
 
 ## Coordenação
-Participante, branch/PR e previsão de retomada. Comentar antes de começar.
+Quem pegar: coloque-se como responsável (Assignee, à direita) e comente branch/PR e previsão de retomada. Se a tarefa está aberta para qualquer pessoa, aplique a etiqueta `quero-ajuda`: ela aparece em destaque no mapa.
 
