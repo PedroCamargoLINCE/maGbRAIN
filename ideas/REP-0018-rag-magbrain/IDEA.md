@@ -1,7 +1,7 @@
 ---
 id: REP-0018
 title: "RAG replicável sobre a base do maGbRAIN"
-status: inbox
+status: trying
 owner: null
 site: ""
 ---
@@ -18,4 +18,4 @@ Proposta trazida ao mapa em 18/11/2026, a pedido de uma participante, numa sess�
 Sugestões, não decisões humanas: usar apenas ferramentas gratuitas e locais (embeddings e modelo de código aberto rodando na máquina, índice em arquivo) e indexar só o conteúdo público do repositório. Pode ser empacotado junto da REP-0017 para que cada grupo tenha o seu próprio RAG.
 
 ## Próxima contribuição (opcional)
-Escolher uma pilha gratuita e testar perguntas simples sobre as ideias registradas.
+Primeira versão em `scripts/rag.py`; ver [docs/RAG.md](../../docs/RAG.md) e [projects/REP-0018-rag-magbrain](../../projects/REP-0018-rag-magbrain/STATUS.md). Próximo passo: baixar um modelo no Ollama numa máquina do grupo e testar perguntas reais.

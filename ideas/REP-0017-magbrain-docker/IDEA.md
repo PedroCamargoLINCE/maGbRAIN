@@ -1,7 +1,7 @@
 ---
 id: REP-0017
 title: "maGbRAIN em Docker para outros grupos"
-status: inbox
+status: trying
 owner: null
 site: ""
 ---
@@ -18,4 +18,4 @@ Proposta trazida ao mapa em 18/11/2026, a pedido de uma participante, numa sess�
 Sugestões, não decisões humanas: separar o que é estrutura reutilizável (templates, scripts de build, site, validação de fichas) do conteúdo específico deste grupo (ideias, contribuidores, projetos), e oferecer uma imagem ou um repositório-modelo que comece vazio. Avaliar se um template de repositório do GitHub já resolve parte do objetivo sem Docker.
 
 ## Próxima contribuição (opcional)
-Listar o que um grupo novo precisa para começar do zero e testar a subida com uma pessoa de fora.
+Primeira versão em `Dockerfile`, `docker-compose.yml` e `scripts/new_group.py`; ver [docs/DOCKER.md](../../docs/DOCKER.md) e [projects/REP-0017-magbrain-docker](../../projects/REP-0017-magbrain-docker/STATUS.md). Próximo passo: uma pessoa de fora do grupo seguir o guia do zero e registrar onde travou.
