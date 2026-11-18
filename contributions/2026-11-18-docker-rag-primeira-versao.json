@@ -1,17 +1,40 @@
 {
   "id": "2026-11-18-docker-rag-primeira-versao",
   "date": "2026-11-18",
-  "ideas": ["REP-0017", "REP-0018"],
+  "ideas": [
+    "REP-0017",
+    "REP-0018"
+  ],
   "summary": "Primeira versão do maGbRAIN em Docker (site, criação de caderno vazio para outro grupo) e de um RAG gratuito com busca BM25 e resposta opcional por modelo local.",
-  "types": ["code", "test", "documentation"],
-  "participants": [],
-  "attribution": "pending",
-  "attribution_source": "Execução pedida por uma participante numa sessão com Claude Code em 18/11/2026. Nome público ou @GitHub para crédito ainda não confirmado.",
-  "tools": ["Claude Code"],
+  "types": [
+    "code",
+    "test",
+    "documentation"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Participante pediu e conduziu a execução numa sessão com Claude Code e confirmou em 18/11/2026 o crédito para o perfil PedroCamargoLINCE.",
+  "tools": [
+    "Claude Code"
+  ],
   "evidence": [
-    {"label": "Handoff Docker", "path": "projects/REP-0017-magbrain-docker/handoffs/2026-11-18-primeira-versao.md"},
-    {"label": "Handoff RAG", "path": "projects/REP-0018-rag-magbrain/handoffs/2026-11-18-primeira-versao.md"},
-    {"label": "Guia Docker", "path": "docs/DOCKER.md"},
-    {"label": "Guia RAG", "path": "docs/RAG.md"}
+    {
+      "label": "Handoff Docker",
+      "path": "projects/REP-0017-magbrain-docker/handoffs/2026-11-18-primeira-versao.md"
+    },
+    {
+      "label": "Handoff RAG",
+      "path": "projects/REP-0018-rag-magbrain/handoffs/2026-11-18-primeira-versao.md"
+    },
+    {
+      "label": "Guia Docker",
+      "path": "docs/DOCKER.md"
+    },
+    {
+      "label": "Guia RAG",
+      "path": "docs/RAG.md"
+    }
   ]
 }

@@ -1,6 +1,6 @@
 # Passagem de trabalho
 
-- Data e participante: 2026-11-18, autoria a confirmar
+- Data e participante: 2026-11-18, PedroCamargoLINCE
 - Agente/ambiente (opcional): Claude Code, contêiner Linux com Docker
 - Ideia e Issue: REP-0017, sem Issue
 - Branch, commit e PR: claude/project-thread-zrl2nu, PR #49
