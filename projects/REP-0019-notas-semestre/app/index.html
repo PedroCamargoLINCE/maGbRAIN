@@ -19,6 +19,18 @@
   </header>
 
   <nav class="overview" id="tabs" aria-label="Matérias"></nav>
+  <input type="file" id="pdfInput" accept="application/pdf,.pdf" multiple hidden>
+
+  <section class="import" id="importPanel" aria-labelledby="importTitle" hidden>
+    <div class="import-head">
+      <div>
+        <h3 id="importTitle" class="card-title">Planos de ensino lidos</h3>
+        <p class="muted small">Confira cada fórmula com o trecho do plano antes de criar a matéria. Os PDFs são lidos aqui no navegador e não são enviados para lugar nenhum.</p>
+      </div>
+      <div class="import-actions"><button type="button" class="primary" id="importAll">Criar todas</button><button type="button" class="ghost" id="importClose">Descartar</button></div>
+    </div>
+    <div id="importList" class="import-list"></div>
+  </section>
 
   <section class="detail" aria-labelledby="subjectTitle">
     <div class="detail-head">
@@ -124,6 +136,7 @@
   </footer>
 </div>
 <script src="formula.js"></script>
+<script src="syllabus.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

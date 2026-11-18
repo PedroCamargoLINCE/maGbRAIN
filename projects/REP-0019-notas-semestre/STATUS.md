@@ -1,5 +1,5 @@
 # Estado
 
-2026-11-18 · trying. Piloto em `app/` com fórmula por matéria, notas, resumo e "quanto preciso tirar". Teste de contas (`test-formula.cjs`, inclui fórmulas de quatro planos de ensino reais) e teste de navegador passaram. Falta usar com matérias reais e conferir o endereço `notas-semestre/` depois do merge.
+2026-11-18 · trying. Piloto em `app/`: painel com uma matéria por cartão, envio dos planos de ensino em PDF (fórmula proposta e conferida antes de criar), notas, resumo e "quanto preciso tirar". Testes `test-formula.cjs` e `test-syllabus.cjs` passam; teste de navegador com quatro planos reais passou. Falta usar com matérias reais e conferir o endereço `notas-semestre/` depois do merge.
 
-Próxima contribuição disponível: leitura dos planos de ensino em PDF. Recuperação e exame só registrados, por decisão da proponente. Ver [PROXIMOS-PASSOS.md](PROXIMOS-PASSOS.md).
+Próxima contribuição disponível: testar a leitura de PDF com planos de outros departamentos e adicionar "copiar prompt" para os que não forem entendidos. Recuperação e exame só registrados, por decisão da proponente. Ver [PROXIMOS-PASSOS.md](PROXIMOS-PASSOS.md).

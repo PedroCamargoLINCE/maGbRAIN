@@ -109,6 +109,32 @@ h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); font-weight: 800; letter-spacing: -0
 .tab.bad .g-secured, .gauge.is-bad .g-secured { stroke: var(--bad); }
 .g-meta { stroke: var(--ink); stroke-width: 3.5; stroke-linecap: round; }
 
+/* Planos de ensino em PDF */
+.tab.upload .plus { background: var(--mark); color: var(--mark-ink); }
+.import { background: var(--surface); border: 1.5px solid var(--mark); border-radius: var(--r-lg); padding: 20px; display: flex; flex-direction: column; gap: 16px; box-shadow: var(--shadow); }
+.import-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+.import-head > div:first-child { flex: 1 1 280px; display: flex; flex-direction: column; gap: 4px; }
+.import-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.import-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 14px; }
+.imp-card { background: var(--bg); border-radius: var(--r-md); padding: 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.imp-card.loading { flex-direction: row; align-items: center; gap: 12px; }
+.imp-card.loading p, .imp-card.error p { margin: 0; }
+.imp-card.error { background: var(--bad-soft); color: var(--bad); align-items: flex-start; }
+.imp-top { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.imp-top .grow { flex: 1 1 200px; }
+.imp-card input:not(.num-input), .imp-card textarea { width: 100%; border: 1.5px solid var(--line); border-radius: 10px; padding: 8px 12px; background: var(--surface); }
+.imp-card textarea { font-family: var(--f-mono); font-size: 0.84rem; line-height: 1.65; resize: vertical; }
+.imp-card .num-input { background: var(--surface); width: 5em; }
+.imp-card input:focus, .imp-card textarea:focus { border-color: var(--accent); outline: none; }
+.imp-check { margin: 0; font-size: 0.82rem; color: var(--muted); line-height: 2; }
+.bad-text { color: var(--bad); }
+.excerpt summary { cursor: pointer; color: var(--accent); font-size: 0.85rem; }
+.excerpt pre { margin: 8px 0 0; max-height: 240px; overflow: auto; white-space: pre-wrap; font-family: var(--f-mono); font-size: 0.76rem; line-height: 1.55; background: var(--surface); border-radius: 10px; padding: 10px 12px; color: var(--muted); }
+.imp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.spinner { width: 18px; height: 18px; border-radius: 50%; border: 3px solid var(--accent-soft); border-top-color: var(--accent); animation: spin 0.8s linear infinite; flex: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
+
 /* Matéria aberta */
 .detail { display: flex; flex-direction: column; gap: 16px; }
 .detail-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; }

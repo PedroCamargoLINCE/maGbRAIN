@@ -37,7 +37,10 @@ Cada matéria passa a ter três fases, mostradas em ordem no painel:
 
 No "E se…?", REC, Pr e NE viram avaliações como as outras: dá para perguntar "quanto preciso na recuperação" ou "quanto preciso no exame".
 
-## Ler os planos em PDF (proposta)
+## Ler os planos em PDF
+
+**Feito em 18/11/2026** (passos 1 a 4 abaixo, em `app/syllabus.js`): testado com os quatro planos, que viraram as quatro fórmulas da tabela acima sem edição. O passo 5 (copiar prompt) continua pendente.
+
 Tudo no navegador, sem servidor e sem custo, para que as notas e os PDFs não saiam do computador do aluno.
 
 1. Enviar vários PDFs de uma vez. Ler o texto com pdf.js.
@@ -47,9 +50,10 @@ Tudo no navegador, sem servidor e sem custo, para que as notas e os PDFs não sa
 5. Quando as regras não entenderem, oferecer "copiar prompt": o aluno cola o trecho num assistente que já usa e cola de volta a fórmula. É o mesmo caminho da REP-0018 para não pagar API.
 
 ## Entregas sugeridas, em ordem
-1. Upload de PDFs com extração do trecho e do nome da disciplina, com edição manual da fórmula.
-2. Tradução automática do trecho para a fórmula, testada com estes quatro planos e outros que o grupo juntar.
-3. Exame e recuperação, só quando a proponente decidir retomar (ver decisão acima).
+1. ~~Upload de PDFs com extração do trecho e do nome da disciplina, com edição manual da fórmula.~~ Feito.
+2. ~~Tradução automática do trecho para a fórmula.~~ Feito para os padrões dos quatro planos; testar com outros planos que o grupo juntar.
+3. "Copiar prompt" para quando a leitura automática não entender o plano.
+4. Exame e recuperação, só quando a proponente decidir retomar (ver decisão acima).
 
 ## Perguntas em aberto
 - Laboratório: a fórmula com REC vale para todos ou só para quem faz recuperação? Se a nota da recuperação for pior, a média cai?

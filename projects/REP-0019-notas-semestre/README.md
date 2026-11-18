@@ -5,6 +5,10 @@ Objetivo: parar de recalcular a média à mão a cada nota nova. Cada matéria g
 ## Uso
 Abra `app/index.html` no navegador, sem instalação. Na publicação do mapa, a página fica em `notas-semestre/`.
 
+**Atalho com os planos de ensino em PDF:** em **Enviar planos de ensino**, escolha (ou arraste) um ou vários PDFs. A página lê o texto no próprio navegador, acha o nome da disciplina, a média de aprovação e as equações da seção "Critérios de Avaliação" (parando antes de recuperação e exame) e propõe a fórmula. Confira com o trecho original e clique em **Criar matéria** ou **Criar todas**. O leitor de PDF (pdf.js 3.11.174) é baixado do cdnjs na primeira vez; PDFs escaneados, sem texto, não funcionam.
+
+Para escrever a fórmula à mão:
+
 1. Crie a matéria em **Nova matéria** e, em **Editar fórmula**, escreva a fórmula, uma linha por média:
    ```
    MP = media(P1, P2, P3)
@@ -24,5 +28,7 @@ O cálculo supõe que tirar mais nunca diminui a média (pesos positivos). Uma �
 
 ## Verificação
 `node projects/REP-0019-notas-semestre/test-formula.cjs`
+
+`node projects/REP-0019-notas-semestre/test-syllabus.cjs`
 
 `python scripts/build_site.py`

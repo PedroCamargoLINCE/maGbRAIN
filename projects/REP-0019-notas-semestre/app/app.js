@@ -108,11 +108,13 @@
         `</svg><span class="tab-text"><span class="tab-name">${esc(s.name || 'Sem nome')}</span>` +
         `<span class="tab-meta">${ok ? `<b>${fmt(a.secured.final)}</b> garantido · ${k}/${n} notas` : 'confira a fórmula'}</span>` +
         `<span class="tab-status">${esc(st.text)}</span></span></button>`;
-    }).join('') + '<button type="button" class="tab add" id="addSubject"><span class="plus" aria-hidden="true">+</span><span class="tab-text"><span class="tab-name">Nova matéria</span><span class="tab-meta">cole a fórmula do plano</span></span></button>';
+    }).join('') + '<button type="button" class="tab add upload" id="uploadPdf"><span class="plus" aria-hidden="true">↑</span><span class="tab-text"><span class="tab-name">Enviar planos de ensino</span><span class="tab-meta">PDF, um ou vários de uma vez</span></span></button>' +
+      '<button type="button" class="tab add" id="addSubject"><span class="plus" aria-hidden="true">+</span><span class="tab-text"><span class="tab-name">Nova matéria</span><span class="tab-meta">cole a fórmula do plano</span></span></button>';
   }
   $('tabs').addEventListener('click', (e) => {
     const b = e.target.closest('button');
     if (!b) return;
+    if (b.id === 'uploadPdf') { $('pdfInput').click(); return; }
     if (b.id === 'addSubject') {
       const s = blankSubject();
       state.subjects.push(s); state.current = s.id; save(); planOpen = true; renderAll();
@@ -413,6 +415,103 @@
     simSig = '';
     renderTabs(); renderPlan(); renderGrades(); renderSim(true); paint();
   }
+
+  /* ---------- planos de ensino em PDF ---------- */
+  const PDFJS = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
+  let pdfReady = null;
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const el = document.createElement('script');
+      el.src = src; el.onload = resolve; el.onerror = () => reject(new Error('sem conexão para carregar o leitor de PDF'));
+      document.head.appendChild(el);
+    });
+  }
+  function ensurePdf() {
+    if (!pdfReady) {
+      pdfReady = loadScript(PDFJS + 'pdf.min.js').then(() => loadScript(PDFJS + 'pdf.worker.min.js')).then(() => window.pdfjsLib);
+      pdfReady.catch(() => { pdfReady = null; });
+    }
+    return pdfReady;
+  }
+  let imports = [];
+  let importSeq = 0;
+  function readPdfs(files) {
+    const list = Array.from(files).filter((f) => /\.pdf$/i.test(f.name) || f.type === 'application/pdf');
+    if (!list.length) return;
+    list.forEach((file) => {
+      const item = { id: ++importSeq, fileName: file.name, status: 'lendo' };
+      imports.push(item);
+      ensurePdf()
+        .then((lib) => file.arrayBuffer().then((buf) => window.Syllabus.pdfLines(lib, new Uint8Array(buf))))
+        .then((lines) => {
+          if (lines.length < 5) throw new Error('Esse PDF não tem texto selecionável (talvez seja escaneado).');
+          const r = window.Syllabus.parseSyllabus(lines, F, file.name);
+          Object.assign(item, { status: 'ok', name: r.name, pass: r.pass, formula: r.formula, warnings: r.warnings, found: r.found, excerpt: r.excerpt });
+        })
+        .catch((err) => { item.status = 'erro'; item.error = err.message || String(err); })
+        .then(renderImports);
+    });
+    renderImports();
+  }
+  function importCheck(item) {
+    const plan = F.parsePlan(item.formula || '');
+    if (!plan.ok) return `<span class="bad-text">${plan.errors.length ? 'Linha ' + plan.errors[0].line + ': ' + esc(plan.errors[0].msg) : 'Sem fórmula ainda.'}</span>`;
+    return 'Avaliações: ' + plan.inputs.map((i) => `<span class="pill">${esc(i.display)}</span>`).join(' ');
+  }
+  function renderImports() {
+    const active = document.activeElement;
+    const keep = active && active.id && active.id.startsWith('imp-') ? { id: active.id, a: active.selectionStart, b: active.selectionEnd } : null;
+    $('importPanel').hidden = !imports.length;
+    const okCount = imports.filter((i) => i.status === 'ok').length;
+    $('importAll').hidden = okCount < 2;
+    $('importList').innerHTML = imports.map((it) => {
+      if (it.status === 'lendo') return `<article class="imp-card loading"><span class="spinner" aria-hidden="true"></span><p>Lendo <b>${esc(it.fileName)}</b>…</p></article>`;
+      if (it.status === 'erro') return `<article class="imp-card error"><p><b>${esc(it.fileName)}</b>: ${esc(it.error)}</p><button type="button" class="ghost" data-act="drop" data-id="${it.id}">Remover</button></article>`;
+      return `<article class="imp-card" data-id="${it.id}">` +
+        `<div class="imp-top"><label class="field grow" for="imp-name-${it.id}">Matéria<input id="imp-name-${it.id}" data-field="name" data-id="${it.id}" value="${esc(it.name)}" autocomplete="off"></label>` +
+        `<label class="field" for="imp-pass-${it.id}">Aprovação<input id="imp-pass-${it.id}" class="num-input" data-field="pass" data-id="${it.id}" value="${esc(it.pass)}" inputmode="decimal" autocomplete="off"></label></div>` +
+        `<label class="field" for="imp-f-${it.id}">Fórmula proposta<textarea id="imp-f-${it.id}" data-field="formula" data-id="${it.id}" rows="${Math.max(3, (it.formula || '').split('\n').length + 2)}" spellcheck="false">${esc(it.formula)}</textarea></label>` +
+        `<p class="imp-check" id="imp-v-${it.id}">${importCheck(it)}</p>` +
+        `<details class="excerpt"><summary>Ver o trecho do plano (${esc(it.fileName)})</summary><pre>${esc(it.excerpt || 'Não encontrei a seção de critérios de avaliação.')}</pre></details>` +
+        `<div class="imp-actions"><button type="button" class="primary" data-act="create" data-id="${it.id}">Criar matéria</button><button type="button" class="ghost" data-act="drop" data-id="${it.id}">Descartar</button></div>` +
+        '</article>';
+    }).join('');
+    if (keep && $(keep.id)) { const el = $(keep.id); el.focus(); try { el.setSelectionRange(keep.a, keep.b); } catch (e) { /* ignora */ } }
+  }
+  function createFromImport(it) {
+    state.subjects = state.subjects.filter((s) => !s.example);
+    const s = { id: uid(), name: (it.name || 'Matéria').trim(), formula: it.formula || '', pass: it.pass || '5', max: '10', grades: {}, sim: {}, meta: null };
+    state.subjects.push(s);
+    state.current = s.id;
+    imports = imports.filter((x) => x !== it);
+  }
+  $('pdfInput').addEventListener('change', (e) => { readPdfs(e.target.files); e.target.value = ''; });
+  $('importList').addEventListener('input', (e) => {
+    const it = imports.find((x) => String(x.id) === e.target.dataset.id);
+    if (!it || !e.target.dataset.field) return;
+    it[e.target.dataset.field] = e.target.value;
+    if (e.target.dataset.field === 'formula') $('imp-v-' + it.id).innerHTML = importCheck(it);
+  });
+  $('importList').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-act]');
+    if (!b) return;
+    const it = imports.find((x) => String(x.id) === b.dataset.id);
+    if (!it) return;
+    if (b.dataset.act === 'drop') imports = imports.filter((x) => x !== it);
+    if (b.dataset.act === 'create') { createFromImport(it); save(); planOpen = false; renderAll(); }
+    renderImports();
+  });
+  $('importAll').addEventListener('click', () => {
+    imports.filter((x) => x.status === 'ok').forEach(createFromImport);
+    save(); planOpen = false; renderAll(); renderImports();
+  });
+  $('importClose').addEventListener('click', () => { imports = []; renderImports(); });
+  document.addEventListener('dragover', (e) => { if (e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files')) e.preventDefault(); });
+  document.addEventListener('drop', (e) => {
+    if (!e.dataTransfer || !e.dataTransfer.files.length) return;
+    e.preventDefault();
+    readPdfs(e.dataTransfer.files);
+  });
 
   /* ---------- backup ---------- */
   function footMsg(t) { $('footMsg').textContent = t; }
