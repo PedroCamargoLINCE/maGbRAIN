@@ -41,6 +41,10 @@ Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório
 
 - [REP-0016 — Simulador RV-1A](ideas/REP-0016-rv1a/IDEA.md)
 
+- [REP-0017 — maGbRAIN em Docker para outros grupos](ideas/REP-0017-magbrain-docker/IDEA.md)
+
+- [REP-0018 — RAG replicável sobre a base do maGbRAIN](ideas/REP-0018-rag-magbrain/IDEA.md)
+
 ## Organização
 - `ideas/`: registros e origem; captura livre, sem obrigação de executar.
 - `projects/`: entregas, estado e decisões, criados quando houver trabalho concreto.
