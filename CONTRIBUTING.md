@@ -1,7 +1,7 @@
 # Como contribuir
 
 ## Capturar
-Use templates/IDEA.md. Escolha ID ainda livre, verifique branches/PRs abertos e confira colisões antes do merge. Preserve IDs depois de integrados. Etiquetas temáticas são livres.
+Use docs/templates/IDEA.md. Escolha ID ainda livre, verifique branches/PRs abertos e confira colisões antes do merge. Preserve IDs depois de integrados. Etiquetas temáticas são livres.
 
 ## Desenvolver e executar
 Crie Issue com objetivo, entrega, critérios verificáveis, dependências, orçamento e limites. Quem assume comenta escopo e previsão de retomada; GitHub não fornece bloqueio exclusivo de tarefa. Coordene antes de reassumir uma tarefa aparentemente abandonada.

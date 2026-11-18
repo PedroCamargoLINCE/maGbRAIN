@@ -14,7 +14,7 @@ ORIGINAL_REPO = 'https://github.com/PedroCamargoLINCE/maGbRAIN'
 ORIGINAL_PAGES = 'https://pedrocamargolince.github.io/maGbRAIN/'
 COPY = [
     'AGENTS.md', 'CONTRIBUTING.md', 'LICENSE', 'Dockerfile', 'docker-compose.yml', '.dockerignore', '.gitignore',
-    'templates', 'tests', 'web/index.html', 'assets',
+    'docs/templates', 'tests', 'site/index.html', 'site/assets',
     'scripts/build_site.py', 'scripts/contributions.py', 'scripts/rag.py', 'scripts/new_group.py', 'scripts/docker-entrypoint.sh',
     'docs/CONTRIBUTIONS.md', 'docs/PROMPTS.md', 'docs/MAPA.md', 'docs/DOCKER.md', 'docs/RAG.md',
     '.github/pull_request_template.md', '.github/ISSUE_TEMPLATE',
@@ -35,7 +35,7 @@ def readme(name, repo):
 Caderno coletivo de ideias do grupo, criado a partir do [maGbRAIN]({ORIGINAL_REPO}).
 
 {repo_line}## Como usar
-- Registre uma ideia copiando `templates/IDEA.md` para `ideas/REP-0001-nome/IDEA.md`.
+- Registre uma ideia copiando `docs/templates/IDEA.md` para `ideas/REP-0001-nome/IDEA.md`.
 - Veja o mapa com `docker compose up site` e abra http://localhost:8080 (ou `python scripts/build_site.py` e abra `dist/index.html`).
 - Pergunte à base com `docker compose up rag` e abra http://localhost:8081. Detalhes em [docs/RAG.md](docs/RAG.md).
 - Protocolo de contribuição e créditos: [CONTRIBUTING.md](CONTRIBUTING.md) e [docs/CONTRIBUTIONS.md](docs/CONTRIBUTIONS.md).
@@ -66,8 +66,8 @@ def create(target, name, repo=''):
     for folder in ('ideas', 'projects', 'contributions'):
         (target / folder).mkdir(exist_ok=True)
         (target / folder / '.gitkeep').touch()
-    (target / 'contributors.json').write_text('[]\n')
-    (target / 'web/relations.json').write_text('[]\n')
+    (target / 'contributions/contributors.json').write_text('[]\n')
+    (target / 'site/relations.json').write_text('[]\n')
     (target / 'README.md').write_text(readme(name, repo))
 
     # Regras específicas deste grupo não valem para o novo (ex.: crédito pré-confirmado de uma pessoa).
@@ -85,7 +85,7 @@ def create(target, name, repo=''):
             updated = text.replace(ORIGINAL_REPO, new_repo).replace(ORIGINAL_PAGES, new_pages)
             if updated != text:
                 path.write_text(updated)
-    index = target / 'web/index.html'
+    index = target / 'site/index.html'
     if index.exists():
         safe = html.escape(name)
         text = index.read_text()

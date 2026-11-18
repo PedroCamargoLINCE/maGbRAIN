@@ -4,8 +4,8 @@ O painel conta entregas registradas e incorporadas à main. Não usa linhas de c
 
 ## Registrar uma entrega
 1. Confirme quem participou e em quê. A pessoa pode fornecer nome público/apelido e, opcionalmente, usuário GitHub. Não pedir e-mail nem nome civil.
-2. Reutilize o ID estável em `contributors.json`. Para pessoa nova, adicione um objeto como `{ "id": "apelido-estavel", "name": "Nome público", "github": "usuario-opcional" }`; omita github quando não informado. Nunca atribua automaticamente ao proprietário do repositório, remetente técnico, bot ou modelo.
-3. Copie `templates/CONTRIBUTION.json` para `contributions/<id-unico>.json`. Preencha ideias, tipos, participantes, data real, resumo e evidências em arquivos existentes no repositório. Uma ficha por entrega lógica, não por commit ou rodada de IA.
+2. Reutilize o ID estável em `contributions/contributors.json`. Para pessoa nova, adicione um objeto como `{ "id": "apelido-estavel", "name": "Nome público", "github": "usuario-opcional" }`; omita github quando não informado. Nunca atribua automaticamente ao proprietário do repositório, remetente técnico, bot ou modelo.
+3. Copie `docs/templates/CONTRIBUTION.json` para `contributions/<id-unico>.json`. Preencha ideias, tipos, participantes, data real, resumo e evidências em arquivos existentes no repositório. Uma ficha por entrega lógica, não por commit ou rodada de IA.
 4. Em `attribution_source`, resuma como a participação foi confirmada, sem publicar conversa privada. `tools` registra a IA como ferramenta, nunca como pessoa.
 5. Inclua a ficha no mesmo PR da entrega. Após merge, a próxima publicação exibe o registro. Rode `python scripts/build_site.py`; a CI também valida as fichas nos PRs.
 

@@ -1,12 +1,12 @@
 # maGbRAIN 🧠⚡
 
-![Bancada de invenções da república: um cérebro inventor, um gato curioso e ideias improváveis.](assets/lab-banner.webp)
+![Bancada de invenções da república: um cérebro inventor, um gato curioso e ideias improváveis.](site/assets/lab-banner.webp)
 
 **Da ideia de madrugada ao “olha, funcionou!”**
 
 Um cérebro coletivo. Várias mãos. Uma quantidade questionável de café.
 
-[🗺️ Explorar o mapa](https://pedrocamargolince.github.io/maGbRAIN/) · [💡 Registrar uma ideia](templates/IDEA.md) · [🛠️ Contribuir](CONTRIBUTING.md)
+[🗺️ Explorar o mapa](https://pedrocamargolince.github.io/maGbRAIN/) · [💡 Registrar uma ideia](docs/templates/IDEA.md) · [🛠️ Contribuir](CONTRIBUTING.md)
 
 Laboratório coletivo de ideias da república: capturar, desenvolver e realizar, uma contribuição de cada vez.
 
@@ -14,9 +14,9 @@ Laboratório coletivo de ideias da república: capturar, desenvolver e realizar,
 
 ## Comece aqui
 1. Conte sua ideia a um agente e peça que leia [AGENTS.md](AGENTS.md).
-2. Registre em `ideas/<ID>-<nome>/IDEA.md`, usando o [modelo](templates/IDEA.md). Duas frases bastam.
+2. Registre em `ideas/<ID>-<nome>/IDEA.md`, usando o [modelo](docs/templates/IDEA.md). Duas frases bastam.
 3. Para trabalhar, escolha uma tarefa pequena, sinalize na Issue e use uma branch e PR.
-4. Ao encerrar, deixe evidências e uma [passagem de trabalho](templates/HANDOFF.md).
+4. Ao encerrar, deixe evidências e uma [passagem de trabalho](docs/templates/HANDOFF.md).
 
 Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório para escrever. Sem acesso, devem entregar o texto ou patch para um participante incorporar. Contas e assinaturas continuam independentes.
 
@@ -50,10 +50,13 @@ Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório
 ## Organização
 - `ideas/`: registros e origem; captura livre, sem obrigação de executar.
 - `projects/`: entregas, estado e decisões, criados quando houver trabalho concreto.
+- `contributions/`: fichas de crédito por entrega e a lista de pessoas (`contributors.json`).
+- `docs/`: guias, modelos (`docs/templates/`) e passagens de trabalho gerais (`docs/handoffs/`).
+- `site/`, `scripts/` e `tests/`: o mapa de ideias, as ferramentas que o geram e seus testes.
 - Issues: tarefas e responsáveis; PRs: contribuições revisáveis.
 - [CONTRIBUTING.md](CONTRIBUTING.md): protocolo e estados.
 - [Prompts](docs/PROMPTS.md): captura e retomada com qualquer agente.
-- [Importação](docs/IMPORT.md): cobertura e limites do ZIP.
+- [Importação](docs/handoffs/2026-11-04-importacao-inicial.md): cobertura e limites do ZIP.
 
 Comecem com até dois projetos em execução e testem uma entrega na vida real. O repositório é público: todo conteúdo submetido fica acessível publicamente.
 
@@ -70,9 +73,9 @@ Este repositório é disponibilizado sob a [Apache License 2.0](LICENSE).
 
 ## O foguete pode esperar. O próximo passo, não.
 
-<img src="assets/small-progress.webp" alt="Cérebro comemorando uma pequena contribuição enquanto o foguete ainda está em construção." width="320">
+<img src="site/assets/small-progress.webp" alt="Cérebro comemorando uma pequena contribuição enquanto o foguete ainda está em construção." width="320">
 
-Uma conversa não precisa construir o foguete inteiro. Uma medição, um desenho, uma revisão ou um teste já ajudam. Deixe uma [passagem de trabalho](templates/HANDOFF.md) e permita que outra pessoa continue.
+Uma conversa não precisa construir o foguete inteiro. Uma medição, um desenho, uma revisão ou um teste já ajudam. Deixe uma [passagem de trabalho](docs/templates/HANDOFF.md) e permita que outra pessoa continue.
 
 
 ## Crédito das contribuições

@@ -5,7 +5,7 @@ from datetime import date
 TYPES={'ideation','research','code','design','test','documentation','physical'}
 def load_contributions(root, idea_ids):
     root=Path(root)
-    people_path=root/'contributors.json'
+    people_path=root/'contributions/contributors.json'
     people=json.loads(people_path.read_text()) if people_path.exists() else []
     persons={}
     for p in people:
@@ -17,6 +17,7 @@ def load_contributions(root, idea_ids):
         persons[p['id']]=p
     records=[]; seen=set()
     for path in sorted((root/'contributions').glob('*.json')):
+        if path==people_path: continue
         c=json.loads(path.read_text())
         if not re.fullmatch(r'[a-z0-9][a-z0-9-]*',c.get('id','')) or c['id'] in seen: raise ValueError('Invalid/duplicate contribution ID')
         seen.add(c['id'])
