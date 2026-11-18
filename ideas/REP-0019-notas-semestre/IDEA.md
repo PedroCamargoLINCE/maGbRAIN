@@ -3,7 +3,7 @@ id: REP-0019
 title: "Acompanhador de notas do semestre"
 status: trying
 owner: null
-site: ""
+site: notas-semestre/
 ---
 
 # Acompanhador de notas do semestre
@@ -31,4 +31,4 @@ Proposta trazida ao mapa em 18/11/2026, numa sessão com Claude Code, com pedido
 Sugestões, não decisões humanas: cada matéria guarda a própria fórmula, escrita como no plano (uma linha por média, a última é a final); os pesos não precisam somar 1; as notas ficam só no navegador de quem usa, porque o repositório é público. Possíveis próximos passos: notas com valor máximo diferente por avaliação e acompanhamento de frequência.
 
 ## Próxima contribuição (opcional)
-Piloto em [projects/REP-0019-notas-semestre](../../projects/REP-0019-notas-semestre/README.md). Próximo passo: usar com as matérias reais deste semestre. Leitura dos planos de ensino em PDF já entrou no piloto. Recuperação e exame ficam para depois, por decisão da proponente; registro em [PROXIMOS-PASSOS.md](../../projects/REP-0019-notas-semestre/PROXIMOS-PASSOS.md). Endereço público ainda pendente: depois do merge na main, o mapa deve publicar em `notas-semestre/`; conferir e preencher `site`.
+Piloto em [projects/REP-0019-notas-semestre](../../projects/REP-0019-notas-semestre/README.md). Próximo passo: usar com as matérias reais deste semestre. Leitura dos planos de ensino em PDF já entrou no piloto. Recuperação e exame ficam para depois, por decisão da proponente; registro em [PROXIMOS-PASSOS.md](../../projects/REP-0019-notas-semestre/PROXIMOS-PASSOS.md). Publicado pelo mapa em https://pedrocamargolince.github.io/maGbRAIN/notas-semestre/ (workflow "Mapa de ideias" do merge do PR #50).
