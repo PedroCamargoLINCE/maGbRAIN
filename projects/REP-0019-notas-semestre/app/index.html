@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Notas do semestre</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brandline"><a href="../" class="home">maGbRAIN ↗</a><span class="tag">REP-0019</span></div>
+    <h1>Notas do <span class="hl">semestre</span></h1>
+    <p class="lede">Copie a fórmula do plano de ensino, lance as notas conforme saem e descubra quanto falta tirar.</p>
+  </header>
+
+  <nav class="overview" id="tabs" aria-label="Matérias"></nav>
+  <input type="file" id="pdfInput" accept="application/pdf,.pdf" multiple hidden>
+
+  <section class="import" id="importPanel" aria-labelledby="importTitle" hidden>
+    <div class="import-head">
+      <div>
+        <h3 id="importTitle" class="card-title">Planos de ensino lidos</h3>
+        <p class="muted small">Confira cada fórmula com o trecho do plano antes de criar a matéria. Os PDFs são lidos aqui no navegador e não são enviados para lugar nenhum.</p>
+      </div>
+      <div class="import-actions"><button type="button" class="primary" id="importAll">Criar todas</button><button type="button" class="ghost" id="importClose">Descartar</button></div>
+    </div>
+    <div id="importList" class="import-list"></div>
+  </section>
+
+  <section class="detail" aria-labelledby="subjectTitle">
+    <div class="detail-head">
+      <div class="title-block">
+        <p class="eyebrow">Matéria</p>
+        <h2 id="subjectTitle">–</h2>
+      </div>
+      <div class="head-actions">
+        <span class="chip" id="statusChip"></span>
+        <button type="button" class="ghost" id="togglePlan" aria-expanded="false" aria-controls="planDrawer">Editar fórmula</button>
+      </div>
+    </div>
+
+    <div class="drawer" id="planDrawer" hidden>
+      <div class="drawer-grid">
+        <div class="drawer-main">
+          <label class="field" for="subjectName">Nome da matéria<input id="subjectName" autocomplete="off"></label>
+          <label class="field" for="formula">Fórmula do plano de ensino
+            <textarea id="formula" rows="4" spellcheck="false" autocomplete="off"></textarea>
+          </label>
+          <ul class="errors" id="formulaErrors"></ul>
+          <p class="found" id="found"></p>
+          <div class="two">
+            <label class="field" for="pass">Média para aprovação<input id="pass" class="num-input" inputmode="decimal" autocomplete="off"></label>
+            <label class="field" for="maxGrade">Nota máxima por avaliação<input id="maxGrade" class="num-input" inputmode="decimal" autocomplete="off"></label>
+          </div>
+        </div>
+        <div class="drawer-help">
+          <p class="help-title">Como escrever</p>
+          <ul>
+            <li>Uma média por linha: <code>MP = media(P1, P2, P3)</code></li>
+            <li>A última linha é a média final: <code>MF = 0,7*MP + 0,3*MT</code></li>
+            <li>Nomes que você não define viram avaliações: P1, T1, Lista2…</li>
+            <li>Funções: <code>media</code>, <code>soma</code>, <code>min</code>, <code>max</code>, <code>melhores(2; P1, P2, P3)</code></li>
+            <li>Pesos como <code>0,7</code> ou <code>70%</code>, sem precisar somar 1.</li>
+            <li>Vírgula decimal dentro de funções: separe com <code>;</code></li>
+            <li><code>#</code> começa um comentário.</li>
+          </ul>
+          <div class="danger" id="dangerZone"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="board">
+      <section class="card c-resumo" aria-labelledby="resumoTitle">
+        <h3 id="resumoTitle" class="card-title">Até agora</h3>
+        <p class="example-note" id="exampleNote" hidden>Notas de exemplo. Troque pelas suas ou crie uma matéria nova.</p>
+        <div id="resumoBody" class="resumo">
+          <div class="gauge-wrap">
+            <svg class="gauge" id="gauge" viewBox="0 0 200 200" role="img" aria-labelledby="gaugeLabel">
+              <title id="gaugeLabel">Garantido e máximo possível em relação à aprovação</title>
+              <circle class="g-track" cx="100" cy="100" r="80"></circle>
+              <circle class="g-possible" id="gPossible" cx="100" cy="100" r="80"></circle>
+              <circle class="g-secured" id="gSecured" cx="100" cy="100" r="80"></circle>
+              <line class="g-meta" id="gMeta" x1="100" y1="8" x2="100" y2="36"></line>
+            </svg>
+            <div class="gauge-center">
+              <span class="num" id="garantido">–</span>
+              <span class="gauge-cap">garantido</span>
+            </div>
+          </div>
+          <dl class="stats">
+            <div><dt><i class="dot d-secured"></i>Garantido</dt><dd><small>o que falta conta 0</small></dd></div>
+            <div><dt><i class="dot d-possible"></i>Máximo possível</dt><dd id="maximo">–</dd></div>
+            <div id="projBox"><dt><i class="dot d-proj"></i><span id="projLabel">Mantendo sua média</span></dt><dd id="projecao">–</dd></div>
+            <div><dt><i class="dot d-meta"></i>Aprovação</dt><dd id="aprovacao">–</dd></div>
+          </dl>
+        </div>
+        <p class="error-box" id="resumoErro" hidden></p>
+      </section>
+
+      <section class="card c-notas" aria-labelledby="notasTitle">
+        <div class="card-head"><h3 id="notasTitle" class="card-title">Notas</h3><span class="muted" id="notasCount"></span></div>
+        <div id="gradesTable" class="groups"></div>
+      </section>
+
+      <section class="card c-sim" aria-labelledby="simTitle">
+        <div class="card-head"><h3 id="simTitle" class="card-title">E se…?</h3></div>
+        <div class="meta-row">
+          <label for="meta">Quero fechar com</label>
+          <input id="meta" class="num-input big-input" inputmode="decimal" autocomplete="off">
+          <button type="button" class="link" id="metaReset">usar a aprovação</button>
+        </div>
+        <div id="simRows" class="sim-rows"></div>
+        <div class="answer" id="answer" role="status" aria-live="polite"></div>
+        <div class="ladder" id="ladder"></div>
+      </section>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>Suas notas ficam só neste navegador. Nada é enviado para lugar nenhum.</p>
+    <div class="foot-actions">
+      <button type="button" class="ghost" id="copyBackup">Copiar backup</button>
+      <button type="button" class="ghost" id="openRestore">Restaurar backup</button>
+    </div>
+    <div class="restore" id="restoreBox" hidden>
+      <label for="restoreText">Cole aqui o backup copiado</label>
+      <textarea id="restoreText" rows="4" spellcheck="false"></textarea>
+      <div class="foot-actions"><button type="button" class="primary" id="doRestore">Substituir pelas matérias do backup</button><button type="button" class="ghost" id="cancelRestore">Cancelar</button></div>
+    </div>
+    <p class="muted" id="footMsg" role="status"></p>
+  </footer>
+</div>
+<script src="formula.js"></script>
+<script src="syllabus.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -45,6 +45,8 @@ Agentes precisam de acesso autenticado ao GitHub ou a uma cópia do repositório
 
 - [REP-0018 — RAG replicável sobre a base do maGbRAIN](ideas/REP-0018-rag-magbrain/IDEA.md)
 
+- [REP-0019 — Acompanhador de notas do semestre](ideas/REP-0019-notas-semestre/IDEA.md)
+
 ## Organização
 - `ideas/`: registros e origem; captura livre, sem obrigação de executar.
 - `projects/`: entregas, estado e decisões, criados quando houver trabalho concreto.

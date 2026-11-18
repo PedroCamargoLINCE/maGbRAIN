@@ -32,7 +32,7 @@ def build():
     (out/'.nojekyll').touch()
     shutil.copytree(ROOT/'assets', out/'assets', dirs_exist_ok=True)
     # Published project pages; a fresh maGbRAIN (scripts/new_group.py) has none of them yet.
-    for source, target in [('projects/REP-0014-mag-batas/app','mag-batas'),('projects/REP-0016-rv1a/app','rv1a'),('projects/REP-0012-cerebro-mosca/app','cerebro-mosca')]:
+    for source, target in [('projects/REP-0014-mag-batas/app','mag-batas'),('projects/REP-0016-rv1a/app','rv1a'),('projects/REP-0012-cerebro-mosca/app','cerebro-mosca'),('projects/REP-0019-notas-semestre/app','notas-semestre')]:
         if (ROOT/source).is_dir():
             shutil.copytree(ROOT/source, out/target, dirs_exist_ok=True)
     # Old published addresses remain compatible; canonical pages belong to REP-0012.
