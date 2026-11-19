@@ -217,7 +217,7 @@ h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); font-weight: 800; letter-spacing: -0
 /* Notas */
 .groups { display: flex; flex-direction: column; gap: 18px; }
 .group { display: flex; flex-direction: column; gap: 8px; }
-.group-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.group-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .group-name { font-family: var(--f-display); font-weight: 600; font-size: 0.92rem; }
 .group-val { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); }
 .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
@@ -239,6 +239,17 @@ h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); font-weight: 800; letter-spacing: -0
 .tile .grade.invalid { color: var(--bad); text-decoration: underline wavy var(--bad); }
 .tile-imp { font-family: var(--f-mono); font-size: 0.7rem; color: var(--muted); }
 .tile.done .tile-imp { color: inherit; opacity: 0.65; }
+.group-head .group-val { margin-left: auto; }
+.count-ctl { display: inline-flex; align-items: center; gap: 2px; border: 1.5px solid var(--line); border-radius: 99px; padding: 1px; font-size: 0.78rem; color: var(--muted); }
+.count-ctl button { width: 26px; height: 26px; border: 0; border-radius: 99px; background: transparent; color: var(--accent); font-size: 1rem; font-weight: 700; line-height: 1; cursor: pointer; }
+.count-ctl button:hover:not(:disabled) { background: var(--accent-soft); }
+.count-ctl button:disabled { color: var(--line); cursor: default; }
+.count-n { padding: 0 4px; white-space: nowrap; }
+.hint { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; padding: 10px 14px; border-radius: var(--r-md); background: var(--warn-soft); color: var(--warn); font-size: 0.88rem; }
+.hint p { margin: 0; }
+.check { display: flex; align-items: flex-start; gap: 8px; font-size: 0.86rem; cursor: pointer; }
+.check input { margin-top: 3px; accent-color: var(--accent); }
+.round-note { margin: 0; font-size: 0.8rem; color: var(--muted); }
 
 /* Simulador */
 .meta-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-weight: 500; }

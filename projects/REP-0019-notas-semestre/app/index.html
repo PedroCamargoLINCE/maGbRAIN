@@ -57,6 +57,7 @@
             <label class="field" for="pass">Média para aprovação<input id="pass" class="num-input" inputmode="decimal" autocomplete="off"></label>
             <label class="field" for="maxGrade">Nota máxima por avaliação<input id="maxGrade" class="num-input" inputmode="decimal" autocomplete="off"></label>
           </div>
+          <label class="check" for="roundFinal"><input type="checkbox" id="roundFinal"> Arredondar a média final para uma casa, como a Unesp (4,96 vira 5,0; 9,14 vira 9,1)</label>
         </div>
         <div class="drawer-help">
           <p class="help-title">Como escrever</p>
@@ -98,6 +99,7 @@
             <div id="projBox"><dt><i class="dot d-proj"></i><span id="projLabel">Mantendo sua média</span></dt><dd id="projecao">–</dd></div>
             <div><dt><i class="dot d-meta"></i>Aprovação</dt><dd id="aprovacao">–</dd></div>
           </dl>
+          <p class="round-note" id="roundNote" hidden></p>
         </div>
         <p class="error-box" id="resumoErro" hidden></p>
       </section>

@@ -25,6 +25,10 @@
     {
       "label": "Piloto e verificações",
       "path": "projects/REP-0019-notas-semestre/handoffs/2026-11-18-piloto.md"
+    },
+    {
+      "label": "Médias calculadas, arredondamento e quantidade de provas",
+      "path": "projects/REP-0019-notas-semestre/handoffs/2026-11-19-medias-e-arredondamento.md"
     }
   ]
 }

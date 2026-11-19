@@ -62,4 +62,9 @@ near(F.evaluate(ce, { P1: 2, PR1: 9, P2: 6, T1: 8, T2: 8 }).final, 0.9 * 5.5 + 0
 // Exame (regra comum): MFA = (MF + NE)/2 ≥ 5  →  NE ≥ 10 − MF.
 const exame = F.parsePlan('MFA = (MF + NE) / 2');
 near(F.solve(exame, { MF: 3.5 }, ['NE'], 5, 10).x, 6.5, 'exame');
-console.log('PASS fórmulas de quatro planos de ensino reais');
+// Arredondamento da Unesp: uma casa, segunda casa ≥ 5 sobe.
+assert.deepEqual([4.96, 9.18, 9.14, 9.15, 4.95, 4.94, 7.25].map(F.round1), [5, 9.2, 9.1, 9.2, 5, 4.9, 7.3]);
+// Com arredondamento, fechar 5 basta chegar a 4,95.
+const rr = F.solve(plan, { P1: 4, P2: 5, T1: 8 }, ['P3', 'T2', 'T3'], 5, 10, { round: true });
+near(rr.x, (14.85 - 8.7) / 1.3, 'quanto preciso com arredondamento');
+console.log('PASS fórmulas de quatro planos de ensino reais e arredondamento');
