@@ -1,0 +1,25 @@
+{
+  "id": "2026-11-19-ia-interativa",
+  "date": "2026-11-19",
+  "ideas": [
+    "REP-0022"
+  ],
+  "summary": "Registro da ideia de um banco de ferramentas interativas e ilustrativas na web para aprender os conceitos base de IA, irmã do sisotool na web.",
+  "types": [
+    "ideation"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Proponente pediu o registro numa sessão com Claude Code em 19/11/2026; crédito no perfil PedroCamargoLINCE, já confirmado em 18/11/2026 (ficha 2026-11-18-ideias-docker-rag).",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Proposta REP-0022",
+      "path": "ideas/REP-0022-ia-interativa/IDEA.md"
+    }
+  ]
+}
