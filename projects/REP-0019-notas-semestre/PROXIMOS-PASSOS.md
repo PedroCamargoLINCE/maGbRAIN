@@ -2,12 +2,12 @@
 
 Registro para desenvolvimento futuro. Nada daqui está implementado ainda.
 
-**Decisão da proponente (18/11/2026):** recuperação e exame não serão implementados por enquanto, porque mudam muito de matéria para matéria. Ficam apenas registrados aqui.
+**Decisão do proponente (18/11/2026):** recuperação e exame não serão implementados por enquanto, porque mudam muito de matéria para matéria. Ficam apenas registrados aqui.
 
 ## Pedido
 > quero que o nosso mvp tenha a capacidade do usuario poder upar todos os planos de ensino do semestre, e o site extrair dos pdfs a formula de notas e montar o painel do aluno para cada materia. outra coisa que gostaria, e como a recuperação entra no meio d isso tudo e como o exame entra tambem. adicione um registro disso para desenvolvimento futuro.
 
-Pedido feito em 18/11/2026 pela proponente da REP-0019, com quatro planos de ensino da UNESP como exemplo. Os PDFs não foram adicionados ao repositório.
+Pedido feito em 18/11/2026 pelo proponente da REP-0019, com quatro planos de ensino da UNESP como exemplo. Os PDFs não foram adicionados ao repositório.
 
 ## O que os quatro planos mostram
 Todos seguem o mesmo modelo de documento: a seção **Critérios de Avaliação da Aprendizagem** fica entre "Bibliografia" e "Ementa", e o texto é selecionável (não é imagem). O "Ementa" é um bom marcador de fim.
@@ -53,11 +53,11 @@ Tudo no navegador, sem servidor e sem custo, para que as notas e os PDFs não sa
 1. ~~Upload de PDFs com extração do trecho e do nome da disciplina, com edição manual da fórmula.~~ Feito.
 2. ~~Tradução automática do trecho para a fórmula.~~ Feito para os padrões dos quatro planos; testar com outros planos que o grupo juntar.
 3. "Copiar prompt" para quando a leitura automática não entender o plano.
-4. Exame e recuperação, só quando a proponente decidir retomar (ver decisão acima).
+4. Exame e recuperação, só quando o proponente decidir retomar (ver decisão acima).
 
 ## Perguntas em aberto
 - Laboratório: a fórmula com REC vale para todos ou só para quem faz recuperação? Se a nota da recuperação for pior, a média cai?
 - Circuitos: `Pn*` substitui Pn mesmo quando fica menor que a nota original?
 - ~~Quantidade de trabalhos e relatórios (T, R1...Rn) muitas vezes não está no plano. O painel deve deixar o aluno adicionar avaliações durante o semestre.~~ Feito em 19/11/2026: botões − e + em cada média simples.
-- Arredondamento da Unesp: hoje só a média final é arredondada. Confirmar se MP, MT e as notas parciais também são.
+- ~~Arredondamento da Unesp nas médias parciais.~~ Confirmado pelo proponente e feito em 19/11/2026: MP, MT e a final.
 - Frequência mínima de 70% reprova independentemente da nota. Vale acompanhar faltas também?

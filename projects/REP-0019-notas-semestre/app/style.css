@@ -179,7 +179,9 @@ h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); font-weight: 800; letter-spacing: -0
 .drawer-help { font-size: 0.86rem; color: var(--muted); display: flex; flex-direction: column; gap: 8px; }
 .help-title { margin: 0; font-weight: 600; color: var(--ink); }
 .drawer-help ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px; }
-.danger { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); }
+.del-zone { display: inline-flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.del-q { font-size: 0.88rem; font-weight: 500; color: var(--bad); }
+.del-btn:hover { border-color: var(--bad); color: var(--bad); }
 
 /* Quadro */
 .board {

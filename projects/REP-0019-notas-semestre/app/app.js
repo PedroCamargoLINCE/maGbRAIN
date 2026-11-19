@@ -56,9 +56,9 @@
     const maxG = F.parseGrade(s.max);
     const pass = F.parseGrade(s.pass);
     const out = { plan, maxG: maxG > 0 ? maxG : 10, pass: isFinite(pass) && pass !== null ? pass : null, known: {}, pending: [], badGrades: [], round: s.round !== false };
-    // Regra da Unesp: a média final vale com uma casa decimal (4,96 vira 5,0). As médias parciais ficam como estão.
-    const fin = (v) => (out.round ? F.round1(v) : v);
-    out.fin = fin;
+    // Regra da Unesp: cada média (MP, MT e a final) vale com uma casa decimal (4,96 vira 5,0).
+    const ev = (vals) => F.evaluate(plan, vals, { round: out.round });
+    out.ev = ev;
     plan.inputs.forEach((inp) => {
       const v = F.parseGrade(s.grades[inp.name]);
       if (v === null) out.pending.push(inp);
@@ -68,15 +68,16 @@
     if (!plan.ok) return out;
     const fill = (x) => { const vals = Object.assign({}, out.known); out.pending.forEach((p) => { vals[p.name] = x; }); return vals; };
     try {
-      out.secured = F.evaluate(plan, fill(0));
-      out.securedFinal = fin(out.secured.final);
-      out.best = fin(F.evaluate(plan, fill(out.maxG)).final);
+      out.secured = ev(fill(0));
+      out.securedFinal = out.secured.final;
+      out.rawSecured = F.evaluate(plan, fill(0)).final;
+      out.best = ev(fill(out.maxG)).final;
       const allMax = {}; plan.inputs.forEach((p) => { allMax[p.name] = out.maxG; });
-      out.ceiling = fin(F.evaluate(plan, allMax).final);
+      out.ceiling = ev(allMax).final;
       const knownVals = Object.values(out.known);
       if (knownVals.length && out.pending.length) {
         out.avg = knownVals.reduce((a, b) => a + b, 0) / knownVals.length;
-        out.projection = fin(F.evaluate(plan, fill(out.avg)).final);
+        out.projection = ev(fill(out.avg)).final;
       }
       out.impact = {};
       plan.inputs.forEach((p) => {
@@ -152,13 +153,13 @@
   function renderDanger(confirming) {
     const s = subject();
     $('dangerZone').innerHTML = confirming
-      ? `<span>Apagar “${esc(s.name)}” e todas as notas dela?</span><button type="button" class="danger-btn" id="delYes">Apagar de vez</button><button type="button" class="ghost" id="delNo">Cancelar</button>`
-      : '<button type="button" class="link danger-link" id="delAsk">Apagar esta matéria</button>';
+      ? `<span class="del-q">Apagar “${esc(s.name || 'Sem nome')}” e as notas dela?</span><button type="button" class="danger-btn" id="delYes">Apagar</button><button type="button" class="ghost" id="delNo">Cancelar</button>`
+      : '<button type="button" class="ghost del-btn" id="delAsk">Apagar matéria</button>';
   }
   $('dangerZone').addEventListener('click', (e) => {
     const id = e.target.id;
     if (id === 'delAsk') { renderDanger(true); $('delNo').focus(); }
-    if (id === 'delNo') renderDanger(false);
+    if (id === 'delNo') { renderDanger(false); $('delAsk').focus(); }
     if (id === 'delYes') {
       state.subjects = state.subjects.filter((s) => s.id !== state.current);
       if (!state.subjects.length) state.subjects.push(blankSubject());
@@ -412,10 +413,10 @@
     } else {
       const g = a.securedFinal, pass = a.pass;
       $('garantido').textContent = fmt(g);
-      const raw = a.secured.final;
+      const raw = a.rawSecured;
       $('roundNote').hidden = !a.round;
       $('roundNote').textContent = a.round
-        ? 'Médias finais com uma casa, como a Unesp arredonda.' + (Math.abs(raw - g) > 1e-9 ? ` Sem arredondar, o garantido é ${fmtRaw(raw)}.` : '')
+        ? 'Médias com uma casa, como a Unesp arredonda (as parciais e a final).' + (Math.abs(raw - g) > 1e-9 ? ` Sem arredondar, o garantido é ${fmtRaw(raw)}.` : '')
         : '';
       $('aprovacao').textContent = pass === null ? '–' : fmt(pass);
       $('maximo').textContent = fmt(a.best);
@@ -456,7 +457,7 @@
     try {
       if (!unknowns.length) {
         const raw = F.evaluate(a.plan, base).final;
-        const fin = a.fin(raw);
+        const fin = a.ev(base).final;
         const good = fin >= target - 1e-9;
         ans.className = 'answer ' + (good ? 'good' : 'bad');
         ans.innerHTML = `<p class="ans-line">Com essas notas, a média final fica <strong class="big">${fmt(fin)}</strong>${Math.abs(raw - fin) > 1e-9 ? ` <span class="muted">(${fmtRaw(raw)} sem arredondar)</span>` : ''}</p>` +
@@ -484,7 +485,7 @@
       for (let k = 0; k <= steps; k++) {
         const x = (a.maxG * k) / steps;
         const v = Object.assign({}, base); unknowns.forEach((u) => { v[u.name] = x; });
-        const fin = a.fin(F.evaluate(a.plan, v).final);
+        const fin = a.ev(v).final;
         vals.push([x, fin]); top = Math.max(top, fin);
       }
       vals.forEach(([x, fin]) => {

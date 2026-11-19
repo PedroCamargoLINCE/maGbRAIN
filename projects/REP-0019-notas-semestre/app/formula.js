@@ -159,9 +159,11 @@
     return { defs, byName, inputs, errors, final, ok: errors.length === 0 && !!final };
   }
 
-  /* values: { P1: 7.5, ... } com as chaves em maiúsculas. Toda avaliação precisa de número. */
-  function evaluate(plan, values) {
+  /* values: { P1: 7.5, ... } com as chaves em maiúsculas. Toda avaliação precisa de número.
+     opts.round: cada média definida no plano (MP, MT, MF...) vale com uma casa, como na Unesp. */
+  function evaluate(plan, values, opts) {
     const cache = {};
+    const r = opts && opts.round ? round1 : (v) => v;
     const calc = (node) => {
       switch (node.k) {
         case 'num': return node.v;
@@ -177,7 +179,7 @@
         case 'call': return FUNCTIONS[node.fn].run(node.args.map(calc));
         case 'var': {
           if (plan.byName[node.name]) {
-            if (!(node.name in cache)) cache[node.name] = calc(plan.byName[node.name].expr);
+            if (!(node.name in cache)) cache[node.name] = r(calc(plan.byName[node.name].expr));
             return cache[node.name];
           }
           const v = values[node.name];
@@ -194,16 +196,11 @@
 
   /* Menor nota x, igual em todas as "unknowns", para a média final chegar a "target".
      Supõe que a média não diminui quando uma nota sobe (vale para pesos positivos). */
-  /* Regra da Unesp para a média: uma casa decimal, e da segunda casa 5 para cima sobe (4,96 → 5,0; 9,14 → 9,1; 9,15 → 9,2). */
-  function round1(v) { return Math.floor(v * 10 + 0.5 + 1e-9) / 10; }
-
   function solve(plan, base, unknowns, target, maxGrade, opts) {
-    const rounding = !!(opts && opts.round);
     const f = (x) => {
       const values = Object.assign({}, base);
       unknowns.forEach((u) => { values[u] = x; });
-      const v = evaluate(plan, values).final;
-      return rounding ? round1(v) : v;
+      return evaluate(plan, values, opts).final;
     };
     const eps = 1e-9;
     const atZero = f(0);
@@ -217,6 +214,9 @@
     }
     return { status: 'ok', x: hi, ceil: Math.ceil(hi * 100 - 1e-6) / 100 };
   }
+
+  /* Regra da Unesp para as médias: uma casa decimal, e da segunda casa 5 para cima sobe (4,96 → 5,0; 9,14 → 9,1; 9,15 → 9,2). */
+  function round1(v) { return Math.floor(v * 10 + 0.5 + 1e-9) / 10; }
 
   function parseGrade(raw) {
     if (raw === null || raw === undefined) return null;
