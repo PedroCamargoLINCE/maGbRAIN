@@ -46,5 +46,11 @@
     "target": "REP-0017",
     "label": "Replicar a estrutura colaborativa para outros grupos",
     "kind": "suggested"
+  },
+  {
+    "source": "REP-0021",
+    "target": "REP-0022",
+    "label": "Ideias irmãs: ferramentas interativas na web para aprender, uma para controle e outra para IA",
+    "kind": "documented"
   }
 ]
