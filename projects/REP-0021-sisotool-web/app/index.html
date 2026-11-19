@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LGR interativo — SCON I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6FAFB;--text:#1B2A30;--muted:#56707A;--head:#4BACC6;--card:#FFFFFF;--line:#B9DCE6;--row:#DCEEF4;
+  --path:#2B7FB8;--pole:#D0452B;--zero:#2B7FB8;--brk:#1D9E75;--jw:#C98A12;--asy:#8A9AA0;--err:#C62828;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0F1B20;--text:#E3EEF2;--muted:#93AEB8;--head:#2E8AA3;--card:#13262D;--line:#2A5360;--row:#16323B;
+  --path:#6FB6E6;--pole:#FF7A5C;--zero:#6FB6E6;--brk:#4FD1A1;--jw:#F2B94B;--asy:#6F858C;--err:#FF8A80;}
+}
+:root[data-theme="dark"]{--bg:#0F1B20;--text:#E3EEF2;--muted:#93AEB8;--head:#2E8AA3;--card:#13262D;--line:#2A5360;--row:#16323B;
+  --path:#6FB6E6;--pole:#FF7A5C;--zero:#6FB6E6;--brk:#4FD1A1;--jw:#F2B94B;--asy:#6F858C;--err:#FF8A80;}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Source Sans 3","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;font-size:16px;line-height:1.5}
+main{max-width:980px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.6rem;margin:0 0 4px;font-weight:700}
+.sub{color:var(--muted);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:0 0 14px}
+.grid-in{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,2fr) minmax(0,1fr) auto;gap:10px;align-items:end}
+@media (max-width:720px){.grid-in{grid-template-columns:minmax(0,1fr)}}
+label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:4px;font-weight:600}
+input[type=text],input[type=number]{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px}
+input:focus-visible,button:focus-visible{outline:3px solid var(--head);outline-offset:2px}
+button{font:inherit;font-size:.92rem;color:var(--text);background:var(--row);border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer}
+button.primary{background:var(--head);color:#fff;border-color:var(--head);font-weight:600}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.presets button{font-size:.85rem;padding:5px 10px}
+.err{color:var(--err);font-size:.9rem;margin-top:8px;min-height:1.2em}
+.krow{display:flex;align-items:center;gap:12px}
+.krow input[type=range]{flex:1;accent-color:var(--head)}
+.kval{font-weight:700;min-width:84px;text-align:right}
+.now{font-size:.95rem;margin-top:8px;color:var(--muted)}
+.now b{color:var(--text)}
+.canvas-wrap{position:relative}
+canvas{width:100%;height:440px;display:block;border-radius:6px;background:var(--bg);border:1px solid var(--line);touch-action:none}
+@media (max-width:720px){canvas{height:360px}}
+.zoom{position:absolute;top:8px;right:8px;display:flex;gap:4px}
+.zoom button{padding:4px 10px;font-size:.9rem}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.85rem;color:var(--muted);margin-top:8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:14px;height:14px;border-radius:3px}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.info .card{margin:0}
+.info h2{font-size:1rem;margin:0 0 8px;border-left:5px solid var(--head);padding-left:8px}
+.info p,.info li{margin:4px 0;font-size:.95rem}
+.info ul{margin:0;padding-left:18px}
+.link{background:none;border:none;padding:0;color:var(--path);text-decoration:underline;cursor:pointer;font-size:inherit}
+.muted{color:var(--muted)}
+footer{color:var(--muted);font-size:.85rem;margin-top:10px}
+</style>
+</head>
+<body>
+<main>
+  <h1>LGR interativo</h1>
+  <p class="sub">Digite G(s)H(s) sem o K. O traçado considera realimentação negativa, 1 + K·G(s)H(s) = 0, com K ≥ 0.</p>
+
+  <div class="card">
+    <div class="grid-in">
+      <div><label for="num">Numerador de G(s)H(s)</label><input id="num" type="text" value="s+4" autocomplete="off" spellcheck="false"></div>
+      <div><label for="den">Denominador de G(s)H(s)</label><input id="den" type="text" value="s(s+2)" autocomplete="off" spellcheck="false"></div>
+      <div><label for="kmax">K máximo</label><input id="kmax" type="number" value="40" min="0.001" step="any"></div>
+      <div><button class="primary" id="go">Traçar</button></div>
+    </div>
+    <div class="err" id="err" role="alert"></div>
+    <div class="muted" style="font-size:.85rem">Formatos aceitos: <code>(s+1)(s+2)</code>, <code>s^2+4s+13</code>, <code>s(s+2)^2</code>, <code>2(s-1)</code>. Numerador vazio vale 1.</div>
+    <div class="presets" id="presets"></div>
+  </div>
+
+  <div class="card">
+    <div class="krow">
+      <label for="k" style="margin:0">K</label>
+      <input id="k" type="range" min="0" max="1000" step="1" value="0">
+      <span class="kval" id="kout">0</span>
+    </div>
+    <div class="now">Polos de malha fechada: <b id="cl">—</b> · <b id="stat">—</b></div>
+  </div>
+
+  <div class="card canvas-wrap">
+    <canvas id="cv" aria-label="Plano s com o lugar das raízes"></canvas>
+    <div class="zoom"><button id="zin" aria-label="Aproximar">+</button><button id="zout" aria-label="Afastar">−</button><button id="zreset">Ajustar</button></div>
+    <div class="legend">
+      <span><i class="sw" style="background:var(--path)"></i>LGR</span>
+      <span style="color:var(--pole)"><b>×</b>&nbsp;polos de GH</span>
+      <span style="color:var(--zero)"><b>○</b>&nbsp;zeros de GH</span>
+      <span><i class="sw" style="background:var(--text);border-radius:50%"></i>polos de malha fechada (K atual)</span>
+      <span><i class="sw" style="background:var(--brk)"></i>saída / chegada</span>
+      <span><i class="sw" style="background:var(--jw);border-radius:50%"></i>cruza jω</span>
+      <span><i class="sw" style="background:var(--asy)"></i>assíntotas</span>
+    </div>
+  </div>
+
+  <div class="info">
+    <div class="card"><h2>1. Polos e zeros</h2><div id="i1"></div></div>
+    <div class="card"><h2>2. Eixo real</h2><div id="i2"></div></div>
+    <div class="card"><h2>3–4. Ramos e assíntotas</h2><div id="i3"></div></div>
+    <div class="card"><h2>5. Saída e chegada</h2><div id="i4"></div></div>
+    <div class="card"><h2>6. Cruzamento com jω</h2><div id="i5"></div></div>
+  </div>
+  <footer>Toque nos valores de K sublinhados para mover o controle até eles. Cálculos numéricos: confira sempre com as regras à mão.</footer>
+</main>
+
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const fmt=(x,d=3)=>{if(!isFinite(x))return '∞';let v=Math.abs(x)<5e-10?0:x;let s=(Math.abs(v)>=1000?v.toFixed(1):Math.abs(v)>=100?v.toFixed(2):v.toFixed(d));s=s.replace(/\.?0+$/,'');if(s==='-0')s='0';return s.replace('.',',').replace('-','−')};
+const fmtC=([re,im])=>{if(Math.abs(im)<1e-7)return fmt(re);return fmt(re)+(im<0?' − j':' + j')+fmt(Math.abs(im))};
+
+function trim(p){p=p.slice();while(p.length>1&&Math.abs(p[p.length-1])<1e-14)p.pop();return p}
+function add(a,b){const n=Math.max(a.length,b.length),r=[];for(let i=0;i<n;i++)r.push((a[i]||0)+(b[i]||0));return trim(r)}
+function sub(a,b){return add(a,b.map(x=>-x))}
+function mul(a,b){const r=new Array(a.length+b.length-1).fill(0);for(let i=0;i<a.length;i++)for(let j=0;j<b.length;j++)r[i+j]+=a[i]*b[j];return trim(r)}
+function pw(a,n){let r=[1];for(let i=0;i<n;i++)r=mul(r,a);return r}
+function der(a){if(a.length<2)return[0];const r=[];for(let i=1;i<a.length;i++)r.push(i*a[i]);return trim(r)}
+function evalR(p,x){let v=0;for(let i=p.length-1;i>=0;i--)v=v*x+p[i];return v}
+
+function parsePoly(str){
+  let s=(str||'').replace(/[Kk]/g,'').replace(/,/g,'.').replace(/[·×]/g,'*').replace(/[−–]/g,'-').replace(/²/g,'^2').replace(/³/g,'^3').replace(/⁴/g,'^4').replace(/\s+/g,'');
+  if(s==='')return[1];
+  const toks=s.match(/\d+\.?\d*|\.\d+|[s()+\-*^]/g)||[];
+  if(toks.join('')!==s)throw new Error('Caractere não reconhecido em "'+str+'".');
+  let i=0;const peek=()=>toks[i],next=()=>toks[i++];
+  function expr(){let p=term();while(peek()==='+'||peek()==='-'){const op=next();const q=term();p=op==='+'?add(p,q):sub(p,q)}return p}
+  function term(){let p=unary();while(true){const t=peek();if(t==='*'){next();p=mul(p,unary())}else if(t!==undefined&&(t==='s'||t==='('||/^[\d.]/.test(t))){p=mul(p,unary())}else break}return p}
+  function unary(){if(peek()==='-'){next();return unary().map(x=>-x)}if(peek()==='+'){next();return unary()}return power()}
+  function power(){let b=primary();if(peek()==='^'){next();const e=next();if(!e||!/^\d+$/.test(e))throw new Error('Expoente precisa ser inteiro.');b=pw(b,parseInt(e,10))}return b}
+  function primary(){const t=next();if(t===undefined)throw new Error('Expressão incompleta em "'+str+'".');if(t==='s')return[0,1];if(t==='('){const e=expr();if(next()!==')')throw new Error('Parêntese sem fechar em "'+str+'".');return e}if(/^[\d.]/.test(t))return[parseFloat(t)];throw new Error('Símbolo inesperado "'+t+'" em "'+str+'".')}
+  const r=expr();if(i<toks.length)throw new Error('Sobrou "'+toks.slice(i).join('')+'" em "'+str+'".');
+  return trim(r);
+}
+
+function roots(p){
+  p=trim(p);const n=p.length-1;if(n<1)return[];
+  const lead=p[n];const a=p.map(c=>c/lead);
+  const R=1+Math.max(...a.slice(0,n).map(Math.abs));
+  let z=[];for(let k=0;k<n;k++){const ang=2*Math.PI*k/n+0.4;z.push([R*0.9*Math.cos(ang),R*0.9*Math.sin(ang)])}
+  const ev=(x,y)=>{let re=1,im=0;for(let i=n-1;i>=0;i--){const nr=re*x-im*y+a[i],ni=re*y+im*x;re=nr;im=ni}return[re,im]};
+  for(let it=0;it<600;it++){let mx=0;
+    for(let k=0;k<n;k++){const[x,y]=z[k];let [nr,ni]=ev(x,y);let dr=1,di=0;
+      for(let j=0;j<n;j++){if(j===k)continue;const tx=x-z[j][0],ty=y-z[j][1];const r2=dr*tx-di*ty,i2=dr*ty+di*tx;dr=r2;di=i2}
+      const den=dr*dr+di*di||1e-300;const qr=(nr*dr+ni*di)/den,qi=(ni*dr-nr*di)/den;
+      z[k]=[x-qr,y-qi];mx=Math.max(mx,Math.abs(qr)+Math.abs(qi))}
+    if(mx<1e-13*R)break}
+  return z.map(([x,y])=>[x,Math.abs(y)<1e-8*(1+Math.abs(x))?0:y]);
+}
+const charPoly=(D,N,K)=>add(D,N.map(c=>c*K));
+
+let S=null,zoom=1;
+const PRE=[
+  ['K(s+4)/[s(s+2)]','s+4','s(s+2)',40],
+  ['K/[s(s+1)(s+2)]','','s(s+1)(s+2)',15],
+  ['K(s+3)/[s(s+1)(s+2)(s+4)]','s+3','s(s+1)(s+2)(s+4)',30],
+  ['K(s²−4s+20)/[(s+2)(s+4)]','s^2-4s+20','(s+2)(s+4)',20],
+  ['K(s−5)(s−3)/[(s+2)(s+1)]','(s-5)(s-3)','(s+2)(s+1)',20],
+  ['K(s+1)/[s(s+2)(s+3)(s+4)]','s+1','s(s+2)(s+3)(s+4)',250]
+];
+const pre=$('presets');
+PRE.forEach(([t,n,d,k])=>{const b=document.createElement('button');b.textContent=t;b.addEventListener('click',()=>{$('num').value=n;$('den').value=d;$('kmax').value=k;build()});pre.appendChild(b)});
+
+function build(){
+  $('err').textContent='';
+  let N,D;
+  try{N=parsePoly($('num').value);D=parsePoly($('den').value)}catch(e){$('err').textContent=e.message;return}
+  if(D.length<2&&N.length<2){$('err').textContent='O denominador precisa ter pelo menos um polo.';return}
+  if(N.every(c=>Math.abs(c)<1e-14)){$('err').textContent='O numerador não pode ser zero.';return}
+  let Kmax=parseFloat(String($('kmax').value).replace(',','.'));if(!(Kmax>0)){$('err').textContent='Informe um K máximo positivo.';return}
+  const P=roots(D),Z=roots(N);const np=D.length-1,nz=N.length-1;
+  const Ks=[0];const NS=2400;for(let i=1;i<=NS;i++)Ks.push(Kmax*Math.pow(i/NS,3));
+  const path=Ks.map(K=>roots(charPoly(D,N,K)));
+  const realPts=[];P.forEach(r=>{if(r[1]===0)realPts.push({x:r[0],t:'p'})});Z.forEach(r=>{if(r[1]===0)realPts.push({x:r[0],t:'z'})});
+  realPts.sort((a,b)=>b.x-a.x);
+  const segs=[];let cnt=0;for(let i=0;i<realPts.length;i++){cnt++;const right=realPts[i].x,left=i+1<realPts.length?realPts[i+1].x:-Infinity;if(cnt%2===1&&right-left>1e-9)segs.push([left,right])}
+  let asy=null;if(np>nz){const sp=P.reduce((s,r)=>s+r[0],0),sz=Z.reduce((s,r)=>s+r[0],0);const q=np-nz;asy={sa:(sp-sz)/q,ang:Array.from({length:q},(_,k)=>(2*k+1)*180/q),q}}
+  const B=sub(mul(N,der(D)),mul(der(N),D));
+  const brk=[];if(B.length>1){roots(B).forEach(([x,y])=>{if(y!==0)return;const Nx=evalR(N,x);if(Math.abs(Nx)<1e-12)return;const K=-evalR(D,x)/Nx;if(!(K>1e-9))return;const h=1e-4*(1+Math.abs(x));const kl=-evalR(D,x-h)/evalR(N,x-h),kr=-evalR(D,x+h)/evalR(N,x+h);let kind='encontro no eixo';if(K>=kl&&K>=kr)kind='saída';else if(K<=kl&&K<=kr)kind='chegada';if(!brk.some(b=>Math.abs(b.x-x)<1e-6))brk.push({x,K,kind})})}
+  brk.sort((a,b)=>b.x-a.x);
+  const maxRe=K=>Math.max(...roots(charPoly(D,N,K)).map(r=>r[0]));
+  const cross=[];let prevK=Kmax*1e-7,prev=maxRe(prevK);
+  for(let i=1;i<=NS;i++){const K=Kmax*Math.pow(i/NS,3);if(K<=prevK)continue;const v=maxRe(K);
+    if((prev<0&&v>=0)||(prev>=0&&v<0)){let a=prevK,b=K,fa=prev;for(let it=0;it<60;it++){const m=(a+b)/2,fm=maxRe(m);if((fa<0)===(fm<0)){a=m;fa=fm}else b=m}
+      const Kc=(a+b)/2;const rr=roots(charPoly(D,N,Kc));let best=rr[0];rr.forEach(r=>{if(Math.abs(r[0])<Math.abs(best[0]))best=r});
+      cross.push({K:Kc,w:Math.abs(best[1]),toUnstable:prev<0})}
+    prevK=K;prev=v}
+  const st0=maxRe(Kmax*1e-7)<0;
+  S={N,D,P,Z,np,nz,Kmax,path,segs,asy,brk,cross,st0};zoom=1;
+  $('k').value=0;report();draw();updK();
+}
+
+function kFromV(v){return S.Kmax*Math.pow(v/1000,3)}
+function vFromK(K){return Math.round(1000*Math.cbrt(Math.min(K,S.Kmax)/S.Kmax))}
+function jump(K){if(K>S.Kmax){$('kmax').value=+(K*1.5).toPrecision(3);build()}$('k').value=vFromK(K);updK()}
+window.__jump=jump;
+
+function report(){
+  const mult=arr=>{const out=[];arr.forEach(r=>{const f=out.find(o=>Math.abs(o.r[0]-r[0])<1e-5&&Math.abs(o.r[1]-r[1])<1e-5);if(f)f.m++;else out.push({r,m:1})});return out.map(o=>fmtC(o.r)+(o.m>1?' (×'+o.m+')':'')).join('; ')};
+  $('i1').innerHTML='<p>Polos: <b>'+(S.P.length?mult(S.P):'nenhum')+'</b></p><p>Zeros: <b>'+(S.Z.length?mult(S.Z):'nenhum finito')+'</b></p><p class="muted">'+S.np+' polo(s), '+S.nz+' zero(s) → '+Math.max(S.np,S.nz)+' ramo(s).</p>';
+  $('i2').innerHTML=S.segs.length?'<p>Trechos que fazem parte do LGR:</p><ul>'+S.segs.map(([l,r])=>'<li>de <b>'+(l===-Infinity?'−∞':fmt(l))+'</b> até <b>'+fmt(r)+'</b></li>').join('')+'</ul><p class="muted">Cada trecho fica à esquerda de um número ímpar de polos e zeros reais.</p>':'<p>Nenhum trecho do eixo real faz parte do LGR.</p>';
+  let t='<p>Os ramos saem dos polos (K = 0) e terminam nos zeros (K → ∞).</p>';
+  if(S.asy){t+='<p>'+S.asy.q+' ramo(s) vão ao infinito.</p><p>\u03c3<sub>a</sub> = <b>'+fmt(S.asy.sa)+'</b></p><p>\u03b8<sub>a</sub> = <b>'+S.asy.ang.map(a=>fmt(a,1)+'°').join(', ')+'</b></p>'}
+  else if(S.nz>S.np)t+='<p>Há mais zeros que polos: '+(S.nz-S.np)+' ramo(s) vêm do infinito.</p>';else t+='<p>Mesmo número de polos e zeros: nenhuma assíntota.</p>';
+  $('i3').innerHTML=t;
+  $('i4').innerHTML=S.brk.length?'<ul>'+S.brk.map(b=>'<li><b>'+b.kind+'</b> em σ = <b>'+fmt(b.x)+'</b>, com K = <button class="link" onclick="__jump('+b.K+')">'+fmt(b.K)+'</button></li>').join('')+'</ul><p class="muted">Raízes reais de Σ 1/(σ+z<sub>i</sub>) = Σ 1/(σ+p<sub>i</sub>) com K &gt; 0.</p>':'<p>Nenhum ponto de saída ou chegada no eixo real.</p>';
+  let c='';
+  if(S.cross.length){c='<ul>'+S.cross.map(x=>'<li>K = <button class="link" onclick="__jump('+x.K+')">'+fmt(x.K)+'</button>, em '+(x.w<1e-6?'<b>s = 0</b>':'<b>s = ±j'+fmt(x.w)+'</b>')+' → '+(x.toUnstable?'passa a instável':'volta a ser estável')+'</li>').join('')+'</ul>'}
+  else c='<p>Nenhum cruzamento com o eixo jω até K = '+fmt(S.Kmax)+'.</p>';
+  let ints=[],on=S.st0,start=0;S.cross.forEach(x=>{if(on)ints.push([start,x.K]);on=!x.toUnstable;start=x.K});if(on)ints.push([start,null]);
+  c+='<p>Estável para: <b>'+(ints.length?ints.map(([a,b])=>b===null?(a===0?'todo K > 0':'K > '+fmt(a)):(a===0?'0 < K < '+fmt(b):fmt(a)+' < K < '+fmt(b))).join(' e '):'nenhum K > 0')+'</b></p><p class="muted">Analisado até K = '+fmt(S.Kmax)+'. Aumente o K máximo se precisar.</p>';
+  $('i5').innerHTML=c;
+}
+
+function updK(){if(!S)return;const K=kFromV(+$('k').value);$('kout').textContent=fmt(K);const r=roots(charPoly(S.D,S.N,K));
+  $('cl').textContent=r.map(fmtC).join('; ');const m=Math.max(...r.map(x=>x[0]));
+  $('stat').textContent=K===0?'K = 0: em cima dos polos':m<-1e-7?'estável':m>1e-7?'instável':'no limite (marginal)';S.cur=r;draw()}
+
+function tok(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim()}
+function nice(x){const e=Math.pow(10,Math.floor(Math.log10(x))),f=x/e;return(f<1.5?1:f<3.5?2:f<7.5?5:10)*e}
+
+function draw(){
+  if(!S)return;const cv=$('cv'),ctx=cv.getContext('2d');const dpr=window.devicePixelRatio||1,W=cv.clientWidth,H=cv.clientHeight;
+  cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+  const pts=[[0,0],...S.P,...S.Z,...S.brk.map(b=>[b.x,0]),...S.cross.map(c=>[0,c.w])];if(S.asy)pts.push([S.asy.sa,0]);
+  let minX=Math.min(...pts.map(p=>p[0])),maxX=Math.max(...pts.map(p=>p[0])),maxY=Math.max(...pts.map(p=>Math.abs(p[1])));
+  const span=Math.max(maxX-minX,2*maxY,2);
+  const xL=minX-0.55*span,xR=maxX+0.4*span,yH=maxY+0.45*span;
+  let sc=Math.min(W/(xR-xL),H/(2*yH))*zoom;const cx=(xL+xR)/2;
+  const sx=x=>W/2+(x-cx)*sc,sy=y=>H/2-y*sc;
+  const text=tok('--text'),muted=tok('--muted'),line=tok('--line');
+  const step=nice(W/sc/8);ctx.font='12px "Source Sans 3",system-ui,sans-serif';ctx.fillStyle=muted;ctx.strokeStyle=line;ctx.lineWidth=1;
+  const x0=cx-W/2/sc,x1=cx+W/2/sc,y1=H/2/sc;
+  for(let x=Math.ceil(x0/step)*step;x<=x1;x+=step){const X=sx(x);ctx.beginPath();ctx.moveTo(X,sy(0)-3);ctx.lineTo(X,sy(0)+3);ctx.stroke();if(Math.abs(x)>1e-9)ctx.fillText(fmt(x),X-8,sy(0)+16)}
+  for(let y=Math.ceil(-y1/step)*step;y<=y1;y+=step){if(Math.abs(y)<1e-9)continue;const Y=sy(y);ctx.beginPath();ctx.moveTo(sx(0)-3,Y);ctx.lineTo(sx(0)+3,Y);ctx.stroke();ctx.fillText('j'+fmt(y),sx(0)+6,Y+4)}
+  ctx.strokeStyle=muted;ctx.beginPath();ctx.moveTo(0,sy(0));ctx.lineTo(W,sy(0));ctx.moveTo(sx(0),0);ctx.lineTo(sx(0),H);ctx.stroke();
+  ctx.fillStyle=muted;ctx.fillText('σ',W-14,sy(0)-6);ctx.fillText('jω',sx(0)+6,14);
+  ctx.globalAlpha=.25;ctx.strokeStyle=tok('--path');ctx.lineWidth=7;S.segs.forEach(([l,r])=>{ctx.beginPath();ctx.moveTo(sx(Math.max(l,x0-1)),sy(0));ctx.lineTo(sx(r),sy(0));ctx.stroke()});ctx.globalAlpha=1;
+  if(S.asy){ctx.strokeStyle=tok('--asy');ctx.lineWidth=1.2;ctx.setLineDash([6,5]);const L=3*span/zoom+50/sc;S.asy.ang.forEach(a=>{const r=a*Math.PI/180;ctx.beginPath();ctx.moveTo(sx(S.asy.sa),sy(0));ctx.lineTo(sx(S.asy.sa+L*Math.cos(r)),sy(L*Math.sin(r)));ctx.stroke()});ctx.setLineDash([]);ctx.fillStyle=tok('--asy');ctx.beginPath();ctx.arc(sx(S.asy.sa),sy(0),4,0,7);ctx.fill()}
+  ctx.fillStyle=tok('--path');S.path.forEach(rs=>rs.forEach(([x,y])=>{const X=sx(x),Y=sy(y);if(X>-2&&X<W+2&&Y>-2&&Y<H+2)ctx.fillRect(X-1.1,Y-1.1,2.2,2.2)}));
+  ctx.fillStyle=tok('--brk');S.brk.forEach(b=>{ctx.fillRect(sx(b.x)-6,sy(0)-6,12,12)});
+  ctx.strokeStyle=tok('--jw');ctx.lineWidth=2.5;S.cross.forEach(c=>{[c.w,-c.w].forEach(w=>{ctx.beginPath();ctx.arc(sx(0),sy(w),8,0,7);ctx.stroke()})});
+  ctx.strokeStyle=tok('--pole');ctx.lineWidth=2.6;S.P.forEach(([x,y])=>{const X=sx(x),Y=sy(y);ctx.beginPath();ctx.moveTo(X-7,Y-7);ctx.lineTo(X+7,Y+7);ctx.moveTo(X+7,Y-7);ctx.lineTo(X-7,Y+7);ctx.stroke()});
+  ctx.strokeStyle=tok('--zero');ctx.lineWidth=2.4;S.Z.forEach(([x,y])=>{ctx.beginPath();ctx.arc(sx(x),sy(y),8,0,7);ctx.stroke()});
+  if(S.cur){ctx.fillStyle=text;S.cur.forEach(([x,y])=>{ctx.beginPath();ctx.arc(sx(x),sy(y),6.5,0,7);ctx.fill()})}
+}
+
+$('go').addEventListener('click',build);
+['num','den','kmax'].forEach(id=>$(id).addEventListener('keydown',e=>{if(e.key==='Enter')build()}));
+$('k').addEventListener('input',updK);
+$('zin').addEventListener('click',()=>{zoom*=1.4;draw()});
+$('zout').addEventListener('click',()=>{zoom/=1.4;draw()});
+$('zreset').addEventListener('click',()=>{zoom=1;draw()});
+window.addEventListener('resize',draw);
+try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw)}catch(e){}
+new MutationObserver(draw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+build();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "id": "2026-11-19-sisotool-web-lgr",
+  "date": "2026-11-19",
+  "ideas": [
+    "REP-0021"
+  ],
+  "summary": "Registro da ideia de um sisotool na web para aprender controle, com o LGR interativo do proponente como primeiro produto.",
+  "types": [
+    "ideation",
+    "code"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Proponente pediu o registro e trouxe o LGR pronto numa sessão com Claude Code em 19/11/2026; crédito no perfil PedroCamargoLINCE, já confirmado em 18/11/2026 (ficha 2026-11-18-ideias-docker-rag).",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Proposta REP-0021",
+      "path": "ideas/REP-0021-sisotool-web/IDEA.md"
+    },
+    {
+      "label": "LGR interativo e passagem de trabalho",
+      "path": "projects/REP-0021-sisotool-web/handoffs/2026-11-19-lgr.md"
+    }
+  ]
+}
