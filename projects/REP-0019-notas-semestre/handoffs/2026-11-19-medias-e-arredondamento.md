@@ -18,8 +18,9 @@
 - `python -m unittest discover -s tests` e `python scripts/build_site.py`.
 - Os PDFs não foram para o repositório.
 
+- Rodada seguinte no mesmo dia, depois do merge do PR 55: a proponente confirmou que a Unesp arredonda também as médias parciais, então `evaluate(..., { round: true })` arredonda toda média definida no plano; e pediu um jeito fácil de apagar matéria (botão "Apagar matéria" no cabeçalho, com confirmação). Testes de fórmula atualizados (MP 4,95 → 5,0; mínimo de 4,65 no exemplo) e navegador repetido, com celular 390 px.
+
 ## Pendências e bloqueios
-- Confirmar com a proponente se MP e MT também são arredondadas.
 - Dois planos têm texto ambíguo que a página só avisa: um divide três provas por 2; outro diz "peso 0,8/0,2" no título e usa 0,85/0,15 na fórmula.
 
 ## Próxima ação concreta

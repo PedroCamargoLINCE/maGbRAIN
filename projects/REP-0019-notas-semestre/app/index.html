@@ -41,6 +41,7 @@
       <div class="head-actions">
         <span class="chip" id="statusChip"></span>
         <button type="button" class="ghost" id="togglePlan" aria-expanded="false" aria-controls="planDrawer">Editar fórmula</button>
+        <span class="del-zone" id="dangerZone"></span>
       </div>
     </div>
 
@@ -57,7 +58,7 @@
             <label class="field" for="pass">Média para aprovação<input id="pass" class="num-input" inputmode="decimal" autocomplete="off"></label>
             <label class="field" for="maxGrade">Nota máxima por avaliação<input id="maxGrade" class="num-input" inputmode="decimal" autocomplete="off"></label>
           </div>
-          <label class="check" for="roundFinal"><input type="checkbox" id="roundFinal"> Arredondar a média final para uma casa, como a Unesp (4,96 vira 5,0; 9,14 vira 9,1)</label>
+          <label class="check" for="roundFinal"><input type="checkbox" id="roundFinal"> Arredondar as médias para uma casa, como a Unesp (4,96 vira 5,0; 9,14 vira 9,1), tanto MP e MT quanto a final</label>
         </div>
         <div class="drawer-help">
           <p class="help-title">Como escrever</p>
@@ -70,7 +71,6 @@
             <li>Vírgula decimal dentro de funções: separe com <code>;</code></li>
             <li><code>#</code> começa um comentário.</li>
           </ul>
-          <div class="danger" id="dangerZone"></div>
         </div>
       </div>
     </div>

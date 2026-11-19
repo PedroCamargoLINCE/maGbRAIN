@@ -64,7 +64,14 @@ const exame = F.parsePlan('MFA = (MF + NE) / 2');
 near(F.solve(exame, { MF: 3.5 }, ['NE'], 5, 10).x, 6.5, 'exame');
 // Arredondamento da Unesp: uma casa, segunda casa ≥ 5 sobe.
 assert.deepEqual([4.96, 9.18, 9.14, 9.15, 4.95, 4.94, 7.25].map(F.round1), [5, 9.2, 9.1, 9.2, 5, 4.9, 7.3]);
-// Com arredondamento, fechar 5 basta chegar a 4,95.
+// Com arredondamento, MP e MT também valem com uma casa: P1=4,9 e P2=5 dão MP=5,0 (4,95).
+const rp = F.parsePlan('MP = media(P1, P2)\nMT = media(T1, T2, T3)\nMF = 0,7*MP + 0,3*MT');
+const ev = F.evaluate(rp, { P1: 4.9, P2: 5, T1: 4.9, T2: 5, T3: 5 }, { round: true });
+near(ev.vars.MP, 5, 'MP arredondada'); near(ev.vars.MT, 5, 'MT arredondada (4,967)'); near(ev.final, 5, 'MF arredondada');
+near(F.evaluate(rp, { P1: 4.9, P2: 5, T1: 4.9, T2: 5, T3: 5 }).final, 0.7 * 4.95 + 0.3 * 14.9 / 3, 'sem arredondar');
+// "Quanto preciso" com arredondamento: a resposta é a menor nota que fecha 5 depois de arredondar tudo.
 const rr = F.solve(plan, { P1: 4, P2: 5, T1: 8 }, ['P3', 'T2', 'T3'], 5, 10, { round: true });
-near(rr.x, (14.85 - 8.7) / 1.3, 'quanto preciso com arredondamento');
+const at = (x) => F.evaluate(plan, { P1: 4, P2: 5, T1: 8, P3: x, T2: x, T3: x }, { round: true }).final;
+assert.ok(at(rr.ceil) >= 5 && at(rr.ceil - 0.01) < 5, 'mínimo com arredondamento');
+assert.ok(rr.ceil < 4.85, 'arredondar reduz o mínimo em relação a 4,85');
 console.log('PASS fórmulas de quatro planos de ensino reais e arredondamento');

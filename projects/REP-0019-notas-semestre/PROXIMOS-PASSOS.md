@@ -59,5 +59,5 @@ Tudo no navegador, sem servidor e sem custo, para que as notas e os PDFs não sa
 - Laboratório: a fórmula com REC vale para todos ou só para quem faz recuperação? Se a nota da recuperação for pior, a média cai?
 - Circuitos: `Pn*` substitui Pn mesmo quando fica menor que a nota original?
 - ~~Quantidade de trabalhos e relatórios (T, R1...Rn) muitas vezes não está no plano. O painel deve deixar o aluno adicionar avaliações durante o semestre.~~ Feito em 19/11/2026: botões − e + em cada média simples.
-- Arredondamento da Unesp: hoje só a média final é arredondada. Confirmar se MP, MT e as notas parciais também são.
+- ~~Arredondamento da Unesp nas médias parciais.~~ Confirmado pela proponente e feito em 19/11/2026: MP, MT e a final.
 - Frequência mínima de 70% reprova independentemente da nota. Vale acompanhar faltas também?
