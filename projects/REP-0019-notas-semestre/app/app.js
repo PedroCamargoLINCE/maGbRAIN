@@ -6,6 +6,8 @@
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const fmt = (v) => (isFinite(v) ? v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '–');
+  // Valor antes do arredondamento da Unesp: até 3 casas, para não parecer que 4,948 vira 5,0.
+  const fmtRaw = (v) => (isFinite(v) ? v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 3 }) : '–');
   const fmtShort = (v) => (isFinite(v) ? v.toLocaleString('pt-BR', { maximumFractionDigits: 2 }) : '–');
   const listNames = (names) => (names.length < 2 ? names.join('') : names.slice(0, -1).join(', ') + ' e ' + names[names.length - 1]);
   const uid = () => 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
@@ -53,7 +55,10 @@
     const plan = F.parsePlan(s.formula);
     const maxG = F.parseGrade(s.max);
     const pass = F.parseGrade(s.pass);
-    const out = { plan, maxG: maxG > 0 ? maxG : 10, pass: isFinite(pass) && pass !== null ? pass : null, known: {}, pending: [], badGrades: [] };
+    const out = { plan, maxG: maxG > 0 ? maxG : 10, pass: isFinite(pass) && pass !== null ? pass : null, known: {}, pending: [], badGrades: [], round: s.round !== false };
+    // Regra da Unesp: a média final vale com uma casa decimal (4,96 vira 5,0). As médias parciais ficam como estão.
+    const fin = (v) => (out.round ? F.round1(v) : v);
+    out.fin = fin;
     plan.inputs.forEach((inp) => {
       const v = F.parseGrade(s.grades[inp.name]);
       if (v === null) out.pending.push(inp);
@@ -64,13 +69,14 @@
     const fill = (x) => { const vals = Object.assign({}, out.known); out.pending.forEach((p) => { vals[p.name] = x; }); return vals; };
     try {
       out.secured = F.evaluate(plan, fill(0));
-      out.best = F.evaluate(plan, fill(out.maxG)).final;
+      out.securedFinal = fin(out.secured.final);
+      out.best = fin(F.evaluate(plan, fill(out.maxG)).final);
       const allMax = {}; plan.inputs.forEach((p) => { allMax[p.name] = out.maxG; });
-      out.ceiling = F.evaluate(plan, allMax).final;
+      out.ceiling = fin(F.evaluate(plan, allMax).final);
       const knownVals = Object.values(out.known);
       if (knownVals.length && out.pending.length) {
         out.avg = knownVals.reduce((a, b) => a + b, 0) / knownVals.length;
-        out.projection = F.evaluate(plan, fill(out.avg)).final;
+        out.projection = fin(F.evaluate(plan, fill(out.avg)).final);
       }
       out.impact = {};
       plan.inputs.forEach((p) => {
@@ -87,7 +93,7 @@
   function ringLen(r, frac) { const c = 2 * Math.PI * r; return `${Math.max(0, Math.min(1, frac)) * c} ${c}`; }
   function statusOf(a) {
     if (!a.plan.ok || a.evalError || !a.secured || a.pass === null) return { kind: '', text: a.plan.ok ? '' : 'Fórmula com erro' };
-    const g = a.secured.final, pass = a.pass;
+    const g = a.securedFinal, pass = a.pass;
     if (g >= pass - 1e-9) return { kind: 'good', text: a.pending.length ? 'Já aprovado' : 'Aprovado' };
     if (a.best < pass - 1e-9) return { kind: 'bad', text: a.pending.length ? 'Não dá mais para passar' : 'Reprovado' };
     return { kind: 'warn', text: `Faltam ${fmt(pass - g)}` };
@@ -104,9 +110,9 @@
       const n = a.plan.inputs.length, k = Object.keys(a.known).length;
       return `<button type="button" class="tab ${st.kind}" data-id="${s.id}" aria-pressed="${s.id === cur.id}">` +
         `<svg class="mini" viewBox="0 0 44 44" aria-hidden="true"><circle class="g-track" cx="22" cy="22" r="17"></circle>` +
-        (ok ? `<circle class="g-possible" cx="22" cy="22" r="17" stroke-dasharray="${ringLen(17, a.best / top)}"></circle><circle class="g-secured" cx="22" cy="22" r="17" stroke-dasharray="${ringLen(17, a.secured.final / top)}"></circle>` : '') +
+        (ok ? `<circle class="g-possible" cx="22" cy="22" r="17" stroke-dasharray="${ringLen(17, a.best / top)}"></circle><circle class="g-secured" cx="22" cy="22" r="17" stroke-dasharray="${ringLen(17, a.securedFinal / top)}"></circle>` : '') +
         `</svg><span class="tab-text"><span class="tab-name">${esc(s.name || 'Sem nome')}</span>` +
-        `<span class="tab-meta">${ok ? `<b>${fmt(a.secured.final)}</b> garantido · ${k}/${n} notas` : 'confira a fórmula'}</span>` +
+        `<span class="tab-meta">${ok ? `<b>${fmt(a.securedFinal)}</b> garantido · ${k}/${n} notas` : 'confira a fórmula'}</span>` +
         `<span class="tab-status">${esc(st.text)}</span></span></button>`;
     }).join('') + '<button type="button" class="tab add upload" id="uploadPdf"><span class="plus" aria-hidden="true">↑</span><span class="tab-text"><span class="tab-name">Enviar planos de ensino</span><span class="tab-meta">PDF, um ou vários de uma vez</span></span></button>' +
       '<button type="button" class="tab add" id="addSubject"><span class="plus" aria-hidden="true">+</span><span class="tab-text"><span class="tab-name">Nova matéria</span><span class="tab-meta">cole a fórmula do plano</span></span></button>';
@@ -139,6 +145,7 @@
     fitFormula();
     $('pass').value = s.pass;
     $('maxGrade').value = s.max;
+    $('roundFinal').checked = s.round !== false;
     renderDanger(false);
     renderPlanOpen();
   }
@@ -163,6 +170,7 @@
   $('formula').addEventListener('input', (e) => { const s = subject(); s.formula = e.target.value; fitFormula(); touch(s); renderStructure(); });
   $('pass').addEventListener('input', (e) => { const s = subject(); s.pass = e.target.value; touch(s); paint(); });
   $('maxGrade').addEventListener('input', (e) => { const s = subject(); s.max = e.target.value; touch(s); renderSim(); paint(); });
+  $('roundFinal').addEventListener('change', (e) => { const s = subject(); s.round = e.target.checked; touch(s); paint(); });
 
   /* ---------- notas, agrupadas pela média em que entram ---------- */
   function varsOf(node, out) {
@@ -185,6 +193,71 @@
     });
     return groups;
   }
+  /* Grupos "MP = media(P1, P2, P3)": o aluno pode mudar quantas avaliações entram. */
+  const NOUNS = { P: ['prova', 'provas'], T: ['trabalho', 'trabalhos'], R: ['relatório', 'relatórios'], L: ['lista', 'listas'], E: ['exercício', 'exercícios'], S: ['seminário', 'seminários'] };
+  function nounFor(prefix, n) { const w = NOUNS[prefix.toUpperCase()] || ['avaliação', 'avaliações']; return n + ' ' + w[n === 1 ? 0 : 1]; }
+  function countable(plan, def) {
+    const e = def.expr;
+    if (e.k !== 'call' || e.fn !== 'media' || !e.args.length) return null;
+    let prefix = null;
+    const nums = [];
+    for (const arg of e.args) {
+      if (arg.k !== 'var' || plan.byName[arg.name]) return null;
+      const m = arg.display.match(/^([A-Za-zÀ-ÿ_]+?)(\d+)$/);
+      if (!m) return null;
+      if (prefix === null) prefix = m[1];
+      else if (prefix.toUpperCase() !== m[1].toUpperCase()) return null;
+      nums.push(Number(m[2]));
+    }
+    return { prefix, nums };
+  }
+  function defLine(def, args) {
+    const body = 'media(' + args.join(', ') + ')';
+    return def.name === 'MÉDIA FINAL' ? body : def.display + ' = ' + body;
+  }
+  function setCount(gi, delta) {
+    const s = subject();
+    const plan = F.parsePlan(s.formula);
+    const def = plan.byName[groupDefs[gi]];
+    const c = def && countable(plan, def);
+    if (!c) return;
+    const nums = c.nums.slice();
+    if (delta > 0) nums.push(Math.max(...nums) + 1);
+    else if (nums.length > 1) nums.pop();
+    else return;
+    const lines = s.formula.split(/\r?\n/);
+    const comment = (lines[def.line - 1].match(/\s*(#|\/\/).*$/) || [''])[0];
+    lines[def.line - 1] = defLine(def, nums.map((n) => c.prefix + n)) + comment;
+    s.formula = lines.join('\n');
+    touch(s);
+    $('formula').value = s.formula; fitFormula();
+    renderStructure();
+    const btn = $('gradesTable').querySelector(`button[data-count="${delta > 0 ? 1 : -1}"][data-gi="${gi}"]`);
+    if (btn) btn.focus();
+  }
+  /* Uma média (MP, MT...) que ficou como nota: oferece calcular a partir das avaliações. */
+  function suspectMeans(plan) {
+    return plan.inputs.filter((i) => /^M[A-Z]$/.test(i.name));
+  }
+  function fixMean(name) {
+    const s = subject();
+    const plan = F.parsePlan(s.formula);
+    const inp = plan.inputs.find((i) => i.name === name);
+    if (!inp) return;
+    const letter = inp.display.slice(1);
+    const n = letter.toUpperCase() === 'P' ? 2 : 3;
+    const line = inp.display + ' = media(' + Array.from({ length: n }, (_, k) => letter + (k + 1)).join(', ') + ')';
+    const lines = s.formula.split(/\r?\n/);
+    let at = 0;
+    while (at < lines.length && /^\s*(#|\/\/|$)/.test(lines[at])) at++;
+    lines.splice(at, 0, line);
+    s.formula = lines.join('\n');
+    delete s.grades[name];
+    touch(s);
+    $('formula').value = s.formula; fitFormula();
+    renderStructure();
+  }
+
   let gradeSig = '';
   let groupDefs = [];
   function renderGrades() {
@@ -194,17 +267,35 @@
     if (!plan.inputs.length) { groupDefs = []; $('gradesTable').innerHTML = '<p class="muted">A fórmula ainda não tem avaliações.</p>'; return; }
     const groups = groupsOf(plan);
     groupDefs = groups.map((g) => g.def.name);
-    $('gradesTable').innerHTML = groups.map((g, gi) =>
-      `<div class="group"><div class="group-head"><span class="group-name">${g.isFinal ? 'Direto na média final' : esc(g.def.display)}</span>` +
+    const hints = suspectMeans(plan).map((inp) => {
+      const letter = inp.display.slice(1);
+      const n = letter.toUpperCase() === 'P' ? 2 : 3;
+      return `<div class="hint"><p><b>${esc(inp.display)}</b> parece ser uma média, mas está como nota que você digita.</p>` +
+        `<button type="button" class="ghost" data-fix="${esc(inp.name)}">Calcular ${esc(inp.display)} como média de ${nounFor(letter, n)}</button></div>`;
+    }).join('');
+    $('gradesTable').innerHTML = hints + groups.map((g, gi) => {
+      const c = countable(plan, g.def);
+      const ctl = c ? `<span class="count-ctl"><button type="button" data-count="-1" data-gi="${gi}" aria-label="Uma ${esc(g.def.display)} a menos"${c.nums.length < 2 ? ' disabled' : ''}>−</button>` +
+        `<span class="count-n">${nounFor(c.prefix, c.nums.length)}</span>` +
+        `<button type="button" data-count="1" data-gi="${gi}" aria-label="Mais uma avaliação em ${esc(g.def.display)}">+</button></span>` : '';
+      return `<div class="group"><div class="group-head"><span class="group-name">${g.isFinal && !c ? 'Direto na média final' : esc(g.def.display)}</span>${ctl}` +
       (g.isFinal ? '' : `<span class="group-val" id="gv-${gi}"></span>`) + '</div><div class="tiles">' +
       g.items.map((i) => {
         const inp = plan.inputs[i];
         return `<label class="tile" id="row-${i}" for="g-${i}"><span class="tile-name">${esc(inp.display)}</span>` +
           `<input id="g-${i}" class="grade" data-name="${esc(inp.name)}" inputmode="decimal" autocomplete="off" placeholder="?" value="${esc(s.grades[inp.name] || '')}" aria-label="Nota de ${esc(inp.display)}">` +
           `<span class="tile-imp" id="imp-${i}"></span></label>`;
-      }).join('') + '</div></div>').join('') +
-      '<p class="muted small">Em cada nota: quanto 1 ponto nela soma na média final.</p>';
+      }).join('') + '</div></div>';
+    }).join('') +
+      '<p class="muted small">Em cada nota: quanto 1 ponto nela soma na média final.' +
+      (groups.some((g) => countable(plan, g.def)) ? ' Use − e + quando o plano não diz quantas avaliações terá.' : '') + '</p>';
   }
+  $('gradesTable').addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.count) setCount(Number(b.dataset.gi), Number(b.dataset.count));
+    if (b.dataset.fix) fixMean(b.dataset.fix);
+  });
   $('gradesTable').addEventListener('input', (e) => {
     if (!e.target.classList.contains('grade')) return;
     const s = subject();
@@ -319,8 +410,13 @@
     if (!ok) {
       $('resumoErro').textContent = 'A fórmula tem um problema. Abra “Editar fórmula” para ver o aviso.';
     } else {
-      const g = a.secured.final, pass = a.pass;
+      const g = a.securedFinal, pass = a.pass;
       $('garantido').textContent = fmt(g);
+      const raw = a.secured.final;
+      $('roundNote').hidden = !a.round;
+      $('roundNote').textContent = a.round
+        ? 'Médias finais com uma casa, como a Unesp arredonda.' + (Math.abs(raw - g) > 1e-9 ? ` Sem arredondar, o garantido é ${fmtRaw(raw)}.` : '')
+        : '';
       $('aprovacao').textContent = pass === null ? '–' : fmt(pass);
       $('maximo').textContent = fmt(a.best);
       $('projBox').hidden = a.projection === undefined;
@@ -359,18 +455,19 @@
     const names = unknowns.map((u) => u.display);
     try {
       if (!unknowns.length) {
-        const fin = F.evaluate(a.plan, base).final;
+        const raw = F.evaluate(a.plan, base).final;
+        const fin = a.fin(raw);
         const good = fin >= target - 1e-9;
         ans.className = 'answer ' + (good ? 'good' : 'bad');
-        ans.innerHTML = `<p class="ans-line">Com essas notas, a média final fica <strong class="big">${fmt(fin)}</strong></p>` +
+        ans.innerHTML = `<p class="ans-line">Com essas notas, a média final fica <strong class="big">${fmt(fin)}</strong>${Math.abs(raw - fin) > 1e-9 ? ` <span class="muted">(${fmtRaw(raw)} sem arredondar)</span>` : ''}</p>` +
           `<p>${good ? 'Chega' : 'Não chega'} a ${fmt(target)}.${a.pending.length ? ' Marque “descobrir” em alguma avaliação para saber o mínimo.' : ''}</p>`;
         return;
       }
-      const r = F.solve(a.plan, base, unknowns.map((u) => u.name), target, a.maxG);
+      const r = F.solve(a.plan, base, unknowns.map((u) => u.name), target, a.maxG, { round: a.round });
       if (r.status === 'ok') {
         ans.className = 'answer ' + (r.ceil > a.maxG * 0.7 ? 'warn' : 'good');
         ans.innerHTML = `<p class="ans-line">Você precisa de pelo menos <strong class="big">${fmt(r.ceil)}</strong> ${unknowns.length > 1 ? 'em ' + esc(listNames(names)) : 'na ' + esc(names[0])}</p>` +
-          `<p>${unknowns.length > 1 ? 'A mesma nota em cada uma. ' : ''}Arredondado para cima, para fechar com ${fmt(target)}.</p>`;
+          `<p>${unknowns.length > 1 ? 'A mesma nota em cada uma. ' : ''}Arredondado para cima, para fechar com ${fmt(target)}${a.round ? ' depois do arredondamento da Unesp' : ''}.</p>`;
       } else if (r.status === 'garantido') {
         ans.className = 'answer good';
         ans.innerHTML = `<p class="ans-line">Você já chega a ${fmt(target)} mesmo tirando <strong class="big">0</strong> ${unknowns.length > 1 ? 'em ' + esc(listNames(names)) : 'na ' + esc(names[0])}</p>`;
@@ -387,7 +484,7 @@
       for (let k = 0; k <= steps; k++) {
         const x = (a.maxG * k) / steps;
         const v = Object.assign({}, base); unknowns.forEach((u) => { v[u.name] = x; });
-        const fin = F.evaluate(a.plan, v).final;
+        const fin = a.fin(F.evaluate(a.plan, v).final);
         vals.push([x, fin]); top = Math.max(top, fin);
       }
       vals.forEach(([x, fin]) => {

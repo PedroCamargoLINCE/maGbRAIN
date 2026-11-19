@@ -194,11 +194,16 @@
 
   /* Menor nota x, igual em todas as "unknowns", para a média final chegar a "target".
      Supõe que a média não diminui quando uma nota sobe (vale para pesos positivos). */
-  function solve(plan, base, unknowns, target, maxGrade) {
+  /* Regra da Unesp para a média: uma casa decimal, e da segunda casa 5 para cima sobe (4,96 → 5,0; 9,14 → 9,1; 9,15 → 9,2). */
+  function round1(v) { return Math.floor(v * 10 + 0.5 + 1e-9) / 10; }
+
+  function solve(plan, base, unknowns, target, maxGrade, opts) {
+    const rounding = !!(opts && opts.round);
     const f = (x) => {
       const values = Object.assign({}, base);
       unknowns.forEach((u) => { values[u] = x; });
-      return evaluate(plan, values).final;
+      const v = evaluate(plan, values).final;
+      return rounding ? round1(v) : v;
     };
     const eps = 1e-9;
     const atZero = f(0);
@@ -221,7 +226,7 @@
     return isFinite(v) ? v : NaN;
   }
 
-  const api = { parsePlan, evaluate, solve, parseGrade, parseExpression, FUNCTIONS: Object.keys(FUNCTIONS) };
+  const api = { parsePlan, evaluate, solve, round1, parseGrade, parseExpression, FUNCTIONS: Object.keys(FUNCTIONS) };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Formula = api;
 })(typeof window !== 'undefined' ? window : this);

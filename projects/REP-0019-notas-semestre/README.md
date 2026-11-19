@@ -15,16 +15,16 @@ Para escrever a fórmula à mão:
    MT = media(T1, T2, T3)
    MF = 0,7*MP + 0,3*MT
    ```
-   A última linha é a média final. Todo nome não definido (P1, T1, Lista2…) vira uma avaliação. Funções: `media`, `soma`, `min`, `max`, `melhores(n; ...)` (média das n maiores). Pesos como `0,7`, `0.7` ou `70%`, sem obrigação de somar 1. Maiúsculas e minúsculas não importam.
-2. Em **Notas**, lance cada nota na ficha dela quando sair; as fichas aparecem agrupadas pela média em que entram. O número pequeno em cada ficha mostra quanto um ponto ali soma na média final.
-3. **Até agora** mostra o garantido (o que falta conta 0), o máximo possível e a projeção mantendo sua média.
+   A última linha é a média final. Todo nome não definido (P1, T1, Lista2…) vira uma avaliação. MP, MT e as outras médias são calculadas pela página: você lança só P1, P2, T1… Se uma média ficar como nota (por exemplo `MF = 0,7*MP + 0,3*MT` sem definir MP), a página oferece calculá-la a partir das provas. Funções: `media`, `soma`, `min`, `max`, `melhores(n; ...)` (média das n maiores). Pesos como `0,7`, `0.7` ou `70%`, sem obrigação de somar 1. Maiúsculas e minúsculas não importam.
+2. Em **Notas**, lance cada nota na ficha dela quando sair; as fichas aparecem agrupadas pela média em que entram. O número pequeno em cada ficha mostra quanto um ponto ali soma na média final. Em médias simples (`MP = media(P1, P2)`), os botões **−** e **+** mudam quantas provas ou trabalhos entram, para quando o plano não diz a quantidade.
+3. **Até agora** mostra o garantido (o que falta conta 0), o máximo possível e a projeção mantendo sua média. A média final é arredondada como na Unesp: uma casa decimal, subindo a partir de 5 na segunda casa (4,96 vira 5,0; 9,14 vira 9,1). As médias parciais (MP, MT) não são arredondadas. Dá para desligar em **Editar fórmula**.
 4. **E se…?** calcula a menor nota, igual em todas as avaliações marcadas "descobrir", para fechar com a meta (aprovação ou outra). Em "supor nota" você fixa um valor hipotético. A escada mostra a média final para cada nota de 0 ao máximo.
 5. Use "+ Matéria" para cada disciplina. "Copiar backup" e "Restaurar backup" levam os dados para outro navegador.
 
 As notas ficam só no `localStorage` do navegador. Nada é enviado e nada vai para o repositório.
 
 ## Limites
-O cálculo supõe que tirar mais nunca diminui a média (pesos positivos). Uma única nota máxima por matéria. Sem exame/recuperação, arredondamento oficial ou frequência; planejados em [PROXIMOS-PASSOS.md](PROXIMOS-PASSOS.md).
+O cálculo supõe que tirar mais nunca diminui a média (pesos positivos). Uma única nota máxima por matéria. Sem exame/recuperação ou frequência; planejados em [PROXIMOS-PASSOS.md](PROXIMOS-PASSOS.md).
 
 ## Verificação
 `node projects/REP-0019-notas-semestre/test-formula.cjs`

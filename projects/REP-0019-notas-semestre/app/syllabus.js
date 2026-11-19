@@ -66,34 +66,83 @@
   }
 
   /* Texto do plano → expressão que o piloto entende. */
+  const deaccent = (w) => w.normalize('NFD').replace(/[̀-ͯ]/g, '');
   function normalize(rhs, ctx) {
-    let s = rhs.trim().replace(/[;,.:]+$/, '');
+    let s = rhs.trim();
+    s = s.split(/,\s+(?=[A-Za-zÀ-ÿ'"‘“])|\s+(?:onde|em que|sendo|com)\b/)[0];           // corta a explicação depois da conta
+    s = s.replace(/[;,.:]+$/, '');
     s = s.replace(/[{[]/g, '(').replace(/[}\]]/g, ')');
-    s = s.replace(/(\d)\s*[xX×]\s*(?=[A-Za-z(])/g, '$1*');            // 0,9xMP
-    s = s.replace(/\(\s*([A-Za-z]+)1\s*\+[^()]*?\1\s*n\s*\)\s*\/\s*n/gi, (m, p) => {   // (R1+R2+...+Rn)/n
-      const L = p.toUpperCase();
-      ctx.warnings.push(`O plano usa ${L}1 + … + ${L}n: deixei 3 (${L}1, ${L}2, ${L}3). Ajuste para a quantidade real.`);
-      return `media(${L}1, ${L}2, ${L}3)`;
+    s = s.replace(/(\d)\s*[xX×]\s*(?=[A-Za-z(])/g, '$1*');                            // 0,9xMP
+    s = s.replace(/(\d)\s+(?=[A-Za-z(])/g, '$1*');                                     // 0,8 MP
+    s = s.replace(/\(\s*([A-Za-z]+)1\s*\+[^()]*?\1\s*n\s*\)\s*\/\s*n/gi, (m, p) => `media(${p.toUpperCase()}1..n)`);  // (R1+...+Rn)/n
+    s = s.replace(/m[ée]dia\s+d[aoe]s?\s+([A-Za-zÀ-ÿ]+)/gi, (m, word) => {          // "média dos trabalhos"
+      const L = deaccent(word)[0].toUpperCase();
+      ctx.letters['M' + L] = ctx.letters['M' + L] || L;
+      return 'M' + L;
     });
-    s = s.replace(/m[ée]dia\s+d[aoe]s?\s+([A-Za-zÀ-ÿ]+)/gi, (m, word) => {     // "média dos trabalhos"
-      const L = word.normalize('NFD').replace(/[̀-ͯ]/g, '')[0].toUpperCase();
-      const name = 'M' + L;
-      if (!ctx.auto[name]) {
-        ctx.auto[name] = `media(${L}1, ${L}2)`;
-        ctx.warnings.push(`“${m}” virou ${name} = média de ${L}1 e ${L}2. O plano não diz quantos são: ajuste.`);
-      }
-      return name;
-    });
-    s = s.replace(/\b([a-z])(\d+)\b/g, (m, a, b) => a.toUpperCase() + b);     // p1 → P1
+    s = s.replace(/\b([a-z])(\d+)\b/g, (m, a, b) => a.toUpperCase() + b);             // p1 → P1
     return balance(s);
+  }
+  // "media(T1..n)" ainda não é sintaxe válida: troca pela lista com a quantidade conhecida (ou 3).
+  function expandN(s, ctx) {
+    return s.replace(/media\(([A-Z])1\.\.n\)/g, (m, L) => {
+      const n = ctx.counts[L] || 3;
+      if (!ctx.counts[L]) ctx.warnings.push(`O plano usa ${L}1 + … + ${L}n sem dizer quantos são: deixei ${n}. Use o + nas notas para acrescentar.`);
+      return `media(${Array.from({ length: n }, (_, i) => L + (i + 1)).join(', ')})`;
+    });
   }
 
   const NOISE = /^(ATENÇÃO:|https?:\/\/|www\.|Instituto de Ciência e Tecnologia - |Documento emitido|Código de autenticidade|Documento válido)/;
+  const WORDNUM = { um: 1, uma: 1, dois: 2, duas: 2, 'três': 3, tres: 3, quatro: 4, cinco: 5, seis: 6 };
+
+  /* (X1 + X2 + X3)/3 → media(X1, X2, X3); soma dividida por outro número fica como está, com aviso. */
+  function sumVars(node, out) {
+    if (node.k === 'var') { out.push(node); return out; }
+    if (node.k === 'bin' && node.op === '+') { const a = sumVars(node.a, out); return a && sumVars(node.b, out); }
+    return null;
+  }
+  function toMedia(node, ctx) {
+    if (node.k === 'bin') {
+      node.a = toMedia(node.a, ctx); node.b = toMedia(node.b, ctx);
+      // 0,85*(P1+P2)/2 → 0,85*media(P1, P2)
+      if (node.op === '/' && node.b.k === 'num' && node.a.k === 'bin' && node.a.op === '*') {
+        for (const side of ['b', 'a']) {
+          const vars = sumVars(node.a[side], []);
+          if (vars && vars.length > 1 && vars.length === node.b.v) {
+            const other = side === 'a' ? node.a.b : node.a.a;
+            return { k: 'bin', op: '*', a: other, b: { k: 'call', fn: 'media', args: vars } };
+          }
+        }
+      }
+      if (node.op === '/' && node.b.k === 'num') {
+        const vars = sumVars(node.a, []);
+        if (vars && vars.length > 1) {
+          if (vars.length === node.b.v) return { k: 'call', fn: 'media', args: vars };
+          ctx.warnings.push(`O plano soma ${vars.length} notas (${vars.map((v) => v.display).join(', ')}) e divide por ${String(node.b.v).replace('.', ',')}. Mantive como está escrito; confira.`);
+        }
+      }
+    } else if (node.k === 'neg') node.a = toMedia(node.a, ctx);
+    else if (node.k === 'call') node.args = node.args.map((x) => toMedia(x, ctx));
+    return node;
+  }
+  /* Uma média de notas no meio da conta vira uma média com nome (MT = media(T1, T2, T3)), para agrupar e poder acrescentar notas. */
+  function liftMeans(node, defs, byName, isRoot) {
+    if (node.k === 'bin') { node.a = liftMeans(node.a, defs, byName); node.b = liftMeans(node.b, defs, byName); return node; }
+    if (node.k === 'neg') { node.a = liftMeans(node.a, defs, byName); return node; }
+    if (node.k !== 'call' || isRoot || node.fn !== 'media') return node;
+    const letters = new Set(node.args.map((a) => (a.k === 'var' && /^[A-Z]\d+$/.test(a.name) ? a.name[0] : '?')));
+    if (letters.size !== 1 || letters.has('?')) return node;
+    const name = 'M' + [...letters][0];
+    if (byName[name]) return node;
+    const def = { name, expr: node };
+    byName[name] = def; defs.unshift(def);
+    return { k: 'var', name, display: name };
+  }
 
   function parseSyllabus(lines, F, fileName) {
     const counts = {};
     lines.forEach((l) => { counts[l] = (counts[l] || 0) + 1; });
-    const clean = lines.filter((l) => counts[l] < 2 && !NOISE.test(l) && !/^[_=\-]{5,}$/.test(l));
+    const clean = lines.filter((l) => counts[l] < 2 && !NOISE.test(l) && !/^[_=\-%]{5,}$/.test(l));
 
     // Nome da disciplina: linha depois de "Disciplina", sem o código.
     let name = '';
@@ -107,56 +156,84 @@
     if (end < 0) end = clean.length;
     const section = start >= 0 ? clean.slice(start, end) : [];
     // Só a parte regular: para antes de recuperação e exame (registrados para depois).
-    let regEnd = section.findIndex((l, i) => i > 0 && (/^(RECUPERA[ÇC][ÃA]O|EXAME)/.test(l) || (/^(Recupera[çc][ãa]o|Exame final)\b/i.test(l) && l.length < 40)));
+    let regEnd = section.findIndex((l, i) => i > 0 && (
+      /^(PER[ÍI]ODO DE )?(RECUPERA[ÇC][ÃA]O|EXAME)/.test(l) || /^Recupera[çc][ãa]o\b/.test(l) ||
+      /^Exame final\b/i.test(l) || /^Conforme alterado pela Resolu/.test(l) || /^Metodologia do exame/i.test(l)));
     if (regEnd < 0) regEnd = section.length;
     const regular = section.slice(0, regEnd);
 
-    const ctx = { warnings: [], auto: {} };
+    const ctx = { warnings: [], letters: {}, counts: {} };
     let pass = null;
     for (const l of regular) {
       const m = l.match(/(?:≥|>=|igual ou superior a|maior ou igual a)\s*(\d+(?:[,.]\d+)?)/i);
       if (m) { pass = m[1].replace('.', ','); break; }
     }
+    // Pistas em texto: "MT = Média dos relatórios", "média de provas MP", "2 provas", "02 provas (P1 e P2)".
+    const text = regular.join(' ');
+    let m;
+    regular.forEach((line) => {
+      const w1 = line.match(/\b(M[A-Z])\s*[=–:-]\s*m[ée]dia\s+(?:aritm[ée]tica\s+)?d[aeo]s?\s+([A-Za-zÀ-ÿ]+)/i);
+      if (w1) ctx.letters[w1[1].toUpperCase()] = deaccent(w1[2])[0].toUpperCase();
+      const w2 = line.match(/m[ée]dia\s+d[aeo]s?\s+([A-Za-zÀ-ÿ]+)\s+(M[A-Z])\b/i);
+      if (w2) ctx.letters[w2[2].toUpperCase()] = deaccent(w2[1])[0].toUpperCase();
+    });
+    const reCount = /\b(\d{1,2}|uma?|dois|duas|tr[êe]s|quatro|cinco|seis)\s+(provas|trabalhos|relat[óo]rios|listas|projetos|semin[áa]rios)\b/gi;
+    while ((m = reCount.exec(text))) {
+      const n = /\d/.test(m[1]) ? parseInt(m[1], 10) : WORDNUM[m[1].toLowerCase()];
+      const L = deaccent(m[2])[0].toUpperCase();
+      if (n > 0 && n < 20 && !ctx.counts[L]) ctx.counts[L] = n;
+    }
 
     // Equações "NOME = expressão".
     const defs = [];
-    const seen = new Set();
+    const byName = {};
     for (let i = 0; i < regular.length; i++) {
       const line = regular[i].replace(/^[•\-–*\s]+/, '');
-      const m = line.match(/^([A-Za-z][A-Za-z0-9_]{0,11})\s*=\s*(.+)$/);
-      if (!m) continue;
-      const lhs = m[1].toUpperCase().replace(/^([A-Z])(\d+)$/, '$1$2');
-      let rhs = m[2].split('=').pop();
+      const mm = line.match(/^([A-Za-z][A-Za-z0-9_]{0,11})\s*=\s*(.+)$/);
+      if (!mm) continue;
+      const lhs = mm[1].toUpperCase();
+      let rhs = mm[2].split('=').pop();
       let expr = null;
       for (let extra = 0; extra <= 2 && !expr; extra++) {
-        const text = extra ? rhs + ' ' + regular.slice(i + 1, i + 1 + extra).join(' ') : rhs;
+        const t = extra ? rhs + ' ' + regular.slice(i + 1, i + 1 + extra).join(' ') : rhs;
         try {
-          const ex = F.parseExpression(normalize(text, { warnings: [], auto: {} }));
-          if (ex.k !== 'var' || ex.name !== lhs) { expr = ex; rhs = text; }
+          const probe = { warnings: [], letters: {}, counts: ctx.counts };
+          const ex = F.parseExpression(expandN(normalize(t, probe), { warnings: [], counts: ctx.counts }));
+          if (ex.k !== 'var' || ex.name !== lhs) { expr = ex; rhs = t; }
         } catch (e) { /* tenta com a linha seguinte */ }
         if (!/[+\-*/(,]\s*$/.test(rhs) && extra === 0 && !expr) break;
       }
-      if (!expr || seen.has(lhs)) continue;
-      expr = F.parseExpression(normalize(rhs, ctx));
-      seen.add(lhs);
-      defs.push({ name: lhs, expr });
+      if (!expr || byName[lhs]) continue;
+      const def = { name: lhs, expr: F.parseExpression(expandN(normalize(rhs, ctx), ctx)) };
+      byName[lhs] = def;
+      defs.push(def);
     }
-    Object.keys(ctx.auto).forEach((n) => {
-      if (!seen.has(n)) { seen.add(n); defs.unshift({ name: n, expr: F.parseExpression(ctx.auto[n]) }); }
-    });
 
     if (!defs.length) {
       return { name, pass: pass || '5', formula: '', found: false, warnings: ['Não encontrei a fórmula no texto. Copie do trecho abaixo para a caixa da fórmula.'], excerpt: section.join('\n') };
     }
 
+    // Médias com nome: (P1+P2)/2 → media(P1, P2); média no meio da conta → MP, MT...
+    defs.forEach((d) => { d.expr = toMedia(d.expr, ctx); });
+    defs.slice().forEach((d) => { d.expr = liftMeans(d.expr, defs, byName, true); });
+
+    // MP, MT... usados sem definição viram a média das notas, nunca um campo para preencher.
+    const undefinedMeans = new Set();
+    defs.forEach((d) => varsOf(d.expr, []).forEach((v) => { if (/^M[A-Z]$/.test(v) && !byName[v]) undefinedMeans.add(v); }));
+    undefinedMeans.forEach((v) => {
+      const L = ctx.letters[v] || v[1];
+      const n = ctx.counts[L] || (L === 'P' ? 2 : 3);
+      const args = Array.from({ length: n }, (_, i) => L + (i + 1));
+      const def = { name: v, expr: F.parseExpression(`media(${args.join(', ')})`) };
+      byName[v] = def; defs.unshift(def);
+      if (!ctx.counts[L]) ctx.warnings.push(`${v} = média de ${args.join(', ')}: o plano não diz quantos são. Use o + nas notas para acrescentar.`);
+    });
+
     // Média final = definição que nenhuma outra usa (de preferência MF).
-    const byName = {};
-    defs.forEach((d) => { byName[d.name] = d; });
     const used = new Set();
     defs.forEach((d) => varsOf(d.expr, []).forEach((v) => { if (byName[v] && v !== d.name) used.add(v); }));
     const roots = defs.filter((d) => !used.has(d.name));
     const final = roots.find((d) => /^(MF|MS|MFS|NF|MEDIA)$/.test(d.name)) || roots[roots.length - 1] || defs[defs.length - 1];
-    roots.filter((d) => d !== final).forEach((d) => ctx.warnings.push(`Ignorei ${d.name}, que não entra na média final.`));
 
     const order = [];
     const done = new Set();
@@ -169,11 +246,11 @@
     };
     visit(final, new Set());
 
-    const text = ['# Lido do plano. Confira com o trecho original.']
+    const out = ['# Lido do plano. Confira com o trecho original.']
       .concat(ctx.warnings.map((w) => '# ' + w))
       .concat(order.map((d) => `${d.name} = ${print(d.expr)}`))
       .join('\n');
-    return { name, pass: pass || '5', formula: text, found: true, warnings: ctx.warnings, excerpt: section.join('\n') };
+    return { name, pass: pass || '5', formula: out, found: true, warnings: ctx.warnings, excerpt: section.join('\n') };
   }
 
   const api = { pdfLines, parseSyllabus, print };
