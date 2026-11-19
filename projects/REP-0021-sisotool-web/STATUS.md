@@ -6,13 +6,13 @@
 - Última atualização: 2026-11-19
 
 ## O que existe e foi verificado
-`app/index.html`: LGR interativo trazido como estava na versão do proponente. Incluído na publicação do mapa como `sisotool-web/`.
+`app/index.html`: LGR interativo trazido como estava na versão do proponente. Publicado em `sisotool-web/` do mapa (PR #60).
 
 ## Trabalho ativo
 Nenhum.
 
 ## Próxima contribuição disponível
-Escolher e construir a segunda ferramenta (Bode, Nyquist, resposta ao degrau…). Depois do merge, conferir o endereço publicado e preencher `site` no IDEA.md.
+Escolher e construir a segunda ferramenta (Bode, Nyquist, resposta ao degrau…).
 
 ## Bloqueios
 Nenhum.

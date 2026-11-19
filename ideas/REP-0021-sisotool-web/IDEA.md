@@ -3,7 +3,7 @@ id: REP-0021
 title: "Sisotool na web: ferramentas para aprender controle"
 status: trying
 owner: null
-site: ""
+site: sisotool-web/
 ---
 
 # Sisotool na web: ferramentas para aprender controle
@@ -21,4 +21,4 @@ Proposta trazida ao mapa em 19/11/2026, numa sessão com Claude Code, junto com 
 Sugestões, não decisões humanas: cada ferramenta nova pode ser uma página própria ao lado do LGR, reaproveitando o leitor de G(s)H(s). Candidatas naturais: diagrama de Bode, Nyquist e resposta ao degrau.
 
 ## Próxima contribuição (opcional)
-Primeiro produto em [projects/REP-0021-sisotool-web](../../projects/REP-0021-sisotool-web/README.md): o LGR interativo. Depois do merge, a página sai pelo mapa em `sisotool-web/`; conferir o endereço e preencher o campo `site`. Próximo passo: escolher a segunda ferramenta.
+Primeiro produto em [projects/REP-0021-sisotool-web](../../projects/REP-0021-sisotool-web/README.md): o LGR interativo. Publicado pelo mapa em https://pedrocamargolince.github.io/maGbRAIN/sisotool-web/ (workflow "Mapa de ideias" do merge do PR #60). Próximo passo: escolher a segunda ferramenta.
