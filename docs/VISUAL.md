@@ -5,7 +5,8 @@ O maGbRAIN tem cara de zine de uma república de engenharia: papel creme, contor
 ## Ilustrações
 - `site/assets/lab-banner.webp`: bancada de invenções com submarino de aquário e foguete de caneca; banner do README e do site.
 - `site/assets/small-progress.webp`: pequena ideia no carrinho diante de um foguete incompleto; incentivo à colaboração incremental.
+- `site/assets/magnatas/logo.png`: escudo da República Magnatas, enviado por PedroCamargoLINCE em 19/11/2026. Recortado do arquivo original e com contorno branco para funcionar no tema claro e no escuro; usado no topo e no rodapé do README.
 
-Criadas com geração de imagem por IA e convertidas para WebP sem recorte. Direção dos prompts: cartoon editorial em risografia, contornos navy, papel creme, cores chapadas, cérebro com óculos e tênis amarelos, humor de laboratório universitário, sem palavras desenhadas. O banner mostra a bancada coletiva; a segunda peça mostra que pequenos avanços contam.
+As duas ilustrações foram criadas com geração de imagem por IA e convertidas para WebP sem recorte. Direção dos prompts: cartoon editorial em risografia, contornos navy, papel creme, cores chapadas, cérebro com óculos e tênis amarelos, humor de laboratório universitário, sem palavras desenhadas. O banner mostra a bancada coletiva; a segunda peça mostra que pequenos avanços contam.
 
 Preservar contraste e nomes textuais dos estados. Não usar somente cor para comunicar progresso. Manter imagens locais no repositório e copiar site/assets para dist no build. Os elementos de navegação continuam acessíveis por teclado e as animações respeitam redução de movimento.

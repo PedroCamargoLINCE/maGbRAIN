@@ -1,6 +1,7 @@
 """Build a static catalog from idea records; Python standard library only."""
 import json, re, shutil
 from contributions import load_contributions, aggregate
+import placar
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 STATES=['inbox','exploring','ready','building','trying','done','parked']
@@ -30,6 +31,10 @@ def build():
     data=json.dumps(dict(ideas=records,links=links,people=people,contributions=contributions),ensure_ascii=False).replace('<','\\u003c')
     (out/'index.html').write_text(html.replace('/*CATALOG*/',data))
     (out/'.nojekyll').touch()
+    # Placar do README (docs/MAPA.md): contado aqui, nunca à mão.
+    numbers=placar.stats(records,people,contributions,sum(p.is_dir() for p in (ROOT/'projects').glob('*')))
+    (out/'placar.svg').write_text(placar.render(numbers))
+    (out/'placar.json').write_text(json.dumps({k:numbers[k] for k in ('ideas','projects','contributions','people')}))
     shutil.copytree(ROOT/'site/assets', out/'assets', dirs_exist_ok=True)
     # Published project pages; a fresh maGbRAIN (scripts/new_group.py) has none of them yet.
     for source, target in [('projects/REP-0014-mag-batas/app','mag-batas'),('projects/REP-0016-rv1a/app','rv1a'),('projects/REP-0012-cerebro-mosca/app','cerebro-mosca'),('projects/REP-0019-notas-semestre/app','notas-semestre')]:
