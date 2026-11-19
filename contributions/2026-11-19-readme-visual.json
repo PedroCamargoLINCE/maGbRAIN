@@ -1,0 +1,28 @@
+{
+  "id": "2026-11-19-readme-visual",
+  "date": "2026-11-19",
+  "ideas": [
+    "REP-0013",
+    "REP-0020"
+  ],
+  "summary": "README mais visual: escudo da Magnatas, selos, diagrama do caminho de uma ideia e um placar de contribuições gerado sozinho no build.",
+  "types": [
+    "design",
+    "code",
+    "documentation"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Participante pediu e conduziu a mudança e enviou o logo numa sessão com Claude Code em 19/11/2026; crédito no perfil PedroCamargoLINCE, já confirmado em 18/11/2026 (ficha 2026-11-18-ideias-docker-rag).",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Mudanças e verificações",
+      "path": "docs/handoffs/2026-11-19-readme-visual.md"
+    }
+  ]
+}

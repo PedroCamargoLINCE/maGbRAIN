@@ -5,6 +5,9 @@ A página é estática e não usa APIs pagas, tokens de acesso nem dependências
 ## Querem ajuda
 O bloco "Querem ajuda agora" lista as Issues abertas com a etiqueta `quero-ajuda`, direto da leitura pública do GitHub no navegador de quem visita (sem token; o resultado fica guardado por 10 minutos). A ideia é reconhecida pelo `REP-XXXX` no título da Issue. Para uma tarefa aparecer ou sumir, basta pôr ou tirar a etiqueta; não precisa de PR nem de nova publicação. Sem internet ou se a consulta falhar, o bloco mostra só o link para a lista no GitHub.
 
+## Placar do README
+O build também escreve `placar.svg` e `placar.json` em `dist/` (`scripts/placar.py`): total de ideias, projetos (pastas em `projects/`), fichas em `contributions/`, pessoas com crédito, fichas por pessoa e ideias por estado. O README mostra a imagem e os selos direto do endereço publicado, então os números mudam sozinhos a cada publicação da `main`, sem commit no README e sem conflito entre PRs. O GitHub guarda imagens externas por alguns minutos; a atualização pode demorar um pouco a aparecer.
+
 ## Atualizar
 Edite o status e as seções Registro e Próxima contribuição no IDEA.md. O script lê essas seções automaticamente. As relações ficam em site/relations.json com source, target, label e kind (documented ou suggested). Relações sugeridas aparecem tracejadas. Não representar afinidade como dependência ou fusão de projetos.
 

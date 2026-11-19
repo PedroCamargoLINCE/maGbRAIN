@@ -15,7 +15,7 @@ ORIGINAL_PAGES = 'https://pedrocamargolince.github.io/maGbRAIN/'
 COPY = [
     'AGENTS.md', 'CONTRIBUTING.md', 'LICENSE', 'Dockerfile', 'docker-compose.yml', '.dockerignore', '.gitignore',
     'docs/templates', 'tests', 'site/index.html', 'site/assets',
-    'scripts/build_site.py', 'scripts/contributions.py', 'scripts/rag.py', 'scripts/new_group.py', 'scripts/docker-entrypoint.sh',
+    'scripts/build_site.py', 'scripts/placar.py', 'scripts/contributions.py', 'scripts/rag.py', 'scripts/new_group.py', 'scripts/docker-entrypoint.sh',
     'docs/CONTRIBUTIONS.md', 'docs/PROMPTS.md', 'docs/MAPA.md', 'docs/DOCKER.md', 'docs/RAG.md',
     '.github/pull_request_template.md', '.github/ISSUE_TEMPLATE',
     '.github/workflows/contributions.yml', '.github/workflows/pages.yml',
@@ -60,7 +60,7 @@ def create(target, name, repo=''):
         dst = target / item
         dst.parent.mkdir(parents=True, exist_ok=True)
         if src.is_dir():
-            shutil.copytree(src, dst, ignore=shutil.ignore_patterns('__pycache__'))
+            shutil.copytree(src, dst, ignore=shutil.ignore_patterns('__pycache__', 'magnatas'))  # o logo da casa não vai para outros grupos
         else:
             shutil.copy2(src, dst)
     for folder in ('ideas', 'projects', 'contributions'):
