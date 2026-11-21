@@ -1,0 +1,25 @@
+{
+  "id": "2026-11-21-deepcore",
+  "date": "2026-11-21",
+  "ideas": [
+    "REP-0024"
+  ],
+  "summary": "Registro do jogo DEEPCORE como projeto externo, com descrição a partir do repositório de origem e os pedidos de ajuda: testar, dar feedback e contribuir com código.",
+  "types": [
+    "ideation"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Autor do jogo pediu o registro numa sessão com Claude Code em 21/11/2026; crédito no perfil PedroCamargoLINCE, já confirmado em 18/11/2026 (ficha 2026-11-18-ideias-docker-rag).",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Ficha REP-0024",
+      "path": "ideas/REP-0024-deepcore/IDEA.md"
+    }
+  ]
+}
