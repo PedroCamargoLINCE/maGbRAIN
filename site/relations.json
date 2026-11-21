@@ -52,5 +52,17 @@
     "target": "REP-0022",
     "label": "Ideias irmãs: ferramentas interativas na web para aprender, uma para controle e outra para IA",
     "kind": "documented"
+  },
+  {
+    "source": "REP-0013",
+    "target": "REP-0023",
+    "label": "O artigo relataria a colaboração com assinaturas de IA que o maGbRAIN pôs em prática",
+    "kind": "documented"
+  },
+  {
+    "source": "REP-0017",
+    "target": "REP-0023",
+    "label": "Replicação para outros grupos como evidência e como contribuição de ferramenta do artigo",
+    "kind": "documented"
   }
 ]
