@@ -1,0 +1,25 @@
+{
+  "id": "2026-11-21-organizacao-github",
+  "date": "2026-11-21",
+  "ideas": [
+    "REP-0013"
+  ],
+  "summary": "Anotação em REP-0013 sobre como receber projetos que já são repositórios grandes: ficha leve com link externo e, se o grupo crescer, uma organização da Magnatas no GitHub com o maGbRAIN como índice.",
+  "types": [
+    "documentation"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Pedro (PedroCamargoLINCE) pediu o registro desta anotação no chat do projeto em 21/11/2026, a partir de uma sugestão da IA sobre o projeto de um amigo.",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Anotação registrada",
+      "path": "ideas/REP-0013-colaboracao/IDEA.md"
+    }
+  ]
+}
