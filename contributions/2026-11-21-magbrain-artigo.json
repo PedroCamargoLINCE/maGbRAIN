@@ -1,0 +1,30 @@
+{
+  "id": "2026-11-21-magbrain-artigo",
+  "date": "2026-11-21",
+  "ideas": [
+    "REP-0023"
+  ],
+  "summary": "Registro da ideia de transformar a arquitetura do maGbRAIN em artigo científico, com pesquisa prévia de trabalhos relacionados e triagem de áreas e venues.",
+  "types": [
+    "ideation",
+    "research"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Proponente pediu o registro e a triagem numa sessão com Claude Code em 21/11/2026; crédito no perfil PedroCamargoLINCE, já confirmado em 18/11/2026 (ficha 2026-11-18-ideias-docker-rag).",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Proposta REP-0023",
+      "path": "ideas/REP-0023-magbrain-artigo/IDEA.md"
+    },
+    {
+      "label": "Triagem de áreas e venues",
+      "path": "ideas/REP-0023-magbrain-artigo/TRIAGEM.md"
+    }
+  ]
+}
