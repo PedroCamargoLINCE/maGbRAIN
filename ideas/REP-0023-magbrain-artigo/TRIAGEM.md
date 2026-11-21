@@ -27,7 +27,7 @@ Lacuna que o maGbRAIN pode ocupar (hipótese da IA): quase todo trabalho sobre A
 
 | Área | Encaixe | O que mudaria no maGbRAIN ou no texto | Venues de exemplo |
 |---|---|---|---|
-| IHC / CSCW (colaboração humano-IA) | **Como está**, em formato de relato de experiência | Nada no repositório; escrever o relato e uma seção de considerações éticas | IHC (trilha Relatos de Experiência; aceita português), CHI (Case Studies / Late-Breaking Work), CSCW (PACM HCI, envio contínuo) |
+| IHC / CSCW (colaboração humano-IA) | **Como está**, em formato de relato de experiência | Nada no repositório; escrever o relato e uma seção de considerações éticas | IHC (trilha Relatos de Experiência; inglês ou português), CHI (Posters, que convidam estudos de caso), CSCW (PACM HCI, envio contínuo) |
 | Engenharia de Software, aspectos humanos | **Como está**, como ideia/visão ou relato; artigo completo pede dados | Para artigo completo: mineração do repositório e entrevistas | CHASE (com o ICSE), ICSE SEIS, FSE Ideas/Visions, SBES (trilha de ideias e resultados emergentes, CBSoft) |
 | Ferramentas de SE | **Mudança mínima** | Destacar a parte reutilizável (validador de fichas, `new_group.py`, mapa) e ter alguém de fora usando (o próximo passo da REP-0017) | Trilhas de ferramentas do CBSoft, SoftwareX (exige impacto em pesquisa, encaixe fraco hoje) |
 | Educação em engenharia | **Mudança mínima** | Enquadrar como ambiente de aprendizagem e extensão de estudantes; coletar percepções dos participantes com um questionário | COBENGE (eixos "programas especiais", "educação mediada por tecnologia"), IEEE FIE, IEEE EDUCON |
@@ -39,12 +39,16 @@ Lacuna que o maGbRAIN pode ocupar (hipótese da IA): quase todo trabalho sobre A
 - **COBENGE 2026** teve submissão até 26/04/2026. Se repetir, a janela de 2027 seria por volta de abril de 2027. [edital 2026](https://cobenge26.abenge.org.br/arquivos/EDITAL-SESSOES-TECNICAS-E-SESSOES-POSTERES-260730.pdf)
 - **CHASE 2027** (com o ICSE 2027, Dublin, 26 e 27/04/2027): a submissão já fechou em outubro de 2026. Aceita artigo completo (10 + 2 páginas) e resumo estendido (5 páginas). Alvo realista seria a edição de 2028. [chamada 2027](https://conf.researchr.org/track/chase-2027/chase-2027-papers)
 - **CSCW**: artigos entram pelo PACM HCI em ciclos contínuos e são apresentados numa edição seguinte. [rolling](https://cscw.acm.org/rolling.html)
+- **CHI 2027 Posters** (Pittsburgh, 10 a 14/05/2027): submissão até 21/01/2027, resumo estendido de até 4 páginas em inglês mais um pôster A0; convida estudos de caso; não arquival. A página mostrava ao mesmo tempo um aviso de prazo encerrado e uma contagem regressiva; vale confirmar com a organização. O prazo de artigos completos do CHI 2027 já passou (10/09/2026). [chamada](https://chi2027.acm.org/authors/posters/)
+- **IEEE EDUCON 2027** e **EDUNINE 2027**: os resumos já fecharam (30/10/2026 e 15/08/2026). **IEEE FIE**: aceita WIP; a chamada de 2027 ainda não estava publicada.
 - **IFAC ACE** (educação em controle) é trienal; a última foi em 2025 em Budapeste. Só faz sentido para a REP-0021.
 
 ## Recomendação (sugestão da IA, não decisão)
-1. **Primeiro alvo: relato de experiência em português**, no IHC 2027 ou no COBENGE 2027. Cabe com o maGbRAIN como está, e o prazo provável (abril ou maio de 2027) dá tempo de coletar dados leves.
+O artigo pode ser em inglês ou em português (decisão de PedroCamargoLINCE em 21/11/2026), então a escolha segue o encaixe e o calendário, não o idioma.
+1. **Primeiro alvo: pôster (extended abstract) no CHI 2027.** Submissão até 21/01/2027, até 4 páginas em inglês, e a chamada convida explicitamente estudos de caso. Cabe com o maGbRAIN como está mais uma mineração simples do repositório, que dá para fazer até janeiro. Pôster do CHI não é arquival, então não impede um artigo completo depois.
 2. **Mudança mínima que mais abre portas:** um script de mineração do próprio repositório (commits, PRs, fichas, handoffs, tempo entre estados, uso de cada ferramenta de IA) e um questionário curto com os participantes.
-3. **Depois, internacional:** com esses dados, uma versão em inglês para CHASE 2028 ou um artigo no PACM HCI (CSCW).
+3. **Artigo completo, com esses dados:** PACM HCI (CSCW, envio contínuo) ou CHASE 2028 (prazo provável em outubro de 2027). Pelo lado de educação em engenharia, IEEE FIE 2027, que aceita trabalho em andamento (WIP); a chamada de 2027 ainda não foi conferida.
+4. **Alternativas no Brasil**, se o calendário do CHI apertar: IHC 2027 (aceita inglês ou português; janela provável em maio de 2027) e COBENGE 2027 (provável em abril de 2027).
 
 ## Riscos e cuidados
 - **Amostra pequena e um grupo só**; quem escreve também participa. Dizer isso como limitação e tratar como estudo de caso.

@@ -9,7 +9,7 @@ site: ""
 # maGbRAIN como artigo científico
 
 ## Registro
-Usar o próprio maGbRAIN, a arquitetura montada neste repositório, como objeto de um artigo científico para conferência ou journal, numa área em que ele combine como está ou com mudanças mínimas. Já existe uma pesquisa prévia com a triagem de áreas e venues em [TRIAGEM.md](TRIAGEM.md). A leitura dela: o encaixe mais natural é um relato de experiência em Interação Humano-Computador/CSCW ou em aspectos humanos de Engenharia de Software (colaboração assíncrona de estudantes, cada um com a sua assinatura de IA, tendo o repositório como memória compartilhada e o crédito humano separado da IA); com um pouco de coleta de dados, também cabe em educação em engenharia.
+Usar o próprio maGbRAIN, a arquitetura montada neste repositório, como objeto de um artigo científico para conferência ou journal, numa área em que ele combine como está ou com mudanças mínimas. Já existe uma pesquisa prévia com a triagem de áreas e venues em [TRIAGEM.md](TRIAGEM.md). A leitura dela: o encaixe mais natural, em inglês ou português, é um relato de experiência ou estudo de caso em Interação Humano-Computador/CSCW ou em aspectos humanos de Engenharia de Software (colaboração assíncrona de estudantes, cada um com a sua assinatura de IA, tendo o repositório como memória compartilhada e o crédito humano separado da IA); com um pouco de coleta de dados, também cabe em educação em engenharia.
 
 ## Relato original
 > agora quero registrar uma ideia no magbrains: magbrains como artigo cientifico. usar a arquitetura que montamos para um paper de conferencia ou journal, em alguma area onde isso combine. podem ser tambem areas que precisariam de mudancas minimas para o paper ser adequado. faça uma pesquisa previa e uma triagem, e registre essa ideia
@@ -27,7 +27,7 @@ Resumo da arquitetura como ela está no repositório em 21/11/2026, para quem fo
 - **Replicável** para outros grupos via Docker e `scripts/new_group.py` (REP-0017).
 
 ## Sugestões da IA (opcional)
-Sugestões, não decisões humanas: começar por um relato de experiência em português (IHC ou COBENGE), que aceita o caderno como está, e só depois buscar um venue internacional. A principal lacuna em qualquer venue é evidência: hoje há um único grupo pequeno, com autores que também são participantes. A mudança mínima que mais abre portas é coletar dados leves: mineração do próprio repositório (commits, PRs, fichas, handoffs, tempo entre estados) e um questionário curto com quem usou. Detalhes e riscos em [TRIAGEM.md](TRIAGEM.md).
+Sugestões, não decisões humanas: o artigo pode ser em inglês ou português; o primeiro alvo sugerido é um pôster (resumo estendido de 4 páginas) no CHI 2027, com prazo em 21/01/2027, que aceita estudo de caso e cabe com o caderno como está. IHC e COBENGE 2027 ficam como alternativas no Brasil. A principal lacuna em qualquer venue é evidência: hoje há um único grupo pequeno, com autores que também são participantes. A mudança mínima que mais abre portas é coletar dados leves: mineração do próprio repositório (commits, PRs, fichas, handoffs, tempo entre estados) e um questionário curto com quem usou. Detalhes e riscos em [TRIAGEM.md](TRIAGEM.md).
 
 ## Próxima contribuição (opcional)
-Escolher o primeiro alvo (sugestão: relato de experiência no IHC 2027 ou no COBENGE 2027, conferindo as chamadas quando saírem) e combinar com os participantes do maGbRAIN quem assina e se topam responder a um questionário.
+Decidir se o primeiro alvo é o pôster do CHI 2027 (prazo 21/01/2027) e, se for, fazer a mineração do repositório até lá; combinar com os participantes do maGbRAIN quem assina e se topam responder a um questionário.
