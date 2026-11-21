@@ -19,3 +19,6 @@ Testar uma passagem de trabalho entre dois estudantes e agentes diferentes.
 ## Continuidade
 Nenhuma tarefa está assumida. Abrir uma Issue antes de executar; vinculá-la aqui. A captura não representa aprovação para execução nem conclusão.
 
+
+## Projetos grandes de outros repositórios · 2026-11-21
+Sugestão da IA, não decisão do grupo, registrada a pedido de Pedro (PedroCamargoLINCE) em 21/11/2026, quando um amigo quis trazer ao maGbRAIN um projeto que já é um repositório grande. Proposta: o projeto continua no repositório de origem e ganha aqui só uma ficha leve, com descrição, estado, quem cuida, o que precisa de ajuda e o link para fora. Meio-termo se o grupo crescer: criar uma organização no GitHub para a Magnatas, com o maGbRAIN como índice e os projetos grandes como repositórios próprios dentro dela. A ficha continua igual, só muda o endereço do link. Nada disso foi implementado.
