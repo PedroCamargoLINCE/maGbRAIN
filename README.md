@@ -39,7 +39,7 @@ Ninguém atualiza esses números à mão. O placar é contado a partir de [`idea
 
 ## 🚀 Comece aqui
 1. Conte sua ideia a um agente e peça que leia [AGENTS.md](AGENTS.md).
-2. Registre em `ideas/<ID>-<nome>/IDEA.md`, usando o [modelo](docs/templates/IDEA.md). Duas frases bastam.
+2. Registre em `ideas/<ID>-<nome>/IDEA.md`, usando o [modelo](docs/templates/IDEA.md). Duas frases bastam. Se o projeto já tem repositório próprio, use o [modelo de projeto externo](docs/templates/IDEA-EXTERNO.md): ele ganha só uma ficha aqui ([como funciona](CONTRIBUTING.md#projetos-externos)).
 3. Para trabalhar, escolha uma tarefa pequena (as abertas a qualquer pessoa têm a etiqueta [`quero-ajuda`](https://github.com/PedroCamargoLINCE/maGbRAIN/issues?q=is%3Aissue+is%3Aopen+label%3Aquero-ajuda) e aparecem em destaque no mapa), coloque-se como responsável (Assignee) na Issue e use uma branch e PR.
 4. Ao encerrar, deixe evidências e uma [passagem de trabalho](docs/templates/HANDOFF.md).
 

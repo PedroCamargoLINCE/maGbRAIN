@@ -1,0 +1,30 @@
+{
+  "id": "2026-11-21-projetos-externos",
+  "date": "2026-11-21",
+  "ideas": [
+    "REP-0015"
+  ],
+  "summary": "Regra de projeto externo: repositórios próprios entram no maGbRAIN só como ficha com link para a origem, com modelo, regra para agentes e suporte no mapa.",
+  "types": [
+    "documentation",
+    "code"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Pedro pediu a regra numa sessão com Claude Code em 21/11/2026; crédito no perfil PedroCamargoLINCE, já confirmado em 18/11/2026 (ficha 2026-11-18-ideias-docker-rag).",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Modelo de projeto externo",
+      "path": "docs/templates/IDEA-EXTERNO.md"
+    },
+    {
+      "label": "Passagem de trabalho",
+      "path": "docs/handoffs/2026-11-21-projetos-externos.md"
+    }
+  ]
+}

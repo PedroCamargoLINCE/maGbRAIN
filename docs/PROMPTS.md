@@ -3,6 +3,9 @@
 ## Capturar
 Leia AGENTS.md e procure duplicatas. Registre esta ideia preservando meu relato e separando suas sugestões. Não precisa desenvolvê-la agora. Prepare um PR com a captura: [ideia].
 
+## Trazer um projeto que já tem repositório
+Leia AGENTS.md e a seção Projetos externos do CONTRIBUTING. Registre [projeto] como projeto externo, com a ficha em `ideas/` apontando para [endereço do repositório], sem copiar o código. Prepare um PR com a ficha.
+
 ## Contribuir
 Leia AGENTS.md, a ideia [ID], STATUS e Issues/PRs relacionados. Esta sessão é uma contribuição coletiva, não uma obrigação de terminar o projeto. Escolha uma tarefa desbloqueada dentro de [orçamento], sinalize o escopo, execute e verifique. Pare ao cumprir os critérios, atingir o orçamento ou encontrar bloqueio. Deixe PR e passagem de trabalho para alguém sem acesso a este chat.
 

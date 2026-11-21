@@ -8,7 +8,7 @@ STATES=['inbox','exploring','ready','building','trying','done','parked']
 def build():
     records=[]
     for p in sorted((ROOT/'ideas').glob('*/IDEA.md')):
-        raw=p.read_text()
+        raw=p.read_text(encoding='utf-8')
         front=raw.split('---',2)[1]
         meta=dict(re.findall(r'^([a-z_]+):\s*(.*)$',front,re.M))
         ident=meta['id']; status=meta.get('status','inbox')
@@ -18,7 +18,12 @@ def build():
         site=meta.get('site','').strip('"')
         if site and not (site.startswith('https://') or re.fullmatch(r'[a-z0-9-]+/',site)):
             raise ValueError(f'{p}: invalid site URL')
-        records.append(dict(id=ident,title=meta['title'].strip('"'),status=status,site=site,summary=section('Registro'),next=section('PrÃ³xima'),path=p.relative_to(ROOT).as_posix()))
+        # Projeto externo (CONTRIBUTING.md): o código vive no repositório de origem; aqui fica só a ficha.
+        repo=meta.get('repo','').strip().strip('"').rstrip('/')
+        if repo and not re.fullmatch(r'https://[^\s"<>]+',repo):
+            raise ValueError(f'{p}: invalid repo URL')
+        owner=meta.get('owner','').strip().strip('"')
+        records.append(dict(id=ident,title=meta['title'].strip('"'),status=status,site=site,repo=repo,owner='' if owner=='null' else owner,summary=section('Registro'),next=section('Próxima'),path=p.relative_to(ROOT).as_posix()))
     ids=[r['id'] for r in records]
     if len(ids)!=len(set(ids)): raise ValueError('Duplicate IDs')
     people, contributions=load_contributions(ROOT, ids)

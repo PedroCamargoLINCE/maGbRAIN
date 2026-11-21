@@ -9,6 +9,7 @@ O bloco "Querem ajuda agora" lista as Issues abertas com a etiqueta `quero-ajuda
 O build também escreve `placar.svg` e `placar.json` em `dist/` (`scripts/placar.py`): total de ideias, projetos (pastas em `projects/`), fichas em `contributions/`, pessoas com crédito, fichas por pessoa e ideias por estado. O README mostra a imagem e os selos direto do endereço publicado, então os números mudam sozinhos a cada publicação da `main`, sem commit no README e sem conflito entre PRs. O GitHub guarda imagens externas por alguns minutos; a atualização pode demorar um pouco a aparecer.
 
 ## Atualizar
+Uma ideia com o campo `repo` no IDEA.md é um projeto externo: o cartão ganha o selo "↗ Projeto externo" e o painel mostra quem cuida (`owner`) e os links para o repositório e as Issues de lá (veja CONTRIBUTING.md#projetos-externos).
 Edite o status e as seções Registro e Próxima contribuição no IDEA.md. O script lê essas seções automaticamente. As relações ficam em site/relations.json com source, target, label e kind (documented ou suggested). Relações sugeridas aparecem tracejadas. Não representar afinidade como dependência ou fusão de projetos.
 
 ## Publicar

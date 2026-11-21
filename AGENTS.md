@@ -8,6 +8,7 @@ Leia README, CONTRIBUTING, a ideia, o STATUS do projeto se existir, e Issues/PRs
 
 ## Captura
 Quando um projeto tiver interface web publicada, registre o endereço verificado no campo `site` do IDEA.md. O mapa gera um atalho visível automaticamente. Use HTTPS ou a pasta local publicada (exemplo: mag-batas/). Não apresente repositório como site nem invente endereço de publicação. Se não estiver publicado, registre a pendência. Publicar serviços novos exige autorização correspondente.
+Projeto que já tem repositório próprio entra como projeto externo: crie só a ficha em `ideas/` a partir de docs/templates/IDEA-EXTERNO.md, com o endereço no campo `repo`, e siga a seção "Projetos externos" do CONTRIBUTING. Não copie o código para cá, não use submodule nem subtree e não crie `projects/` para ele; código, Issues e PRs continuam no repositório de origem. Confirme com quem cuida do projeto o endereço, a descrição e o que pode ser divulgado antes de registrar.
 Não mantenha listas manuais de ideias (README ou outras): o mapa e a busca são gerados de `ideas/`. Preserve o relato original e sua origem. Separe sugestões da IA de decisões humanas. Não invente autoria, consenso, implementações ou resultados. Uma ideia curta pode continuar curta. Não exigir plano, orçamento ou justificativa para arquivar.
 
 ## Execução
