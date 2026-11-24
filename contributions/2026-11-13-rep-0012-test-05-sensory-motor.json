@@ -1,0 +1,16 @@
+{
+  "id": "2026-11-13-rep-0012-test-05-sensory-motor",
+  "date": "2026-11-13",
+  "ideas": ["REP-0012"],
+  "summary": "Triagem de grupos visuais, mecânicos e de perigo com 34 ensaios e 18 ablações seletivas, procurando transmissão para GNG_DESC.",
+  "types": ["code", "test", "research", "documentation"],
+  "participants": ["fkumagae"],
+  "attribution": "confirmed",
+  "attribution_source": "Crédito público de Felipe (fkumagae) confirmado no protocolo do repositório e solicitação direta da série de testes.",
+  "tools": ["Copilot SDK em VS Code", "Node.js local"],
+  "evidence": [
+    {"label": "Relatório de triagem sensorial-motora", "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-05-sensory-motor-screen/REPORT.md"},
+    {"label": "Resumo exportável", "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-05-sensory-motor-screen/sensor-motor-screening.json"},
+    {"label": "Configuração geradora", "path": "projects/REP-0012-cerebro-mosca/app/pilot/campaigns/test-05-sensory-motor-screen/build-config.cjs"}
+  ]
+}
