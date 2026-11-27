@@ -1,0 +1,25 @@
+{
+  "id": "2026-11-27-mundo-numeros",
+  "date": "2026-11-27",
+  "ideas": [
+    "REP-0025"
+  ],
+  "summary": "Registro da ideia de criar um mundo de fantasia habitado por números divididos em facções (ímpares, pares, inteiros, irracionais, primos e outras).",
+  "types": [
+    "ideation"
+  ],
+  "participants": [
+    "pedrocamargolince"
+  ],
+  "attribution": "confirmed",
+  "attribution_source": "Proponente pediu o registro numa sessão com Claude Code em 27/11/2026; crédito no perfil PedroCamargoLINCE, já confirmado em 18/11/2026 (ficha 2026-11-18-ideias-docker-rag).",
+  "tools": [
+    "Claude Code"
+  ],
+  "evidence": [
+    {
+      "label": "Proposta REP-0025",
+      "path": "ideas/REP-0025-mundo-numeros/IDEA.md"
+    }
+  ]
+}
